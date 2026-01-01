@@ -17,9 +17,10 @@
 
 html,
 body {
-  height: 100%;
+  /*height: 100%;*/
   width: 100%;
   margin: 0;
+  overflow-x: hidden;
 }
 
 body {
@@ -47,26 +48,31 @@ body {
   min-height: 100vh;
   position: relative;
 }
-
 /* =========================
    HERO (FIXED VIDEO)
    ========================= */
-
+/* Locks hero to the viewport and prevents any horizontal bleed */
 .heroFixed {
   position: fixed;
   inset: 0;
-  z-index: 0;
   overflow: hidden;
-}
-.heroVideo {
-  width: 100%;
-  max-width: 100vw;
-  height: auto;                 /* 🔥 allow natural scaling */
-  aspect-ratio: 1 / 1;         /* 🔥 or your video’s real ratio */
-  object-fit: contain;
-  display: block;
+  background: black; /* optional, helps if letterbox occurs */
 }
 
+.heroVideo {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 100%;
+  height: auto;        /* 🔥 scale by width */
+  max-width: 100%;
+
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
 /* Overlay gradient + text */
 .heroOverlay {
   position: absolute;
@@ -80,8 +86,12 @@ body {
     rgba(0, 0, 0, 0.08) 45%,
     rgba(0, 0, 0, 0.22) 100%
   );
+  width: 100%;
+  max-width: 100%;
 }
-
+@supports (height: 100dvh) {
+  .heroFixed { height: 100dvh; }
+}
 .heroText {
   text-align: center;
   color: white;
@@ -522,6 +532,7 @@ body {
 .timeline {
   position: relative;
   padding: 6px 0;
+  width: 100%;
 }
 
 .timelineLine {
@@ -584,8 +595,14 @@ body {
   box-shadow: 0 12px 30px rgba(0,0,0,0.06);
   padding: 16px 16px 14px;
   transform-origin: center;
+  max-width: 92vw;
+  box-sizing: border-box;
 }
-
+.timelineCard,
+.timelineCard * {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 /* Fade IN on scroll down, fade OUT on scroll up */
 .timelineCard.isIn {
   opacity: 1;
