@@ -1071,3 +1071,151 @@ body {
 .miniCatLabel {
   margin: 0;
 }
+.iconClosed { opacity: 1; }
+.iconOpen   { opacity: 0; }
+
+.mobileNavBtn[aria-expanded="true"] .iconClosed { opacity: 0; }
+.mobileNavBtn[aria-expanded="true"] .iconOpen   { opacity: 1; }
+
+.mobileNavBtn {
+  transition: transform 0.22s ease;
+  transform-origin: center;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+
+.mobileNavIcon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 45px;
+  height: 45px;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.mobileNavBtn[aria-expanded="true"] {
+  transform: rotate(90deg);
+}
+.mobileNavItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 24;
+  background: rgba(255, 255, 255);
+  animation: navTextBack 0.75s ease forwards;
+  border: none;
+  text-decoration: none;
+  color: rgba(11,11,11,0.92);
+  font-size: 14px;
+  cursor: pointer;
+}.mobileNavBackdrop {
+  padding: 0;
+  background-clip: padding-box;
+}
+
+.mobileNavItem:hover {
+  background: rgba(56,182,255,1);
+}
+
+.navBullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(11,11,11,0.9);
+}.bigButton {
+  text-decoration: none;
+}
+.mobileNav {
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+/* Appears after first scroll */
+.mobileNav.isVisible {
+  opacity: 0.9
+  ;
+  pointer-events: auto;
+}
+.mobileNavItem.isActive .navBullet {
+  background: rgb(47, 116, 199);
+}@keyframes bulletFall {
+  from { transform: translateY(-44px); }
+  to   { transform: translateY(0); }
+}
+
+.mobileNavMenu .navBullet {
+  animation: bulletFall 0.42s cubic-bezier(0.22,1,0.36,1) both;
+  animation-fill-mode: backwards; /* apply the 'from' immediately (no teleport) */
+  will-change: transform;
+}
+
+.mobileNavItem:nth-child(1) .navBullet { animation-delay: 0.02s; }
+.mobileNavItem:nth-child(2) .navBullet { animation-delay: 0.06s; }
+.mobileNavItem:nth-child(3) .navBullet { animation-delay: 0.10s; }
+.mobileNav {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 9999;
+}
+@keyframes navTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes navTextBack {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Start hidden */
+.mobileNavMenu .navText {
+  opacity: 0;
+  animation: navTextIn 0.28s ease forwards;
+}
+
+/* Delay text slightly after bullets */
+.mobileNavItem:nth-child(1) .navText { animation-delay: 0.14s; }
+.mobileNavItem:nth-child(2) .navText { animation-delay: 0.18s; }
+.mobileNavItem:nth-child(3) .navText { animation-delay: 0.22s; }
+.mobileNavItem:nth-child(1) .mobileNavItem { animation-delay: 0.14s; }
+.mobileNavItem:nth-child(2) .mobileNavItem { animation-delay: 0.18s; }
+.mobileNavItem:nth-child(3) .mobileNavItem { animation-delay: 0.22s; }
+
+.mobileNavBtn {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.mobileNavIcon {
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.mobileNavBtn {
+  will-change: transform;
+}
+.mobileNavBtn:focus {
+  outline: none;
+}

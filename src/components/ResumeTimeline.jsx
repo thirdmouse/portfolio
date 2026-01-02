@@ -111,7 +111,6 @@ React.useEffect(() => {
         <h2 className="sectionTitle" style={{ marginBottom: 0 }}>
           Resume
         </h2>
-        <div className="timelineSubtle">Scroll to reveal</div>
       </div>
 
       <div className="timeline">

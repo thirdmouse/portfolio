@@ -78,6 +78,17 @@ body {
   place-items: center;
   opacity: 0.9;
   animation: bob 1.8s ease-in-out infinite;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.scrollArrow:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.9);
+  outline-offset: 6px;
+  border-radius: 999px;
 }
 
 @keyframes bob {
@@ -313,3 +324,15 @@ body {
 
 /* Extra bottom room so you can reach “page bottom” easily */
 .footerSpace { height: 240px; }
+
+/* Desktop hover stays the same */
+.featuredCircle:hover .featuredHover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile first tap */
+.featuredCircle.isArmed .featuredHover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
+}

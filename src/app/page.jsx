@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./styles.css";
 import FlowingCircleCarousel from "@/components/FlowingCircleCarousel";
 import ResumeTimeline from "../components/ResumeTimeline";
+import { usePathname } from "next/navigation";
 
 /** ---------- Fade-in helper ---------- */
 function FadeIn({ children, className = "", threshold = 0.15 }) {
@@ -38,6 +39,54 @@ function FadeIn({ children, className = "", threshold = 0.15 }) {
 }
 
 export default function App() {
+      const pathname = usePathname();
+    const [menuOpen, setMenuOpen] = useState(false);const [hasScrolled, setHasScrolled] = useState(false);
+
+useEffect(() => {
+  const reveal = () => {
+    setHasScrolled(true);
+    window.removeEventListener("scroll", reveal);
+    window.removeEventListener("wheel", reveal);
+    window.removeEventListener("touchmove", reveal);
+    window.removeEventListener("keydown", onKey);
+  };
+
+  const onKey = (e) => {
+    // keys that usually indicate “scroll intent”
+    if (
+      e.key === "ArrowDown" ||
+      e.key === "PageDown" ||
+      e.key === " " ||
+      e.key === "End"
+    ) {
+      reveal();
+    }
+  };
+
+  // If user is already scrolled when we mount (e.g. back/forward cache)
+  if ((window.scrollY || 0) > 0) {
+    setHasScrolled(true);
+    return;
+  }
+
+  window.addEventListener("scroll", reveal, { passive: true });
+  window.addEventListener("wheel", reveal, { passive: true });
+  window.addEventListener("touchmove", reveal, { passive: true });
+  window.addEventListener("keydown", onKey);
+
+  return () => {
+    window.removeEventListener("scroll", reveal);
+    window.removeEventListener("wheel", reveal);
+    window.removeEventListener("touchmove", reveal);
+    window.removeEventListener("keydown", onKey);
+  };
+}, []);
+
+    useEffect(() => {
+      const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+      document.addEventListener("keydown", onKey);
+      return () => document.removeEventListener("keydown", onKey);
+    }, []);
   // (Kept for later Projects page)
   const categories = useMemo(
     () => [
@@ -48,30 +97,78 @@ export default function App() {
     ],
     []
   );
-  // Featured projects (3 large circles)
-  const featured = useMemo(
-    () => [
-      {
-        id: "f1",
-        title: "InsideRisk",
-        desc: "PM'ed a redesign of our 4-hour flagship into 30 minute, AI integrated modules for top-100 global companies.",
-        bg: "url('/images/feat-a.jpg')",
-      },
-      {
-        id: "f2",
-        title: "Color Guard",
-        desc: "Shipped iOS game. Average session over 20 minutes, players in 10 countries.",
-        bg: "url('/images/feat-b.jpg')",
-      },
-      {
-        id: "f3",
-        title: "Long Time, Let's See!",
-        desc: "A social media concept designed like a dating platform: getting you and old friends off the app for new experiences",
-        bg: "url('/images/feat-c.jpg')",
-      },
-    ],
-    []
-  );
+// Featured projects (3 large circles)
+const featured = useMemo(
+  () => [
+    {
+      id: "inside-risk",
+      title: "InsideRisk",
+      desc:
+        "PM'ed a redesign of our 4-hour flagship into 30 minute, AI-integrated modules for top-100 global companies.",
+      href: "/projects/inside-risk",
+      image: "/images/feat-a.jpg",
+    },
+    {
+      id: "color-guard",
+      title: "Color Guard",
+      desc:
+        "Shipped iOS game. Average session over 20 minutes, players in 10 countries.",
+      href: "/projects/color-guard",
+      image: "/images/feat-b.jpg",
+    },
+    {
+      id: "long-time-lets-see",
+      title: "Long Time, Let’s See!",
+      desc:
+        "A social concept designed like a dating platform — getting you and old friends off the app for new experiences.",
+      href: "/projects/long-time-lets-see",
+      image: "/images/feat-c.jpg",
+    },
+  ],
+  []
+);
+
+
+useEffect(() => {
+  const items = document.querySelectorAll("[data-featured]");
+
+  let armedItem = null;
+
+  const onTap = (e) => {
+    // desktop = normal behavior
+    if (window.matchMedia("(hover: hover)").matches) return;
+
+    const item = e.currentTarget;
+
+    if (armedItem !== item) {
+      e.preventDefault(); // stop navigation
+      armedItem?.classList.remove("isArmed");
+      item.classList.add("isArmed");
+      armedItem = item;
+    } else {
+      // second tap → allow navigation
+      armedItem = null;
+    }
+  };
+
+  const clear = () => {
+    armedItem?.classList.remove("isArmed");
+    armedItem = null;
+  };
+
+  items.forEach((item) => {
+    item.addEventListener("click", onTap);
+  });
+
+  document.addEventListener("touchstart", clear);
+
+  return () => {
+    items.forEach((item) => {
+      item.removeEventListener("click", onTap);
+    });
+    document.removeEventListener("touchstart", clear);
+  };
+}, []);
 
   // Carousel items (smaller circles with title + category icon)
   const carouselItems = useMemo(
@@ -197,6 +294,67 @@ const categoryMeta = useMemo(() => {
 
   return (
     <div className="pageRoot">
+<div className={`mobileNav ${hasScrolled ? "isVisible" : ""}`}>
+  <button
+    className="mobileNavBtn"
+    onClick={() => setMenuOpen(v => !v)}
+    aria-expanded={menuOpen}
+    aria-controls="mobileNavMenu"
+    aria-label="Open menu"
+    type="button"
+  >
+    <img
+      src="/logo.png"
+      alt=""
+      aria-hidden="true"
+      className="mobileNavIcon iconClosed"
+    />
+    <img
+      src="/open.png"
+      alt=""
+      aria-hidden="true"
+      className="mobileNavIcon iconOpen"
+    />
+  </button>
+
+  {menuOpen && (
+    <>
+      <button
+        className="mobileNavBackdrop"
+        onClick={() => setMenuOpen(false)}
+        aria-label="Close menu"
+        type="button"
+      />
+
+      <div className="mobileNavMenu" id="mobileNavMenu" role="menu">
+        <a
+  href="/"
+  className={`mobileNavItem ${pathname === "/" ? "isActive" : ""}`}
+  onClick={() => setMenuOpen(false)}
+>
+  <span className="navBullet" />
+  <span className="navText">Home</span>
+</a>
+<a
+  href="/"
+  className={`mobileNavItem ${pathname.startsWith("/process") ? "isActive" : ""}`}
+  onClick={() => setMenuOpen(false)}
+>
+  <span className="navBullet" />
+  <span className="navText">Process</span>
+</a><a
+  href="/"
+  className={`mobileNavItem ${pathname.startsWith("/projects") ? "isActive" : ""}`}
+  onClick={() => setMenuOpen(false)}
+>
+  <span className="navBullet" />
+  <span className="navText">Projects</span>
+</a>
+      </div>
+    </>
+  )}
+</div>
+
       {/* Fixed hero video behind everything */}
       <header className="heroFixed" aria-label="Intro video">
         <video
@@ -211,10 +369,17 @@ const categoryMeta = useMemo(() => {
         </video>
 
         <div className="heroOverlay">
-          <div className="scrollArrow" aria-hidden="true">
-            <div className="arrowStem" />
-            <div className="arrowHead" />
-          </div>
+          <button
+  className="scrollArrow"
+  type="button"
+  aria-label="Scroll to content"
+  onClick={() => {
+    document.querySelector(".contentSheet")?.scrollIntoView({ behavior: "smooth" });
+  }}
+>
+  <span className="arrowStem" aria-hidden="true" />
+  <span className="arrowHead" aria-hidden="true" />
+</button>
         </div>
       </header>
 
@@ -230,15 +395,9 @@ const categoryMeta = useMemo(() => {
           </FadeIn>
 
           <FadeIn className="section centerBlock">
-            <button
-              className="bigButton"
-              onClick={() => {
-                const el = document.getElementById("process");
-                el?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              Visualize my process
-            </button>
+            <a href="/process" className="bigButton">
+              Visualize my Process
+            </a>
           </FadeIn>
 
           <FadeIn className="section">
@@ -250,19 +409,20 @@ const categoryMeta = useMemo(() => {
             </div>
 
             <div className="featuredGrid">
-              {featured.map((p) => (
-                <a
-                  className="featuredCircle"
-                  key={p.id}
-                  href="#"
-                  style={{ backgroundImage: p.bg }}
-                >
-                  <div className="featuredHover">
-                    <div className="featuredTitle">{p.title}</div>
-                    <div className="featuredDesc">{p.desc}</div>
-                  </div>
-                </a>
-              ))}
+              {featured.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className="featuredCircle"
+                data-featured
+                style={{ backgroundImage: `url(${item.image})` }}
+              >
+                <div className="featuredHover">
+                  <div className="featuredTitle">{item.title}</div>
+                  <div className="featuredDesc">{item.desc}</div>
+                </div>
+              </a>
+            ))}
             </div>
           </FadeIn>
 
@@ -275,7 +435,6 @@ const categoryMeta = useMemo(() => {
            <div className="sectionHeader" id="process">
   <div>
     <h3 className="sectionSubtitle">Other projects</h3>
-    <div className="sectionMicro">Auto-flowing • hover to pause</div>
   </div>
 
   <a href="/projects" className="seeAllLink">
