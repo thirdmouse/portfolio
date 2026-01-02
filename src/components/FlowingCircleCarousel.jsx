@@ -3,6 +3,16 @@
 import React from "react";
 
 export default function FlowingCircleCarousel({ items, categoryMeta }) {
+    const [canHover, setCanHover] = React.useState(false);
+
+React.useEffect(() => {
+  const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const update = () => setCanHover(!!mq.matches);
+  update();
+  mq.addEventListener?.("change", update);
+  return () => mq.removeEventListener?.("change", update);
+}, []);
+
   const scrollerRef = React.useRef(null);
   const rafRef = React.useRef(null);
   const lastTRef = React.useRef(0);
@@ -259,11 +269,10 @@ const finishDrag = (e) => {
 };
   return (
     <div
-      className={`carouselShell ${paused ? "isPaused" : ""}`}
-      onMouseEnter={() => setPausedByHover(true)}
-      onMouseLeave={() => setPausedByHover(false)}
-      aria-label="Project carousel"
-    >
+  className={`carouselShell ${paused ? "isPaused" : ""}`}
+  onMouseEnter={() => canHover && setPausedByHover(true)}
+  onMouseLeave={() => canHover && setPausedByHover(false)}
+>
       <div
     className="carouselScroller"
     ref={scrollerRef}
