@@ -159,7 +159,7 @@ export default function App() {
           "Designed flow and staging layouts to activate space, maximize engagement across multi-format events and product releases",
           "Project-managed and directed multi-event pre-show, including History of Denmark Street musical documentary."],
           tags:["Engineering, Filmmaking, Design"],
-        dotImage: { src: "/images/ovl.png", alt: "hths" },
+        dotImage: { src: "/images/ovl.png", alt: "ovl" },
       },
       {
         id: "t-abcya",
@@ -172,7 +172,7 @@ export default function App() {
         ["Developed full-stack for Designed 'Shakesperean Rap Battles' game following in-house Agile workflow.",
           "Supported CDN maintenance and crossfunctional team processes."],
           tags:["Games, Engineering, Design"],
-        dotImage: { src: "/images/abcya.png", alt: "hths" },
+        dotImage: { src: "/images/abc.png", alt: "abcya" },
       },
       {
         id: "t-hths",

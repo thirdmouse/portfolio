@@ -290,17 +290,18 @@ body {
 /* =========================
    FEATURED PROJECTS
    ========================= */
-
+   
 .featuredGrid {
   display: grid;
-  gap: 22px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2.2vw, 22px); /* shrinks spacing instead of reflowing */
 }
 
+/* Keep 3-up; just make the overlay text a bit more compact when circles shrink */
 @media (max-width: 820px) {
-  .featuredGrid {
-    grid-template-columns: 1fr;
-  }
+  .featuredHover { padding: 16px; }
+  .featuredTitle { font-size: 18px; }
+  .featuredDesc  { font-size: 13px; }
 }
 
 .featuredCircle {
@@ -419,6 +420,10 @@ body {
   touch-action: pan-y; /* allow vertical page scroll; we do horizontal when paused */
   overscroll-behavior: contain;
   touch-action: pan-x pan-y;
+}
+.carouselShell.isAuto .carouselScroller {
+  -webkit-overflow-scrolling: auto;
+  scroll-behavior: auto;
 }
 .carouselScroller::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
@@ -564,6 +569,21 @@ body {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+}
+/* closed by default */
+.timelineDetails {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: max-height 320ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+/* open when active */
+.timelineRow.isActive .timelineDetails {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .timelineRow.left .timelineCard {
@@ -761,6 +781,7 @@ body {
   .timelineRow.right .timelineCard {
     grid-column: 2;
     justify-self: start;
+    margin-right:18px !important;
   }
   .timelineDotWrap {
     position: absolute;

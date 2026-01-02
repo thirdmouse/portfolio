@@ -269,7 +269,7 @@ const finishDrag = (e) => {
 };
   return (
     <div
-  className={`carouselShell ${paused ? "isPaused" : ""}`}
+  className={`carouselShell ${paused ? "isPaused" : "isAuto"}`}
   onMouseEnter={() => canHover && setPausedByHover(true)}
   onMouseLeave={() => canHover && setPausedByHover(false)}
 >
