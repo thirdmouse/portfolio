@@ -11,25 +11,25 @@ export default function ProjectsPage() {
       {
         key: "games",
         label: "Games",
-        desc: "Playable experiments and shipped titles.",
+        desc: "Inherently empathetic in interactivity. 10+ shipped games, active players in 10+ countries.",
         imgSrc: "/images/games.png",
       },
       {
         key: "film",
         label: "Film",
-        desc: "Shorts, edits, and story-driven work.",
+        desc: "My primary visual medium: products of cinematography and video editing.",
         imgSrc: "/images/film.png",
       },
       {
         key: "design",
         label: "Design",
-        desc: "Interfaces, systems, and visual explorations.",
+        desc: "Processes and prototypes: experiments with tools like Figma and Miro",
         imgSrc: "/images/design.png",
       },
       {
         key: "engineering",
         label: "Engineering",
-        desc: "Tools, prototypes, and full-stack builds.",
+        desc: "Physical products, programming, and architecture / site-planning.",
         imgSrc: "/images/engineering.png",
       },
     ],
@@ -85,7 +85,21 @@ export default function ProjectsPage() {
     <main className="projectsPage">
       <MobileNav/>
       <header className="projectsHeader">
+        <br></br>
         <h1 className="projectsTitle">Projects</h1>
+        <h3 style={{
+    width: '75%',
+    marginRight: 'auto'
+  }}>My varied work emphasizes "empathetic design."</h3>
+        <p
+  style={{
+    textAlign: 'right',
+    width: '50%',
+    marginLeft: 'auto'
+  }}
+>
+  That's redefining psychological assumptions and medium conventions to make the user's experience easier, yet more powerful. A third verb for storytelling's "show, don't tell"- don't just show them, make them feel it.
+</p>
         <p className="projectsSub">
           Toggle categories to filter the grid.
         </p>
