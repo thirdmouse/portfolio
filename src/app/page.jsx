@@ -4,8 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./styles.css";
 import FlowingCircleCarousel from "@/components/FlowingCircleCarousel";
 import ResumeTimeline from "../components/ResumeTimeline";
-import { usePathname } from "next/navigation";
-
+import MobileNav from "../components/MobileNav"; // ✅ add
 /** ---------- Fade-in helper ---------- */
 function FadeIn({ children, className = "", threshold = 0.15 }) {
   const ref = useRef(null);
@@ -39,55 +38,6 @@ function FadeIn({ children, className = "", threshold = 0.15 }) {
 }
 
 export default function App() {
-      const pathname = usePathname();
-    const [menuOpen, setMenuOpen] = useState(false);const [hasScrolled, setHasScrolled] = useState(false);
-
-useEffect(() => {
-  const reveal = () => {
-    setHasScrolled(true);
-    window.removeEventListener("scroll", reveal);
-    window.removeEventListener("wheel", reveal);
-    window.removeEventListener("touchmove", reveal);
-    window.removeEventListener("keydown", onKey);
-  };
-
-  const onKey = (e) => {
-    // keys that usually indicate “scroll intent”
-    if (
-      e.key === "ArrowDown" ||
-      e.key === "PageDown" ||
-      e.key === " " ||
-      e.key === "End"
-    ) {
-      reveal();
-    }
-  };
-
-  // If user is already scrolled when we mount (e.g. back/forward cache)
-  if ((window.scrollY || 0) > 0) {
-    setHasScrolled(true);
-    return;
-  }
-
-  window.addEventListener("scroll", reveal, { passive: true });
-  window.addEventListener("wheel", reveal, { passive: true });
-  window.addEventListener("touchmove", reveal, { passive: true });
-  window.addEventListener("keydown", onKey);
-
-  return () => {
-    window.removeEventListener("scroll", reveal);
-    window.removeEventListener("wheel", reveal);
-    window.removeEventListener("touchmove", reveal);
-    window.removeEventListener("keydown", onKey);
-  };
-}, []);
-
-    useEffect(() => {
-      const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
-      document.addEventListener("keydown", onKey);
-      return () => document.removeEventListener("keydown", onKey);
-    }, []);
-  // (Kept for later Projects page)
   const categories = useMemo(
     () => [
       { key: "games", label: "Games", imgSrc: "/images/games.png" },
@@ -196,7 +146,7 @@ useEffect(() => {
         id: "t-now",
         date: "2023 — Spring 2027",
         title: "Yale University",
-        subtitle: "3.83 GPA | Cognitive Science of Subconscious and Interactive Experience).",
+        subtitle: "3.83 GPA | Cognitive Science of Subconscious and Interactive Experience.",
         bullets:[
     "MBA Coursework in UX Research / Design, Consumer Behavior",
     "M.Arch Coursework in Multisensory and Inclusive Spaces",
@@ -294,67 +244,7 @@ const categoryMeta = useMemo(() => {
 
   return (
     <div className="pageRoot">
-<div className={`mobileNav ${hasScrolled ? "isVisible" : ""}`}>
-  <button
-    className="mobileNavBtn"
-    onClick={() => setMenuOpen(v => !v)}
-    aria-expanded={menuOpen}
-    aria-controls="mobileNavMenu"
-    aria-label="Open menu"
-    type="button"
-  >
-    <img
-      src="/logo.png"
-      alt=""
-      aria-hidden="true"
-      className="mobileNavIcon iconClosed"
-    />
-    <img
-      src="/open.png"
-      alt=""
-      aria-hidden="true"
-      className="mobileNavIcon iconOpen"
-    />
-  </button>
-
-  {menuOpen && (
-    <>
-      <button
-        className="mobileNavBackdrop"
-        onClick={() => setMenuOpen(false)}
-        aria-label="Close menu"
-        type="button"
-      />
-
-      <div className="mobileNavMenu" id="mobileNavMenu" role="menu">
-        <a
-  href="/"
-  className={`mobileNavItem ${pathname === "/" ? "isActive" : ""}`}
-  onClick={() => setMenuOpen(false)}
->
-  <span className="navBullet" />
-  <span className="navText">Home</span>
-</a>
-<a
-  href="/"
-  className={`mobileNavItem ${pathname.startsWith("/process") ? "isActive" : ""}`}
-  onClick={() => setMenuOpen(false)}
->
-  <span className="navBullet" />
-  <span className="navText">Process</span>
-</a><a
-  href="/"
-  className={`mobileNavItem ${pathname.startsWith("/projects") ? "isActive" : ""}`}
-  onClick={() => setMenuOpen(false)}
->
-  <span className="navBullet" />
-  <span className="navText">Projects</span>
-</a>
-      </div>
-    </>
-  )}
-</div>
-
+      <MobileNav revealOnScroll/>
       {/* Fixed hero video behind everything */}
       <header className="heroFixed" aria-label="Intro video">
         <video

@@ -13,37 +13,59 @@ import React from "react";
  *   bullets?: string[],
  *   image?: { src: string, alt?: string },
  *   tags?: string[],
- *   align?: "left" | "right"
+ *   align?: "left" | "right",
+ *   dotImage?: { src: string, alt?: string },
  * }
  */
 
-export default function ResumeTimeline({ items }) {
-  const containerRef = React.useRef(null);
+export default function ResumeTimeline({ items, scrollContainerSelector = ".contentSheet" }) {
   const itemRefs = React.useRef(new Map());
 
-  const lastScrollY = React.useRef(0);
+  // Use the actual scroller if your page scrolls inside .contentSheet (like your home page).
+  const scrollerRef = React.useRef(null);
+
+  const lastScroll = React.useRef(0);
   const [scrollDir, setScrollDir] = React.useState("down"); // "down" | "up"
 
-  // Track scroll direction
+  // Which items are "revealed" (fade-in / dot active)
+  const [activeMap, setActiveMap] = React.useState(() => new Map());
+
+  // Which item is expanded (accordion). If you want multi-open, swap to a Set.
+  const [openId, setOpenId] = React.useState(null);
+
   React.useEffect(() => {
-    lastScrollY.current = window.scrollY;
+    scrollerRef.current =
+      (scrollContainerSelector && document.querySelector(scrollContainerSelector)) || null;
+  }, [scrollContainerSelector]);
+
+  const getScrollPos = React.useCallback(() => {
+    const scrollerEl = scrollerRef.current;
+    if (scrollerEl) return scrollerEl.scrollTop || 0;
+    return window.scrollY || 0;
+  }, []);
+
+  // Track scroll direction (supports nested scroller)
+  React.useEffect(() => {
+    lastScroll.current = getScrollPos();
 
     const onScroll = () => {
-      const y = window.scrollY;
-      const dir = y > lastScrollY.current ? "down" : "up";
-      lastScrollY.current = y;
+      const y = getScrollPos();
+      const dir = y > lastScroll.current ? "down" : "up";
+      lastScroll.current = y;
       setScrollDir(dir);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const scrollerEl = scrollerRef.current;
+    const target = scrollerEl || window;
 
-  // Visibility map per item
-  const [activeMap, setActiveMap] = React.useState(() => new Map());
+    target.addEventListener("scroll", onScroll, { passive: true });
+    return () => target.removeEventListener("scroll", onScroll);
+  }, [getScrollPos]);
 
+  // Reveal on enter when scrolling down (supports nested scroller via root)
   React.useEffect(() => {
-    const root = null; // viewport
+    const root = scrollerRef.current || null;
+
     const io = new IntersectionObserver(
       (entries) => {
         setActiveMap((prev) => {
@@ -53,22 +75,21 @@ export default function ResumeTimeline({ items }) {
             const id = entry.target.getAttribute("data-id");
             if (!id) continue;
 
-            // When scrolling down: reveal as it enters
-            if (scrollDir === "down") {
-              if (entry.isIntersecting) next.set(id, true);
+            if (scrollDir === "down" && entry.isIntersecting) {
+              next.set(id, true);
             }
           }
+
           return next;
         });
       },
       {
         root,
-        threshold: 0.18, // how much must be visible to count as "in"
-        rootMargin: "0px 0px -10% 0px", // makes it feel a bit earlier on the way down
+        threshold: 0.18,
+        rootMargin: "0px 0px -10% 0px",
       }
     );
 
-    // Observe all items
     for (const it of items) {
       const el = itemRefs.current.get(it.id);
       if (el) io.observe(el);
@@ -76,37 +97,41 @@ export default function ResumeTimeline({ items }) {
 
     return () => io.disconnect();
   }, [items, scrollDir]);
-React.useEffect(() => {
-  const onScrollUpCollapse = () => {
-    if (scrollDir !== "up") return;
 
-    const viewportBottom = window.innerHeight * 0.65;
+  // Optional: fade-out items that are below the viewport when scrolling up (supports nested scroller)
+  React.useEffect(() => {
+    const onScrollUpCollapse = () => {
+      if (scrollDir !== "up") return;
 
-    setActiveMap((prev) => {
-      const next = new Map(prev);
+      const viewportBottom = (scrollerRef.current?.clientHeight || window.innerHeight) * 0.65;
 
-      for (const [id, el] of itemRefs.current.entries()) {
-        if (!el) continue;
+      setActiveMap((prev) => {
+        const next = new Map(prev);
 
-        const rect = el.getBoundingClientRect();
+        for (const [id, el] of itemRefs.current.entries()) {
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
 
-        // If the item is fully BELOW the viewport,
-        // fade it out first when scrolling up
-        if (rect.top > viewportBottom) {
-          next.set(id, false);
+          if (rect.top > viewportBottom) {
+            next.set(id, false);
+          }
         }
-      }
 
-      return next;
-    });
+        return next;
+      });
+    };
+
+    const target = scrollerRef.current || window;
+    target.addEventListener("scroll", onScrollUpCollapse, { passive: true });
+    return () => target.removeEventListener("scroll", onScrollUpCollapse);
+  }, [scrollDir]);
+
+  const toggleOpen = (id) => {
+    setOpenId((prev) => (prev === id ? null : id));
   };
 
-  window.addEventListener("scroll", onScrollUpCollapse, { passive: true });
-  return () => window.removeEventListener("scroll", onScrollUpCollapse);
-}, [scrollDir]);
-
   return (
-    <section className="timelineSection" ref={containerRef} aria-label="Resume timeline">
+    <section className="timelineSection" aria-label="Resume timeline">
       <div className="timelineHeader">
         <h2 className="sectionTitle" style={{ marginBottom: 0 }}>
           Resume
@@ -118,12 +143,15 @@ React.useEffect(() => {
 
         {items.map((it, idx) => {
           const side = it.align ?? (idx % 2 === 0 ? "left" : "right");
-          const isActive = activeMap.get(it.id) === true;
+          const isRevealed = activeMap.get(it.id) === true;
+          const isOpen = openId === it.id;
+
+          const previewBullet = it.subtitle;
 
           return (
             <div
               key={it.id}
-              className={`timelineRow ${side}`}
+              className={`timelineRow ${side} ${isOpen ? "isExpanded" : ""}`}
               ref={(el) => {
                 if (el) itemRefs.current.set(it.id, el);
               }}
@@ -131,7 +159,7 @@ React.useEffect(() => {
             >
               <div className="timelineDotWrap" aria-hidden="true">
                 {it.dotImage?.src ? (
-                  <div className={`timelineDotImgWrap ${isActive ? "isActive" : ""}`}>
+                  <div className={`timelineDotImgWrap ${isRevealed ? "isActive" : ""}`}>
                     <img
                       className="timelineDotImg"
                       src={it.dotImage.src}
@@ -139,54 +167,81 @@ React.useEffect(() => {
                     />
                   </div>
                 ) : (
-                  <div className={`timelineDot ${isActive ? "isActive" : ""}`} />
+                  <div className={`timelineDot ${isRevealed ? "isActive" : ""}`} />
                 )}
               </div>
 
-              <article className={`timelineCard ${isActive ? "isIn" : "isOut"}`}>
-                {(it.date || it.tags?.length) && (
-                  <div className="timelineMeta">
-                    {it.date && <span className="timelineDate">{it.date}</span>}
-                    {it.tags?.length ? (
-                      <div className="timelineTags">
-                        {it.tags.map((t) => (
-                          <span className="timelineTag" key={t}>
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                )}
-
-                {/* Any combo of title/subtitle/description */}
-                {(it.title || it.subtitle) && (
-                  <header className="timelineCardHeader">
+              {/* Button card: collapsed preview + expandable details */}
+              <button
+                type="button"
+                className={`timelineCard timelineCardBtn ${isRevealed ? "isIn" : "isOut"}`}
+                onClick={() => toggleOpen(it.id)}
+                aria-expanded={isOpen}
+                aria-controls={`timeline-details-${it.id}`}
+              >
+                <div className="timelineSummary">
+                  <div className="timelineSummaryTop">
                     {it.title && <h3 className="timelineTitle">{it.title}</h3>}
-                    {it.subtitle && <p className="timelineSubtitle">{it.subtitle}</p>}
-                  </header>
-                )}
-
-                {it.image?.src && (
-                  <div className="timelineImageWrap">
-                    <img className="timelineImage" src={it.image.src} alt={it.image.alt ?? ""} />
+                    <span className={`timelineChevron ${isOpen ? "isOpen" : ""}`} aria-hidden="true">
+                      ▾
+                    </span>
                   </div>
-                )}
 
-                {it.description && (
-                  <div className="timelineDescription">
-                    {typeof it.description === "string" ? <p>{it.description}</p> : it.description}
-                  </div>
-                )}
+                  {previewBullet ? <p className="timelinePreviewBullet">{previewBullet}</p> : null}
+                </div>
 
-                {it.bullets?.length ? (
-                  <ul className="timelineBullets">
-                    {it.bullets.map((b) => (
-                      <li key={b}>{b}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
+                {/* Full content (same as before) */}
+                <div
+                  id={`timeline-details-${it.id}`}
+                  className="timelineDetails"
+                  // prevent accidental text selection making the button feel weird
+                  onClick={(e) => {
+                    // Clicking inside still toggles; keep default.
+                    // If you later add links inside, we can stopPropagation for them.
+                  }}
+                >
+                  {(it.date || it.tags?.length) && (
+                    <div className="timelineMeta">
+                      {it.date && <span className="timelineDate">{it.date}</span>}
+                      {it.tags?.length ? (
+                        <div className="timelineTags">
+                          {it.tags.map((t) => (
+                            <span className="timelineTag" key={t}>
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
+
+                  {(it.subtitle || it.description || it.image?.src || it.bullets?.length) && (
+                    <>
+                      {it.subtitle && <p className="timelineSubtitle">{it.subtitle}</p>}
+
+                      {it.image?.src && (
+                        <div className="timelineImageWrap">
+                          <img className="timelineImage" src={it.image.src} alt={it.image.alt ?? ""} />
+                        </div>
+                      )}
+
+                      {it.description && (
+                        <div className="timelineDescription">
+                          {typeof it.description === "string" ? <p>{it.description}</p> : it.description}
+                        </div>
+                      )}
+
+                      {it.bullets?.length ? (
+                        <ul className="timelineBullets">
+                          {it.bullets.map((b) => (
+                            <li key={b}>{b}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </>
+                  )}
+                </div>
+              </button>
             </div>
           );
         })}

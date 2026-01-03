@@ -2,21 +2,41 @@
 
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import "../styles.css"; // if you already use this pattern; otherwise remove
-
+import "../styles.css"; // keep if you're using it; otherwise remove
+import MobileNav from "../../components/MobileNav";
+import { usePathname } from "next/navigation";
 export default function ProjectsPage() {
-  // Category chips (using your earlier images)
   const categories = React.useMemo(
     () => [
-      { key: "games", label: "Games", imgSrc: "/images/games.png" },
-      { key: "film", label: "Film", imgSrc: "/images/film.png" },
-      { key: "design", label: "Design", imgSrc: "/images/design.png" },
-      { key: "engineering", label: "Engineering", imgSrc: "/images/engineering.png" },
+      {
+        key: "games",
+        label: "Games",
+        desc: "Playable experiments and shipped titles.",
+        imgSrc: "/images/games.png",
+      },
+      {
+        key: "film",
+        label: "Film",
+        desc: "Shorts, edits, and story-driven work.",
+        imgSrc: "/images/film.png",
+      },
+      {
+        key: "design",
+        label: "Design",
+        desc: "Interfaces, systems, and visual explorations.",
+        imgSrc: "/images/design.png",
+      },
+      {
+        key: "engineering",
+        label: "Engineering",
+        desc: "Tools, prototypes, and full-stack builds.",
+        imgSrc: "/images/engineering.png",
+      },
     ],
     []
   );
 
-  // All start ACTIVE (blue)
+  // All start ACTIVE (on)
   const [activeCats, setActiveCats] = React.useState(() => {
     const s = new Set();
     for (const c of categories) s.add(c.key);
@@ -32,7 +52,7 @@ export default function ProjectsPage() {
     });
   };
 
-  // Products/projects data (example). Use `category` for single-tag behavior.
+  // Projects
   const products = React.useMemo(
     () => [
       { id: "c1", title: "Want Cake, Am Lazy", category: "design", thumbSrc: "/images/thumbs/wcal.png" },
@@ -52,7 +72,6 @@ export default function ProjectsPage() {
   );
 
   const visibleProducts = React.useMemo(() => {
-    // Hide products whose category is currently OFF
     return products.filter((p) => activeCats.has(p.category));
   }, [products, activeCats]);
 
@@ -64,27 +83,35 @@ export default function ProjectsPage() {
 
   return (
     <main className="projectsPage">
+      <MobileNav/>
       <header className="projectsHeader">
         <h1 className="projectsTitle">Projects</h1>
         <p className="projectsSub">
-          Toggle categories to filter the grid. Everything reflows smoothly.
+          Toggle categories to filter the grid.
         </p>
 
-        <div className="catRow" aria-label="Project categories">
+        {/* 4-up spanning category tiles */}
+        <div className="catGrid" aria-label="Project categories">
           {categories.map((c) => {
             const isOn = activeCats.has(c.key);
+
             return (
               <button
                 key={c.key}
-                className={`catBtn ${isOn ? "isOn" : "isOff"}`}
+                className={`catTile ${isOn ? "isOn" : "isOff"}`}
                 onClick={() => toggleCat(c.key)}
                 aria-pressed={isOn}
+                type="button"
                 title={isOn ? `Hide ${c.label}` : `Show ${c.label}`}
               >
-                <span className="catIconMask" aria-hidden="true">
+                <span className="catTileMask" aria-hidden="true">
                   <img src={c.imgSrc} alt="" />
                 </span>
-                <span className="catLabel">{c.label}</span>
+
+                <span className="catTileText">
+                  <span className="catTileTitle">{c.label}</span>
+                  <span className="catTileDesc">{c.desc}</span>
+                </span>
               </button>
             );
           })}
@@ -95,6 +122,7 @@ export default function ProjectsPage() {
         <AnimatePresence mode="popLayout">
           {visibleProducts.map((p) => {
             const c = catMeta[p.category];
+
             return (
               <motion.a
                 key={p.id}
