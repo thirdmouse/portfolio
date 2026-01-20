@@ -5,6 +5,8 @@ import "./styles.css";
 import FlowingCircleCarousel from "@/components/FlowingCircleCarousel";
 import ResumeTimeline from "../components/ResumeTimeline";
 import MobileNav from "../components/MobileNav"; // ✅ add
+import ParallaxTripleColumns from "../components/ParallaxTwo"; // ✅ add
+import { carouselProjects, categories } from "@/components/FlowingCircleCarousel";
 /** ---------- Fade-in helper ---------- */
 function FadeIn({ children, className = "", threshold = 0.15 }) {
   const ref = useRef(null);
@@ -38,6 +40,33 @@ function FadeIn({ children, className = "", threshold = 0.15 }) {
 }
 
 export default function App() {
+const tripleTiles = useMemo(
+  () => [
+    {
+      id: "games",
+      title: "DIGITAL (PROGRAMMING | MEDIA | APPS)",
+      href: "/projects?cat=games",
+      videoSrc: "/videos/games.mp4",
+      poster: "/videos/games-poster.jpg",
+    },
+    {
+      id: "film",
+      title: "PHYSICAL (ENGINEERING | EVENTS | SPACES)",
+      href: "/projects?cat=film",
+      videoSrc: "/videos/film.mp4",
+      poster: "/videos/film-poster.jpg",
+    },
+    {
+      id: "engineering",
+      title: "ALL PROJECTS",
+      href: "/projects?cat=engineering",
+      videoSrc: "/videos/engineering.mp4",
+      poster: "/videos/engineering-poster.jpg",
+    },
+  ],
+  []
+);
+
   const categories = useMemo(
     () => [
       { key: "games", label: "Games", imgSrc: "/images/games.png" },
@@ -70,7 +99,7 @@ const featured = useMemo(
       id: "long-time-lets-see",
       title: "Long Time, Let’s See!",
       desc:
-        "A social concept designed like a dating platform — getting you and old friends off the app for new experiences.",
+        "Social media designed like a dating app — getting users off the app for new experiences.",
       href: "/projects/long-time-lets-see",
       image: "/images/feat-c.jpg",
     },
@@ -288,6 +317,11 @@ const categoryMeta = useMemo(() => {
             <a href="/process" className="bigButton">
               Visualize my Process
             </a>
+            <br/>
+            <p>From 10+ shipped independent videogames and apps to 5+ years of professional development experience;
+              <br/><br/>or from backend production for events and venues <br/>to 30+ professional acting credits and musical performances to audiences of 5k+;
+              <br/><br/>my <strong>Cognitive Design Process</strong> remains the same.</p>
+            
           </FadeIn>
 
           <FadeIn className="section">
@@ -324,21 +358,35 @@ const categoryMeta = useMemo(() => {
           <FadeIn className="section" threshold={0.05}>
            <div className="sectionHeader" id="process">
   <div>
-    <h3 className="sectionSubtitle">Other projects</h3>
+    {/*<h3 className="sectionSubtitle">Other projects</h3>*/}
+  <button
+  className="scrollArrow"
+  type="button"
+  aria-label="Scroll to content"
+  onClick={() => {
+  document.getElementById("processRevealAnchor")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}}
+>
+  <span className="arrowStem2" aria-hidden="true" />
+  <span className="arrowHead2" aria-hidden="true" />
+</button>
   </div>
 
-  <a href="/projects" className="seeAllLink">
+  {/*<a href="/projects" className="seeAllLink">
     See all →
-  </a>
+  </a>*/}
 </div>
-            <FlowingCircleCarousel
+            {/* <FlowingCircleCarousel
               items={carouselItems}
               categoryMeta={categoryMeta}
-            />
+            /> */}
           </FadeIn>
           
         </div>
       </main>
+      <div id="processRevealAnchor" />
+<ParallaxTripleColumns tiles={tripleTiles} />
     </div>
   );
 }

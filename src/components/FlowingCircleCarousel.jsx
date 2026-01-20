@@ -285,29 +285,38 @@ const finishDrag = (e) => {
     }}
   >
         <div className="carouselTrack">
-          {loopItems.map((it, idx) => (
-            <div className="carouselItem" key={`${it.id}-${idx}`}>
+          {loopItems.map((it, idx) => {
+            const ItemWrapper = it.href ? 'a' : 'div';
+            const wrapperProps = it.href ? { href: it.href } : {};
+            
+            return (
+              <ItemWrapper 
+                className={`carouselItem ${it.href ? 'hasLink' : ''}`}
+                key={`${it.id}-${idx}`}
+                {...wrapperProps}
+              >
                 <div className="miniWrap">
-                    <div className="miniCircle" aria-label={it.title}>
+                  <div className="miniCircle" aria-label={it.title}>
                     {it.thumbSrc ? (
-                        <img className="miniThumb" src={it.thumbSrc} alt="" aria-hidden="true" />
+                      <img className="miniThumb" src={it.thumbSrc} alt="" aria-hidden="true" />
                     ) : null}
-                    </div>
+                  </div>
 
-                    <div
+                  <div
                     className="miniCatBadge"
                     aria-hidden="true"
-                    onPointerDown={(e) => e.stopPropagation()}  // ✅ prevents drag starting on badge
+                    onPointerDown={(e) => e.stopPropagation()}
                     onMouseDown={(e) => e.stopPropagation()}
-                    >
+                  >
                     <img className="miniCatIcon" src={categoryMeta[it.category].imgSrc} alt="" />
                     <div className="miniCatLabel">{categoryMeta[it.category].label}</div>
-                    </div>
+                  </div>
                 </div>
 
                 <div className="miniTitle">{it.title}</div>
-                </div>
-          ))}
+              </ItemWrapper>
+            );
+          })}
         </div>
       </div>
 
@@ -319,3 +328,97 @@ const finishDrag = (e) => {
     </div>
   );
 }
+
+export const carouselProjects = [
+  { 
+    id: "c1", 
+    title: "Want Cake, Am Lazy", 
+    category: "design", 
+    thumbSrc: "/images/thumbs/wcal.png",
+    // href: "/projects/want-cake-am-lazy" // uncomment when page exists
+  },
+  { 
+    id: "c2", 
+    title: "A Closet", 
+    category: "film", 
+    thumbSrc: "/images/thumbs/closet.png",
+    // href: "/projects/a-closet"
+  },
+  { 
+    id: "c3", 
+    title: "Curses!", 
+    category: "games", 
+    thumbSrc: "/images/thumbs/curses.png",
+    // href: "/projects/curses"
+  },
+  { 
+    id: "c4", 
+    title: "Touchscreen Experiments", 
+    category: "design", 
+    thumbSrc: "/images/thumbs/ts.png",
+    // href: "/projects/touchscreen-experiments"
+  },
+  { 
+    id: "c5", 
+    title: "Storyvox", 
+    category: "engineering", 
+    thumbSrc: "/images/thumbs/storyvox.png",
+    // href: "/projects/storyvox"
+  },
+  { 
+    id: "c6", 
+    title: "Heat", 
+    category: "film", 
+    thumbSrc: "/images/thumbs/heat.png",
+    // href: "/projects/heat"
+  },
+  { 
+    id: "c7", 
+    title: "Guerra de Discretos", 
+    category: "games", 
+    thumbSrc: "/images/thumbs/guerra.png",
+    // href: "/projects/guerra-de-discretos"
+  },
+  { 
+    id: "c8", 
+    title: "Lil' Dipper Rover", 
+    category: "engineering", 
+    thumbSrc: "/images/thumbs/rover.png",
+    // href: "/projects/lil-dipper-rover"
+  },
+  { 
+    id: "c9", 
+    title: "Requiem for Sisyphus", 
+    category: "film", 
+    thumbSrc: "/images/thumbs/sisyphus.png",
+    // href: "/projects/requiem-for-sisyphus"
+  },
+  { 
+    id: "c10", 
+    title: "Cart Hanger", 
+    category: "engineering", 
+    thumbSrc: "/images/thumbs/hanger.png",
+    // href: "/projects/cart-hanger"
+  },
+  { 
+    id: "c11", 
+    title: "Live from the Acropolis", 
+    category: "design", 
+    thumbSrc: "/images/thumbs/athens.png",
+    // href: "/projects/live-from-the-acropolis"
+  },
+  { 
+    id: "c12", 
+    title: "PLTW Habitat for Humanity", 
+    category: "engineering", 
+    thumbSrc: "/images/thumbs/habitat.png",
+    // href: "/projects/pltw-habitat"
+  },
+];
+
+export const categories = [
+  { key: "games", label: "Games", imgSrc: "/images/games.png" },
+  { key: "film", label: "Film", imgSrc: "/images/film.png" },
+  { key: "design", label: "Design", imgSrc: "/images/design.png" },
+  { key: "engineering", label: "Engineering", imgSrc: "/images/engineering.png" },
+];

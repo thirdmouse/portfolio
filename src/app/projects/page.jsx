@@ -88,17 +88,26 @@ export default function ProjectsPage() {
         <br></br>
         <h1 className="projectsTitle">Projects</h1>
         <h3 style={{
-    width: '75%',
+    width: '35%',
     marginRight: 'auto'
-  }}>My varied work emphasizes "empathetic design."</h3>
+  }}>My varied work emphasizes what I call "empathetic design."</h3>
         <p
   style={{
     textAlign: 'right',
-    width: '50%',
+    width: '35%',
     marginLeft: 'auto'
   }}
 >
-  That's redefining psychological assumptions and medium conventions to make the user's experience easier, yet more powerful. A third verb for storytelling's "show, don't tell"- don't just show them, make them feel it.
+  It's centered in microinteractivity. Not just telling, not just showing, but giving the users a feeling.  
+</p>
+<p
+  style={{
+    textAlign: 'center',
+    width: '75%',
+    marginLeft: '12.5%'
+  }}
+>
+  By carefully breaking medium conventions, products can be natural yet evocative and distinctive: always friendly yet powerful.
 </p>
         <p className="projectsSub">
           Toggle categories to filter the grid.
