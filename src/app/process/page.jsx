@@ -1,485 +1,342 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import MobileNav from "../../components/MobileNav";
+import "../styles.css"; // shared tokens + components styling
 import "./process.css";
+import MobileNav from "../../components/MobileNav";
 
-const PROCESS_STEPS = [
+/**
+ * Process steps (content unchanged)
+ */
+const steps = [
   {
     id: 1,
-    title: "Discovery",
-    icon: "/images/process/discovery.png",
-    centerContent: {
-      type: "image",
-      src: "/images/process/discovery-main.jpg",
-      alt: "Discovery phase",
-    },
-    sections: [
+    title: "Worldbuilding",
+    subtitle: "Defining the 'set of conditions for the possibility of success'",
+    description: "Carefully understanding the problem or opportunity from multiple angles",
+    image: "/images/step1.jpg",
+    examples: [
       {
-        position: "top-left",
-        title: "Research",
-        text: "Understanding user needs and market context through comprehensive research.",
+        title: "Color Guard",
+        type: "game",
+        image: "/images/feat-b.jpg",
+        detail:
+          "Researched mobile gaming habits and player psychology to understand attention spans. Analyzed successful casual games to identify core engagement loops. Defined success as creating a game that feels rewarding in 2-minute bursts but encourages 20+ minute sessions.",
       },
       {
-        position: "top-right",
-        title: "Analysis",
-        text: "Analyzing data and insights to identify opportunities and constraints.",
-      },
-      {
-        position: "bottom",
-        title: "Strategy",
-        text: "Developing strategic direction based on research findings.",
+        title: "InsideRisk",
+        type: "product redesign",
+        image: "/images/ir.jpeg",
+        detail:
+          "Mapped stakeholder needs across Fortune 100 clients, internal teams, and end users. Identified constraints: psychometric validity, production timelines, and scalability. Established that success meant maintaining assessment quality while reducing time by 87.5%.",
       },
     ],
   },
   {
     id: 2,
-    title: "Ideation",
-    icon: "/images/process/ideation.png",
-    centerContent: {
-      type: "text",
-      content:
-        "Generating creative solutions through collaborative brainstorming and rapid prototyping.",
-    },
-    sections: [
+    title: "Think about Thinking",
+    subtitle: "Using Cognitive Science's 'what's it like?' principle",
+    description:
+      "Research existing solutions, and apply archetypical maxims to the problem itself. Discover a gap where standard conventions cognitively fall short: this is what makes a solution novel.",
+    image: "/images/step2.jpg",
+    examples: [
       {
-        position: "top-left",
-        title: "Brainstorming",
-        text: "Exploring diverse ideas and concepts without constraints.",
+        title: "Kojima Productions",
+        type: "live event",
+        image: "/images/ovl.png",
+        detail:
+          "Studied how fans experience game releases—anticipation, community, and tactile connection to IP. Identified gap: most pop-up stores feel transactional. Novel approach: designed storefront as an extension of game world itself, creating 12+ hour engagement through environmental storytelling.",
       },
       {
-        position: "top-right",
-        title: "Sketching",
-        text: "Visualizing concepts through quick sketches and diagrams.",
-      },
-      {
-        position: "bottom",
-        title: "Synthesis",
-        text: "Combining the best ideas into cohesive concepts.",
+        title: "Long Time, Let's See",
+        type: "social app",
+        image: "/images/feat-c.jpg",
+        detail:
+          "Analyzed why social media feels draining—infinite scroll, comparison anxiety, passive consumption. Applied dating app's 'intentional connection' model to friendships. The novel gap: social apps keep you scrolling; this one pushes you to meet up and log off.",
       },
     ],
   },
   {
     id: 3,
-    title: "Design",
-    icon: "/images/process/design.png",
-    centerContent: {
-      type: "image",
-      src: "/images/process/design-main.jpg",
-      alt: "Design phase",
-    },
-    sections: [
+    title: "Move Fast and Break Things",
+    subtitle: "Per Jobs, prototype rapidly and kill your darlings",
+    description:
+      "Prototypes need to evoke that final experience, regardless of early versus final medium. Cardboard can be a videogame. Come back to this step after step 5.",
+    image: "/images/step3.jpg",
+    examples: [
       {
-        position: "top-left",
-        title: "Wireframes",
-        text: "Creating structural blueprints for the experience.",
+        title: "Color Guard",
+        type: "game",
+        image: "/images/feat-b.jpg",
+        detail:
+          "Built 5+ paper prototypes testing different grid sizes and movement rules before touching code. Killed a complex 'combo system' that tested well but broke the core loop. Cardboard tiles revealed the joy was in spatial puzzle-solving, not flashy effects.",
       },
       {
-        position: "top-right",
-        title: "Visual Design",
-        text: "Developing the aesthetic and emotional qualities.",
-      },
-      {
-        position: "bottom",
-        title: "Prototyping",
-        text: "Building interactive prototypes to test concepts.",
+        title: "Outernet Venues",
+        type: "event production",
+        image: "/images/ovl.png",
+        detail:
+          "Created foam-core spatial mockups of staging layouts at 1:20 scale. Tested flow with stand-in audience members. Scrapped initial 'theater-style' seating that felt impressive but created dead zones. Rapid iteration led to dynamic, activating configurations.",
       },
     ],
   },
   {
     id: 4,
-    title: "Development",
-    icon: "/images/process/development.png",
-    centerContent: {
-      type: "image",
-      src: "/images/process/development-main.jpg",
-      alt: "Development phase",
-    },
-    sections: [
+    title: "Simulate and Test",
+    subtitle: "With some experience, give it to the audience as early as possible",
+    description:
+      "Make sure base usage, like moving or enacting some command, does not require instruction beyond diegesis, and is joyful. Listen to what users tell you, but more importantly listen to their actions as they test.",
+    image: "/images/step4.jpg",
+    examples: [
       {
-        position: "top-left",
-        title: "Architecture",
-        text: "Building robust technical foundations and systems.",
+        title: "Color Guard",
+        type: "game",
+        image: "/images/feat-b.jpg",
+        detail:
+          "Released TestFlight build to 20 players with zero instructions. Watched screen recordings: players who got past tutorial played 3x longer. What they said: 'cool game!' What they did: 60% quit during onboarding. The actions spoke louder—tutorial needed a redesign.",
       },
       {
-        position: "top-right",
-        title: "Implementation",
-        text: "Translating designs into functional code.",
-      },
-      {
-        position: "bottom",
-        title: "Integration",
-        text: "Connecting all components into a cohesive whole.",
+        title: "InsideRisk",
+        type: "product redesign",
+        image: "/images/ir.jpeg",
+        detail:
+          "Ran modules with test groups before full rollout. Users said they 'understood the scenarios.' Analytics showed 40% made choices inconsistent with their stated values. Their actions revealed we needed clearer consequence framing, not simpler language.",
       },
     ],
   },
   {
     id: 5,
-    title: "Testing",
-    icon: "/images/process/testing.png",
-    centerContent: {
-      type: "text",
-      content: "Validating through rigorous user testing and iterative refinement.",
-    },
-    sections: [
+    title: "Bridge Building",
+    subtitle: "Analyze what the user tried to do versus what they did",
+    description:
+      "Design microinteractivity to make evaluating what can be done easier. Redesign macrointeractivity to make executing what you want to do better.",
+    image: "/images/step5.jpg",
+    examples: [
       {
-        position: "top-left",
-        title: "User Testing",
-        text: "Observing real users interact with the experience.",
+        title: "Color Guard",
+        type: "game",
+        image: "/images/feat-b.jpg",
+        detail:
+          "Players tried to chain moves but couldn't see valid paths. Added subtle highlight glow on available tiles (microinteractivity). They tried to plan 3 moves ahead but couldn't track. Added optional 'ghost preview' mode (macrointeractivity). Sessions jumped from 8 to 23 minutes.",
       },
       {
-        position: "top-right",
-        title: "Feedback",
-        text: "Gathering insights and identifying areas for improvement.",
-      },
-      {
-        position: "bottom",
-        title: "Iteration",
-        text: "Refining based on testing results and feedback.",
+        title: "Kojima Productions",
+        type: "live event",
+        image: "/images/ovl.png",
+        detail:
+          "Attendees tried to photograph everything but lighting made it hard. Redesigned key product displays with photo-friendly lighting (micro). They wanted to stay but didn't know when events started. Created visible countdown displays throughout space (macro). Engagement time doubled.",
       },
     ],
   },
   {
     id: 6,
-    title: "Launch",
-    icon: "/images/process/launch.png",
-    centerContent: {
-      type: "image",
-      src: "/images/process/launch-main.jpg",
-      alt: "Launch phase",
-    },
-    sections: [
+    title: "Fresh Produce",
+    subtitle: "You have to deliver eventually",
+    description:
+      "Imperfections and flaws should be equal parts minimized and embraced. Turn a yellow circle into pac-man: microinteractivity and activations are crucial. Communications need to be clear. Even if you can, assume updates are impossible for the MVP.",
+    image: "/images/step6.jpg",
+    examples: [
       {
-        position: "top-left",
-        title: "Deployment",
-        text: "Releasing the experience to the world.",
+        title: "Color Guard",
+        type: "game",
+        image: "/images/feat-b.jpg",
+        detail:
+          "Shipped with known edge case: rare tile configurations could soft-lock. Instead of delaying, added a 'shuffle board' button that turned the bug into a feature—players could reset without penalty. Clear tutorial slide explained it. Zero complaints, 4.2 star rating.",
       },
       {
-        position: "top-right",
-        title: "Monitoring",
-        text: "Tracking performance and user engagement.",
-      },
-      {
-        position: "bottom",
-        title: "Evolution",
-        text: "Continuously improving based on real-world data.",
+        title: "ABCYa",
+        type: "educational game",
+        image: "/images/abc.png",
+        detail:
+          "Shakespearean Rap Battles had animation glitches on older iPads. Embraced it: added intentional 'glitch aesthetic' to all animations, made it feel like vinyl scratching. Wrote clear browser compatibility guide. Teachers loved the style; legacy device issues became a feature.",
       },
     ],
   },
 ];
 
-const SCROLL_HINT_KEY = "process_scroll_hint_dismissed_v1";
-
 export default function ProcessPage() {
-  const [activeView, setActiveView] = useState("process"); // "process" | "dictionary"
-  const [currentStep, setCurrentStep] = useState(0);
+  const scrollContainerRef = useRef(null);
 
-  // 0..MAX_REVEAL: we intentionally use "gaps" so users get more scroll room between reveals.
-  // Sections become visible at revealCount 1, 3, 5 respectively.
-  const MAX_REVEAL = 5;
-  const REVEAL_THRESHOLDS = [1, 3, 5];
+  // progress dots
+  const [activeStep, setActiveStep] = useState(0);
 
-  const [revealCount, setRevealCount] = useState(0);
-  const [showScrollHint, setShowScrollHint] = useState(false);
-
-  const containerRef = useRef(null);
-  const lockRef = useRef(false);
-  const touchStartY = useRef(null);
-
-  const step = useMemo(() => PROCESS_STEPS[currentStep], [currentStep]);
-
-  // Load scroll hint state once (persisted)
-  useEffect(() => {
-    try {
-      const dismissed = window.localStorage.getItem(SCROLL_HINT_KEY) === "1";
-      setShowScrollHint(!dismissed);
-    } catch {
-      setShowScrollHint(true);
-    }
-  }, []);
-
-  const dismissScrollHint = () => {
-    if (!showScrollHint) return;
-    setShowScrollHint(false);
-    try {
-      window.localStorage.setItem(SCROLL_HINT_KEY, "1");
-    } catch {
-      // ignore
-    }
-  };
-
-  const lockBriefly = () => {
-    lockRef.current = true;
-    window.setTimeout(() => {
-      lockRef.current = false;
-    }, 560);
-  };
-
-  const goToStep = (index, opts = {}) => {
-    const { showAll = false } = opts;
-    setActiveView("process");
-    setCurrentStep(index);
-    setRevealCount(showAll ? MAX_REVEAL : 0);
-    lockBriefly();
-  };
-
-  const goToDictionary = () => {
-    setActiveView("dictionary");
-    setRevealCount(0);
-    lockBriefly();
-  };
-
-  const applyDelta = (direction) => {
-    // direction: 1 (down/next) or -1 (up/prev)
-    if (lockRef.current) return;
-
-    dismissScrollHint();
-
-    // Dictionary behavior
-    if (activeView === "dictionary") {
-      // Scroll down from dictionary enters step 1; scroll up does nothing
-      if (direction === 1) goToStep(0, { showAll: false });
-      return;
-    }
-
-    // Process behavior
-    if (direction === 1) {
-      // Reveal sub-blocks first, then advance step
-      if (revealCount < MAX_REVEAL) {
-        setRevealCount((c) => Math.min(MAX_REVEAL, c + 1));
-        lockBriefly();
-        return;
-      }
-      if (currentStep < PROCESS_STEPS.length - 1) {
-        setCurrentStep((s) => s + 1);
-        setRevealCount(0);
-        lockBriefly();
-      }
-      return;
-    }
-
-    // direction === -1
-    if (revealCount > 0) {
-      setRevealCount((c) => Math.max(0, c - 1));
-      lockBriefly();
-      return;
-    }
-    if (currentStep > 0) {
-      setCurrentStep((s) => s - 1);
-      setRevealCount(MAX_REVEAL); // when going "back", show the whole previous step
-      lockBriefly();
-    } else {
-      // At very top: allow going to dictionary
-      goToDictionary();
-    }
-  };
+  // accordion
+  const [expandedExample, setExpandedExample] = useState(null);
 
   useEffect(() => {
-    const container = containerRef.current;
+    const container = scrollContainerRef.current;
     if (!container) return;
 
-    let ticking = false;
+    const handleScroll = () => {
+      const scrollTop = container.scrollTop;
+      const scrollHeight = container.scrollHeight - container.clientHeight;
+      const progress = scrollHeight > 0 ? Math.min(scrollTop / scrollHeight, 1) : 0;
 
-    const onWheel = (e) => {
-      e.preventDefault();
-      if (ticking) return;
-
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const delta = e.deltaY;
-        if (delta > 0) applyDelta(1);
-        else if (delta < 0) applyDelta(-1);
-        ticking = false;
-      });
+      const stepIndex = Math.min(Math.floor(progress * steps.length), steps.length - 1);
+      setActiveStep(stepIndex);
     };
 
-    const onKeyDown = (e) => {
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        applyDelta(1);
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        applyDelta(-1);
-      }
-    };
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    // Swipe support for mobile
-    const onTouchStart = (e) => {
-      if (!e.touches || e.touches.length !== 1) return;
-      touchStartY.current = e.touches[0].clientY;
-    };
+  const handleDotClick = (index) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
 
-    const onTouchEnd = (e) => {
-      if (touchStartY.current == null) return;
-      const endY = e.changedTouches?.[0]?.clientY;
-      if (typeof endY !== "number") return;
+    const targetScroll =
+      (container.scrollHeight - container.clientHeight) * ((index + 1) / (steps.length + 1));
 
-      const delta = touchStartY.current - endY; // positive = swipe up (next)
-      touchStartY.current = null;
-
-      if (Math.abs(delta) < 24) return; // deadzone
-      applyDelta(delta > 0 ? 1 : -1);
-    };
-
-    container.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("keydown", onKeyDown);
-    container.addEventListener("touchstart", onTouchStart, { passive: true });
-    container.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      container.removeEventListener("wheel", onWheel);
-      window.removeEventListener("keydown", onKeyDown);
-      container.removeEventListener("touchstart", onTouchStart);
-      container.removeEventListener("touchend", onTouchEnd);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeView, currentStep, revealCount, showScrollHint]);
-
-  const handleStepClick = (index) => {
-    // Click should reveal all three sub-blocks (“scroll to the end of that block”)
-    goToStep(index, { showAll: true });
+    container.scrollTo({ top: targetScroll, behavior: "smooth" });
   };
 
-  const isSectionVisible = (idx) => revealCount >= REVEAL_THRESHOLDS[idx];
+  const toggleExample = (stepId, exampleIndex) => {
+    const key = `${stepId}-${exampleIndex}`;
+    setExpandedExample((prev) => (prev === key ? null : key));
+  };
 
   return (
-    <>
-      <MobileNav pageKey="process" alwaysVisible />
+    <div className="processPageWrapper">
+      {/* ✅ consistent nav (replaces "← Back") */}
+      <MobileNav revealOnScroll />
 
-      <div className="processPage" ref={containerRef}>
-        <h1 className="processTitle">PROCESS</h1>
-
-        {/* Scroll hint (dismisses forever after first scroll/swipe/arrow) */}
-        {showScrollHint && (
-          <div className="processScrollHint" aria-hidden="true">
-            scroll to see
-          </div>
-        )}
-
-        {/* Navigation (Dictionary separated from steps) */}
-        <div className="processNav" aria-label="Process navigation">
-          {/* Dictionary bubble (its own pill) */}
-          <div className="processDictionaryBubble">
-            <button
-              type="button"
-              className={`processBarItem processBarItem--dictionary ${
-                activeView === "dictionary" ? "isActive" : ""
-              }`}
-              onClick={goToDictionary}
-              aria-label="Dictionary"
-              title="Dictionary"
-            >
-              <span className="processBarLetter">D</span>
-              <div className="processBarOverlay" />
-            </button>
-          </div>
-
-          {/* Steps pill */}
-          <div className="processBar processBar--steps" aria-label="Process steps">
-            {PROCESS_STEPS.map((s, idx) => (
-              <button
-                type="button"
-                key={s.id}
-                className={`processBarItem ${
-                  activeView === "process" && idx === currentStep ? "isActive" : ""
-                }`}
-                onClick={() => handleStepClick(idx)}
-                aria-label={s.title}
-                title={s.title}
-              >
-                <img src={s.icon} alt="" className="processBarIcon" />
-                <div className="processBarOverlay" />
-              </button>
-            ))}
-          </div>
+      
+      <header className="processTitleBar" aria-label="Cognitive Design Process">
+        <div className="processTitleBarInner">
+          <h1 className="processTitleH1">COGNITIVE DESIGN PROCESS</h1>
         </div>
+      </header>
+<div ref={scrollContainerRef} className="processScrollContainer">
+        {/* Title block (uses shared .sectionTitle styling) */}
 
-        {/* Main Content Area */}
-        <div className="processContent">
-          {activeView === "dictionary" ? (
-            <div className="processDictionary">
-              <h2 className="processDictionaryTitle">Dictionary</h2>
-              <p className="processDictionaryLead">
-                A place to define the terms I use throughout my work.
-              </p>
+        <section className="processHero">
+          <div className="processHeroContent">
+            <p className="processHeroText">
+              From 10+ shipped videogames and apps to 5+ years of professional development;
+              <br />
+              <br />
+              or from backend production for events and venues to 30+ acting credits and performances to 5k+
+              audiences;
+              <br />
+              <br />
+              my <strong>Cognitive Design Process</strong> remains the same.
+            </p>
+          </div>
+        </section>
 
-              <div className="processDictionaryGrid">
-                <div className="processDictionaryCard">
-                  <h3>Experience</h3>
-                  <p>The end-to-end journey across screens, moments, and emotions.</p>
+        {steps.map((step, index) => (
+          <section
+            key={step.id}
+            className={`processStep processStep--${index % 2 === 0 ? "even" : "odd"}`}
+          >
+            <div className="processStepInner">
+              <div
+                className={`processStepText ${
+                  index % 2 === 0 ? "processStepText--left" : "processStepText--right"
+                }`}
+              >
+                <div className="processStepBadge">Step {step.id}</div>
+
+                <h2 className="processStepTitle">{step.title}</h2>
+
+                <h3 className="processStepSubtitle">{step.subtitle}</h3>
+
+                {/* Example Boxes */}
+                <div className="processExamples">
+                  {step.examples.map((example, exIdx) => {
+                    const isOpen = expandedExample === `${step.id}-${exIdx}`;
+
+                    return (
+                      <div key={exIdx} className="processExampleBox">
+                        <button
+                          className="processExampleHeader"
+                          onClick={() => toggleExample(step.id, exIdx)}
+                          aria-expanded={isOpen}
+                        >
+                          <div className="processExampleHeaderContent">
+                            <img
+                              src={example.image}
+                              alt={example.title}
+                              className="processExampleImage"
+                            />
+                            <div className="processExampleInfo">
+                              <div className="processExampleTitle">{example.title}</div>
+                              <div className="processExampleType">{example.type}</div>
+                            </div>
+                          </div>
+
+                          {/* ✅ chevron matches ResumeTimeline */}
+                          <span
+                            className={`timelineChevron processExampleChevron ${isOpen ? "isOpen" : ""}`}
+                            aria-hidden="true"
+                          >
+                            ▾
+                          </span>
+                        </button>
+
+                        {isOpen && <div className="processExampleDetail">{example.detail}</div>}
+                      </div>
+                    );
+                  })}
                 </div>
-                <div className="processDictionaryCard">
-                  <h3>System</h3>
-                  <p>The repeatable rules and components that keep a product coherent.</p>
-                </div>
-                <div className="processDictionaryCard">
-                  <h3>Prototype</h3>
-                  <p>A testable artifact used to learn quickly and reduce uncertainty.</p>
-                </div>
+
+                <p className="processStepDescription">{step.description}</p>
               </div>
 
-              <p className="processDictionaryFoot">
-                (Swap these placeholders with your real definitions.)
-              </p>
+              <div
+                className={`processStepVisual ${
+                  index % 2 === 0 ? "processStepVisual--right" : "processStepVisual--left"
+                }`}
+              >
+                <div className="processStepImageWrapper">
+                  <div className="processStepPlaceholder">
+                    <span className="processStepNumber">{step.id}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          ) : (
-            <>
-              {/* Top Left Section */}
-              <div
-                className={`processSection topLeft ${
-                  isSectionVisible(0) ? "isVisible" : "isHidden"
-                }`}
-              >
-                <h3 className="processSectionTitle">{step.sections[0].title}</h3>
-                <p className="processSectionText">{step.sections[0].text}</p>
-              </div>
 
-              {/* Top Right Section */}
-              <div
-                className={`processSection topRight ${
-                  isSectionVisible(1) ? "isVisible" : "isHidden"
-                }`}
-              >
-                <h3 className="processSectionTitle">{step.sections[1].title}</h3>
-                <p className="processSectionText">{step.sections[1].text}</p>
+            <div className="processStepCounter">
+              <div className="processStepCounterText">
+                {String(step.id).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
               </div>
+            </div>
+          </section>
+        ))}
 
-              {/* Center Content */}
-              <div className="processCenter">
-                {step.centerContent.type === "image" ? (
-                  <img
-                    src={step.centerContent.src}
-                    alt={step.centerContent.alt}
-                    className="processCenterImage"
-                  />
-                ) : (
-                  <div className="processCenterText">{step.centerContent.content}</div>
-                )}
-              </div>
-
-              {/* Bottom Section */}
-              <div
-                className={`processSection bottom ${
-                  isSectionVisible(2) ? "isVisible" : "isHidden"
-                }`}
-              >
-                <h3 className="processSectionTitle">{step.sections[2].title}</h3>
-                <p className="processSectionText">{step.sections[2].text}</p>
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* Indicator */}
-        <div className="processIndicator" aria-label="Current position">
-          {activeView === "dictionary"
-            ? `D / ${PROCESS_STEPS.length}`
-            : `${currentStep + 1} / ${PROCESS_STEPS.length}`}
-          <span className="processIndicatorSub">
-            {activeView === "dictionary" ? "dictionary" : step.title}
-          </span>
-        </div>
+        <section className="processCTA">
+          <div className="processCTAContent">
+            <h2 className="processCTATitle">See the Process in Action</h2>
+            <p className="processCTAText">
+              Explore my portfolio to see how this methodology creates user-focused, subconsciously powerful
+              experiences.
+            </p>
+            <div className="processCTAButtons">
+              <a href="/projects" className="processCTAButton processCTAButton--primary">
+                View Projects
+              </a>
+              <a href="/#resume" className="processCTAButton processCTAButton--secondary">
+                View Experience
+              </a>
+            </div>
+          </div>
+        </section>
       </div>
-    </>
+
+      <div className="processProgressDots" aria-label="Process navigation">
+        {steps.map((step, index) => (
+          <button
+            key={step.id}
+            onClick={() => handleDotClick(index)}
+            className={`processProgressDot ${
+              activeStep === index ? "processProgressDot--active" : ""
+            }`}
+            aria-label={`Go to step ${step.id}`}
+            type="button"
+          />
+        ))}
+      </div>
+    </div>
   );
 }

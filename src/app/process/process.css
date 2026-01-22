@@ -1,441 +1,641 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
-/* Add Inter to your font stack */
-body {
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial !important;
-}
-
+/* ------------------------------------------------------------------
+   Design tokens (aligned with styles.css)
+-------------------------------------------------------------------*/
 :root {
-  /* Match the lighter, white/blue theme used on other pages */
   --sheet: #ffffff;
   --ink: #0b0b0b;
   --muted: rgba(11, 11, 11, 0.65);
   --hair: rgba(11, 11, 11, 0.10);
 
-  --accent: #2563eb;              /* blue */
-  --accentSoft: rgba(37, 99, 235, 0.10);
-  --accentSoft2: rgba(37, 99, 235, 0.18);
+  /* Process-specific accents */
+  --accent: #2563eb;          /* blue-600 */
+  --accent-soft: rgba(37, 99, 235, 0.06);
+  --accent-soft-2: rgba(96, 165, 250, 0.06);
 
-  /* Used to visually re-center the title away from the left nav */
-  --process-nav-offset: 120px;
+  /* Effects */
+  --radius-xl: 26px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --shadow-soft: 0 10px 28px rgba(0,0,0,0.08);
+  --shadow-strong: 0 25px 50px -12px rgba(0,0,0,0.25);
+  --ease: 180ms ease;
 }
 
-.processPage {
+/* ------------------------------------------------------------------
+   Reset + Base (scoped)
+-------------------------------------------------------------------*/
+.processPageWrapper {
+  min-height: 100vh;
+  background: var(--sheet);
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  color: var(--ink);
+}
+
+.processPageWrapper *,
+.processPageWrapper *::before,
+.processPageWrapper *::after {
+  box-sizing: border-box;
+}
+
+.processPageWrapper :where(a, button) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.processPageWrapper :where(a, button):focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+
+/* ------------------------------------------------------------------
+   Fixed Header
+-------------------------------------------------------------------*/
+.processHeader {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
-  overflow: hidden;
-  color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  right: 0;
+  z-index: 50;
+
+  background: rgba(255, 255, 255, 0.80);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hair);
 }
 
-.processTitle {
-  position: absolute;
-  top: 2.5rem;
-  left: calc(50% + (var(--process-nav-offset) / 2));
-  transform: translateX(-50%);
-  font-size: clamp(2rem, 4vw, 3.5rem);
+.processHeaderInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.processBackLink {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  text-decoration: none;
+  transition: opacity var(--ease);
+}
+
+.processBackLink:hover {
+  opacity: 0.7;
+}
+
+.processHeaderTitle {
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
   font-weight: 700;
   letter-spacing: 0.15em;
-  margin: 0;
-  color: var(--ink);
   text-align: center;
-  z-index: 10;
+  margin: 0;
 }
 
-/* Scroll hint (dismisses after first interaction) */
-.processScrollHint {
-  position: absolute;
-  top: 7.2rem;
-  left: calc(50% + (var(--process-nav-offset) / 2));
-  transform: translateX(-50%);
-  font-size: 0.95rem;
-  letter-spacing: 0.12em;
-  text-transform: lowercase;
-  color: rgba(37, 99, 235, 0.85);
-  opacity: 0.9;
-  z-index: 10;
+.processHeaderSpacer {
+  width: 5rem;
 }
 
-/* Navigation wrapper: Dictionary pill + Steps pill */
-.processNav {
-  position: absolute;
-  top: 50%;
-  left: 2rem;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  z-index: 20;
+/* ------------------------------------------------------------------
+   Scroll Container
+-------------------------------------------------------------------*/
+.processScrollContainer {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 
-.processDictionaryBubble {
-  background: rgba(255, 255, 255, 0.78);
-  border-radius: 100px;
-  padding: 0.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--hair);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-}
-
-/* Steps pill */
-.processBar {
-  /* positioning handled by .processNav */
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  background: rgba(255, 255, 255, 0.78);
-  border-radius: 100px;
-  padding: 0.5rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--hair);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-}
-
-.processBarItem {
-  position: relative;
-  width: 70px;
-  height: 70px;
+/* ------------------------------------------------------------------
+   Hero Section
+-------------------------------------------------------------------*/
+.processHero {
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: transform 180ms ease;
-  border-radius: 50%;
-  overflow: hidden;
+  background: linear-gradient(to bottom, var(--sheet), rgba(239, 246, 255, 0.30));
+  padding: 0 1.5rem;
 }
 
-.processBarItem:hover {
-  transform: scale(1.08);
-}
-
-.processBarIcon {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  position: relative;
-  z-index: 2;
-}
-
-.processBarOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--accentSoft2);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 50%;
-  z-index: 3;
-  pointer-events: none;
-  mix-blend-mode: normal;
-}
-
-.processBarItem.isActive .processBarOverlay {
-  opacity: 1;
-}
-
-.processBarItem--dictionary .processBarLetter {
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: var(--ink);
-}
-
-/* Content Area */
-.processContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 85%;
-  height: 70%;
-  max-width: 1200px;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr 2fr 1fr;
-  gap: clamp(1rem, 2vw, 2rem);
-  z-index: 5;
-  padding-left: 2rem;
-}
-
-/* Sections */
-.processSection {
-  background: rgba(37, 99, 235, 0.04);
-  border-radius: 18px;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  border: 1px solid var(--hair);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.04);
-
-  /* Fade-in controlled by .isVisible / .isHidden so each section appears individually */
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 520ms ease, transform 520ms ease;
-}
-
-.processSection.isVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.processSection.isHidden {
-  opacity: 0;
-  transform: translateY(16px);
-  pointer-events: none;
-}
-
-.topLeft {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-.topRight {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.bottom {
-  grid-column: 1 / 4;
-  grid-row: 3;
+.processHeroContent {
   text-align: center;
+  max-width: 48rem;
 }
 
-.processSectionTitle {
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 600;
-  margin: 0 0 0.75rem 0;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-}
-
-.processSectionText {
-  font-size: clamp(0.9rem, 1.5vw, 1rem);
+.processHeroText {
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
   line-height: 1.6;
-  margin: 0;
-  color: var(--muted);
-}
-
-/* Center Content */
-.processCenter {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(37, 99, 235, 0.03);
-  border-radius: 26px;
-  overflow: hidden;
-  border: 1px solid var(--hair);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
-}
-
-.processCenterImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.processCenterText {
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  font-weight: 300;
-  text-align: center;
-  padding: clamp(2rem, 4vw, 3rem);
-  line-height: 1.7;
-  color: var(--ink);
+  color: rgba(11, 11, 11, 0.92);
+  margin: 0 0 2rem;
   letter-spacing: -0.015em;
 }
 
-/* Step Indicator */
-.processIndicator {
+.processHeroText strong {
+  font-weight: 700;
+}
+
+.processScrollHint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.processScrollHintText {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin: 0;
+}
+
+.processScrollIndicator {
+  width: 1.5rem;
+  height: 2.5rem;
+  border: 2px solid rgba(11, 11, 11, 0.25);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+  animation: bounce 2s infinite;
+}
+
+.processScrollDot {
+  width: 0.25rem;
+  height: 0.5rem;
+  background: rgba(11, 11, 11, 0.35);
+  border-radius: 0.25rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(0.5rem); }
+}
+
+/* ------------------------------------------------------------------
+   Process Steps
+-------------------------------------------------------------------*/
+.processStep {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.processStep--even {
+  background: linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.95));
+}
+
+.processStep--odd {
+  background: linear-gradient(135deg, var(--accent-soft-2), rgba(255, 255, 255, 0.95));
+}
+
+.processStepInner {
+  max-width: 80rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+@media (min-width: 768px) {
+  .processStepInner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.processStepText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.processStepText--left { order: 1; }
+.processStepText--right { order: 2; }
+
+@media (min-width: 768px) {
+  .processStepText--right { order: 2; }
+}
+
+.processStepBadge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.18);
+}
+
+.processStepTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.processStepSubtitle {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  color: rgba(11, 11, 11, 0.72);
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.processStepDescription {
+  font-size: 1.125rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.processStepVisual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processStepVisual--right { order: 2; }
+.processStepVisual--left { order: 1; }
+
+@media (min-width: 768px) {
+  .processStepVisual--left { order: 1; }
+}
+
+.processStepImageWrapper {
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 600px;
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--hair);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+
+.processStepPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, rgba(219, 234, 254, 0.9), rgba(191, 219, 254, 0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.processStepNumber {
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 700;
+  color: rgba(37, 99, 235, 0.22);
+}
+
+.processStepCounter {
   position: absolute;
   bottom: 2rem;
   right: 2rem;
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--muted);
-  z-index: 10;
-  letter-spacing: 0.05em;
+  text-align: right;
 }
 
-.processIndicatorSub {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
+.processStepCounterText {
+  font-size: 0.875rem;
   color: var(--muted);
+  letter-spacing: 0.1em;
 }
 
-/* Dictionary view */
-.processDictionary {
+/* ------------------------------------------------------------------
+   Final CTA Section
+-------------------------------------------------------------------*/
+.processCTA {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(239, 246, 255, 0.30), var(--sheet));
+  padding: 0 1.5rem;
+}
+
+.processCTAContent {
+  text-align: center;
+  max-width: 48rem;
+}
+
+.processCTATitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 2rem;
+  letter-spacing: -0.02em;
+}
+
+.processCTAText {
+  font-size: 1.25rem;
+  color: rgba(11, 11, 11, 0.72);
+  margin: 0 0 3rem;
+  line-height: 1.7;
+}
+
+.processCTAButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .processCTAButtons {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.processCTAButton {
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform var(--ease), box-shadow var(--ease), background var(--ease), color var(--ease), border-color var(--ease);
+  box-shadow: var(--shadow-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+}
+
+.processCTAButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.12);
+}
+
+.processCTAButton--primary {
+  background: #000;
+  color: #fff;
+}
+
+.processCTAButton--primary:hover {
+  background: rgba(11, 11, 11, 0.88);
+}
+
+.processCTAButton--secondary {
+  background: #fff;
+  color: #000;
+  border-color: rgba(11,11,11,0.18);
+}
+
+.processCTAButton--secondary:hover {
+  background: rgba(11,11,11,0.03);
+}
+
+/* ------------------------------------------------------------------
+   Progress Dots
+-------------------------------------------------------------------*/
+.processProgressDots {
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .processProgressDots {
+    display: flex;
+  }
+}
+
+.processProgressDot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: rgba(11,11,11,0.16);
+  border: 1px solid rgba(11,11,11,0.10);
+  cursor: pointer;
+  transition: opacity var(--ease), transform var(--ease), background var(--ease);
+  padding: 0;
+}
+
+.processProgressDot:hover {
+  background: rgba(11,11,11,0.32);
+  transform: translateY(-1px);
+}
+
+.processProgressDot--active {
+  background: var(--accent);
+  border-color: rgba(37,99,235,0.35);
+  transform: scale(1.25);
+}
+
+/* ------------------------------------------------------------------
+   Example Boxes
+-------------------------------------------------------------------*/
+.processExamples {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.processExampleBox {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--hair);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform var(--ease), box-shadow var(--ease), background var(--ease);
+}
+
+.processExampleBox:hover {
+  box-shadow: 0 14px 34px rgba(0,0,0,0.10);
+  transform: translateY(-1px);
+}
+
+.processExampleHeader {
   width: 100%;
-  height: 100%;
-  max-width: 900px;
+  padding: 0.875rem 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+  transition: background var(--ease);
+}
+
+.processExampleHeader:hover {
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.processExampleHeaderContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.processExampleImage {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 1px solid var(--hair);
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.processExampleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.processExampleTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.processExampleType {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+
+.processExampleArrow {
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform var(--ease);
+}
+
+.processExampleArrow--open {
+  transform: rotate(180deg);
+}
+
+.processExampleDetail {
+  padding: 0 1rem 1rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  animation: slideDown 200ms ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------
+   Responsive Adjustments
+-------------------------------------------------------------------*/
+@media (max-width: 767px) {
+  .processHeaderSpacer { width: 3rem; }
+  .processStepCounter { bottom: 1rem; right: 1rem; }
+  .processExamples { grid-template-columns: 1fr; }
+  .processExampleTitle { font-size: 0.875rem; }
+  .processExampleType { font-size: 0.7rem; }
+}
+
+
+/* ------------------------------------------------------------------
+   Consistency tweaks for shared MobileNav + shared chevrons
+-------------------------------------------------------------------*/
+
+/* Give space for MobileNav (fixed) */
+.processScrollContainer {
+  padding-top: 72px;
+}
+
+/* Title section uses shared .sectionTitle from styles.css */
+.processTitleSection {
+  padding: 2.25rem 1.5rem 0.75rem;
+}
+
+.processTitleInner {
+  max-width: 1100px;
   margin: 0 auto;
 }
 
-.processDictionaryTitle {
-  margin: 0 0 0.6rem 0;
-  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
-  font-weight: 800;
-  letter-spacing: 0.06em;
+.processTitle {
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
 }
 
-.processDictionaryLead {
-  margin: 0 0 1.4rem 0;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.processDictionaryGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.processDictionaryCard {
-  border: 1px solid var(--hair);
-  background: rgba(37, 99, 235, 0.04);
-  border-radius: 18px;
-  padding: 1.1rem 1.1rem;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
-}
-
-.processDictionaryCard h3 {
-  margin: 0 0 0.5rem 0;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
-.processDictionaryCard p {
+.processTitleSubtitle {
   margin: 0;
   color: var(--muted);
+  font-size: 1.05rem;
   line-height: 1.5;
 }
 
-.processDictionaryFoot {
-  margin: 1.2rem 0 0;
-  color: var(--muted);
-  font-size: 0.9rem;
+/* Hero CTAs reuse .bigButton, but tighten layout on mobile */
+.processHeroCtas {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .processTitle {
-    font-size: 2rem;
-    top: 1.5rem;
-  }
-
-  :root {
-    --process-nav-offset: 96px;
-  }
-
-  .processNav {
-    left: 1rem;
-  }
-
-  .processBarItem {
-    width: 60px;
-    height: 60px;
-  }
-
-  .processContent {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr auto;
-    width: 90%;
-    height: 65%;
-    gap: 1rem;
-    top: 48%;
-    padding-left: 0;
-    margin-left: 4rem;
-  }
-
-  .topLeft {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .topRight {
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .processCenter {
-    grid-column: 1;
-    grid-row: 3;
-  }
-
-  .bottom {
-    grid-column: 1;
-    grid-row: 4;
-  }
-
-  .processCenterText {
-    font-size: 1.3rem;
-    padding: 1.5rem;
-  }
-
-  .processDictionaryGrid {
-    grid-template-columns: 1fr;
-  }
+/* Make ResumeTimeline-style chevron sit nicely in example headers */
+.processExampleChevron {
+  font-size: 1.05rem;
+  line-height: 1;
 }
 
-@media (max-width: 640px) {
-  .processTitle {
-    font-size: 1.5rem;
-    top: 1rem;
-    letter-spacing: 0.1em;
-  }
+/* Ensure any remaining header styles don't fight MobileNav */
+.processHeader {
+  display: none;
+}
 
-  :root {
-    --process-nav-offset: 72px;
-  }
 
-  .processNav {
-    left: 0.5rem;
-  }
+/* --- Title bar (simple white H1 strip) --- */
+.processTitleBar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--sheet);
+  border-bottom: 1px solid var(--hair);
+}
 
-  .processBar {
-    padding: 0.3rem;
-  }
+.processTitleBarInner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .processBarItem {
-    width: 50px;
-    height: 50px;
-  }
-
-  .processContent {
-    margin-left: 3rem;
-    width: calc(100% - 4rem);
-  }
-
-  .processSection {
-    padding: 1rem;
-  }
-
-  .processSectionTitle {
-    font-size: 1.1rem;
-  }
-
-  .processSectionText {
-    font-size: 0.85rem;
-  }
-
-  .processCenterText {
-    font-size: 1.1rem;
-    padding: 1.2rem;
-  }
-
-  .processIndicator {
-    bottom: 1rem;
-    right: 1rem;
-    font-size: 1rem;
-  }
+.processTitleH1 {
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 34px);
+  letter-spacing: 0.12em;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: center;
 }
