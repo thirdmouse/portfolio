@@ -1,129 +1,241 @@
 "use client";
 
 import React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
-export default function NavButton() {
-  const [open, setOpen] = React.useState(false);
-  const btnRef = React.useRef(null);
-  const panelRef = React.useRef(null);
+const DEFAULT_ITEMS = [
+  {
+    key: "home",
+    href: "/",
+    label: "Home",
+    children: [
+      { label: "About", scrollTo: "#about" },
+      { label: "Resume", scrollTo: "#resume" },
+      { label: "Contact", scrollTo: "#contact" },
+    ],
+  },
+  { key: "process", href: "/process", label: "Process" },
+  {
+    key: "projects",
+    href: "/projects",
+    label: "Projects",
+    children: [
+      { label: "Digital", scrollTo: "#digital" },
+      { label: "Physical", scrollTo: "#physical" },
+    ],
+  },
+];
+
+export default function MobileNav({
+  items = DEFAULT_ITEMS,
+  pageKey,
+  scrollContainerSelector = ".contentSheet",
+  revealOnScroll = false,
+  alwaysVisible = false,
+}) {
   const pathname = usePathname();
-  const router = useRouter();
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(alwaysVisible || !revealOnScroll);
+  const [openGroupKey, setOpenGroupKey] = React.useState(null);
 
-  // Close on outside click
+  // Close on route change
   React.useEffect(() => {
-    if (!open) return;
-    const onDown = (e) => {
-      const b = btnRef.current;
-      const p = panelRef.current;
-      if (b?.contains(e.target) || p?.contains(e.target)) return;
-      setOpen(false);
-    };
-    window.addEventListener("pointerdown", onDown);
-    return () => window.removeEventListener("pointerdown", onDown);
-  }, [open]);
+    setMenuOpen(false);
+    setOpenGroupKey(null);
+  }, [pathname]);
 
-  // Close on ESC
+  // Esc closes
   React.useEffect(() => {
-    if (!open) return;
-    const onKey = (e) => {
-      if (e.key === "Escape") setOpen(false);
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setMenuOpen(false);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open]);
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
 
-  const scrollToId = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      return true;
-    }
-    return false;
-  };
-
-  // Smart nav: if you’re not on home, go home first, then scroll
-  const goHomeAndScroll = (id) => {
-    setOpen(false);
-
-    if (pathname === "/") {
-      scrollToId(id);
+  // Reveal logic
+  React.useEffect(() => {
+    if (alwaysVisible || !revealOnScroll) {
+      setIsVisible(true);
       return;
     }
 
-    router.push("/");
+    const scrollerEl =
+      (scrollContainerSelector && document.querySelector(scrollContainerSelector)) || null;
 
-    // Wait a tick for the new page to paint, then scroll
-    requestAnimationFrame(() => {
-      // a couple frames is safer with Next hydration
-      requestAnimationFrame(() => scrollToId(id));
-    });
+    const getScrolled = () => {
+      if (scrollerEl) return (scrollerEl.scrollTop || 0) > 0;
+      return (window.scrollY || 0) > 0;
+    };
+
+    if (getScrolled()) {
+      setIsVisible(true);
+      return;
+    }
+
+    let revealed = false;
+    const onKey = (e) => {
+      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " " || e.key === "End") {
+        reveal();
+      }
+    };
+
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      setIsVisible(true);
+
+      if (scrollerEl) {
+        scrollerEl.removeEventListener("scroll", reveal);
+        scrollerEl.removeEventListener("wheel", reveal);
+        scrollerEl.removeEventListener("touchmove", reveal);
+      } else {
+        window.removeEventListener("scroll", reveal);
+        window.removeEventListener("wheel", reveal);
+        window.removeEventListener("touchmove", reveal);
+      }
+      window.removeEventListener("keydown", onKey);
+    };
+
+    if (scrollerEl) {
+      scrollerEl.addEventListener("scroll", reveal, { passive: true });
+      scrollerEl.addEventListener("wheel", reveal, { passive: true });
+      scrollerEl.addEventListener("touchmove", reveal, { passive: true });
+    } else {
+      window.addEventListener("scroll", reveal, { passive: true });
+      window.addEventListener("wheel", reveal, { passive: true });
+      window.addEventListener("touchmove", reveal, { passive: true });
+    }
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      if (scrollerEl) {
+        scrollerEl.removeEventListener("scroll", reveal);
+        scrollerEl.removeEventListener("wheel", reveal);
+        scrollerEl.removeEventListener("touchmove", reveal);
+      } else {
+        window.removeEventListener("scroll", reveal);
+        window.removeEventListener("wheel", reveal);
+        window.removeEventListener("touchmove", reveal);
+      }
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [alwaysVisible, revealOnScroll, scrollContainerSelector]);
+
+  const rootClass = `mobileNav${isVisible ? " isVisible" : ""}`;
+
+  const isRouteActive = (href) => {
+    if (!href) return false;
+    return href === "/" ? pathname === "/" : pathname?.startsWith(href);
   };
 
-  const go = (href) => {
-    setOpen(false);
-    router.push(href);
+  const getScrollContainer = () =>
+    (scrollContainerSelector && document.querySelector(scrollContainerSelector)) || null;
+
+  const scrollToSelector = (selector) => {
+    const el = document.querySelector(selector);
+    if (!el) {
+      console.warn(`Element not found for selector: ${selector}`);
+      return;
+    }
+
+    // Just use scrollIntoView for everything - it works!
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Which group should show its subitems?
+  const routeGroupKey =
+    items.find((it) => it.key && isRouteActive(it.href))?.key || null;
+
+  const visibleGroupKey = openGroupKey ?? pageKey ?? routeGroupKey;
+
+  const onParentClick = (e, item) => {
+    const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+
+    // If parent has children and you're already on that page
+    if (hasChildren && (pageKey === item.key || isRouteActive(item.href))) {
+      e.preventDefault();
+      // Toggle open/closed
+      setOpenGroupKey((prev) => (prev === item.key ? null : item.key));
+      return;
+    }
+
+    // Otherwise allow normal navigation
+    setMenuOpen(false);
+  };
+
+  const onSubClick = (e, child) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (child.scrollTo) {
+      scrollToSelector(child.scrollTo);
+    }
+    
+    setMenuOpen(false);
   };
 
   return (
-    <div className="navBtnWrap">
+    <div className={rootClass}>
       <button
-        ref={btnRef}
-        className="navBtn"
+        className="mobileNavBtn"
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-expanded={menuOpen}
+        aria-controls="mobileNavMenu"
+        aria-label="Open menu"
         type="button"
-        aria-haspopup="menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
       >
-        Menu
+        <img src="/logo.png" alt="" aria-hidden="true" className="mobileNavIcon iconClosed" />
+        <img src="/open.png" alt="" aria-hidden="true" className="mobileNavIcon iconOpen" />
       </button>
 
-      {open && (
-        <div ref={panelRef} className="navPanel" role="menu" aria-label="Site navigation">
-          {/* HOME group */}
-          <div className="navGroup">
-            <button className="navTop" role="menuitem" onClick={() => go("/")}>
-              Home
-            </button>
+      {menuOpen && (
+        <>
+          <button
+            className="mobileNavBackdrop"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+            type="button"
+          />
 
-            <div className="navSub">
-              <button className="navItem" role="menuitem" onClick={() => goHomeAndScroll("about")}>
-                About
-              </button>
-              <button className="navItem" role="menuitem" onClick={() => goHomeAndScroll("resume")}>
-                Resume
-              </button>
-              <button className="navItem" role="menuitem" onClick={() => goHomeAndScroll("contact")}>
-                Contact
-              </button>
-            </div>
+          <div className="mobileNavMenu" id="mobileNavMenu" role="menu">
+            {items.map((item) => {
+              const active = item.key ? visibleGroupKey === item.key : isRouteActive(item.href);
+              const showChildren = active && Array.isArray(item.children) && item.children.length > 0;
+
+              return (
+                <div key={item.href} className="mobileNavGroup">
+                  <a
+                    href={item.href}
+                    className={`mobileNavItem ${active ? "isActive" : ""}`}
+                    onClick={(e) => onParentClick(e, item)}
+                    role="menuitem"
+                  >
+                    <span className="navBullet" />
+                    <span className="navText">{item.label}</span>
+                  </a>
+
+                  {showChildren && (
+                    <div className="mobileNavSubmenu" role="group" aria-label={`${item.label} submenu`}>
+                      {item.children.map((child) => (
+                        <a
+                          key={`${item.key}-${child.label}`}
+                          href={child.scrollTo || "#"}
+                          className="mobileNavItem mobileNavSubItem"
+                          onClick={(e) => onSubClick(e, child)}
+                          role="menuitem"
+                        >
+                          <span className="navBullet navBulletSub" />
+                          <span className="navText">{child.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
-
-          <div className="navDivider" />
-
-          {/* PROCESS */}
-          <button className="navTop" role="menuitem" onClick={() => goHomeAndScroll("process")}>
-            Process
-          </button>
-
-          <div className="navDivider" />
-
-          {/* PROJECTS group */}
-          <div className="navGroup">
-            <button className="navTop" role="menuitem" onClick={() => go("/projects")}>
-              Projects
-            </button>
-
-            <div className="navSub">
-              <button className="navItem" role="menuitem" onClick={() => go("/projects?type=digital")}>
-                Digital
-              </button>
-              <button className="navItem" role="menuitem" onClick={() => go("/projects?type=physical")}>
-                Physical
-              </button>
-            </div>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

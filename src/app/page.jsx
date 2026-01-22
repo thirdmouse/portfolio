@@ -306,7 +306,7 @@ const categoryMeta = useMemo(() => {
       <main className="contentSheet">
         <div className="sheetInner">
           <FadeIn className="section centerBlock">
-            <p className="blurb">
+            <p className="blurb" id = "about">
               I am a Creative Technologist and Psychological Engineer,
               <br />
               creating user-focused, subconsciously powerful experiences.
@@ -351,7 +351,7 @@ const categoryMeta = useMemo(() => {
           </FadeIn>
 
           {/* ✅ Resume Timeline section */}
-          <div className="section">
+          <div className="section" id="resume">
             <ResumeTimeline items={timelineItems} />
           </div>
 
@@ -387,6 +387,7 @@ const categoryMeta = useMemo(() => {
       </main>
       <div id="processRevealAnchor" />
 <ParallaxTripleColumns tiles={tripleTiles} />
+<section id = "contact"></section>
     </div>
   );
 }
