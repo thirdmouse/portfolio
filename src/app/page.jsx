@@ -45,21 +45,21 @@ export default function App() {
   const tripleTiles = useMemo(
     () => [
       {
-        id: "games",
+        id: "digital",
         title: "DIGITAL (PROGRAMMING | MEDIA | APPS)",
         href: "/projects/#digital",
-        videoSrc: "/videos/games.mp4",
+        videoSrc: "/videos/colorguard.mp4",
         poster: "/videos/games-poster.jpg",
       },
       {
-        id: "film",
+        id: "physical",
         title: "PHYSICAL (ENGINEERING | EVENTS | SPACES)",
         href: "/projects/#physical",
-        videoSrc: "/videos/film.mp4",
+        videoSrc: "/videos/drumming.mov",
         poster: "/videos/film-poster.jpg",
       },
       {
-        id: "engineering",
+        id: "all",
         title: "ALL PROJECTS",
         href: "/projects",
         videoSrc: "/videos/engineering.mp4",
