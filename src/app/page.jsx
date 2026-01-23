@@ -4,9 +4,10 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./styles.css";
 import FlowingCircleCarousel from "@/components/FlowingCircleCarousel";
 import ResumeTimeline from "../components/ResumeTimeline";
-import MobileNav from "../components/MobileNav"; // ✅ add
-import ParallaxTripleColumns from "../components/ParallaxTwo"; // ✅ add
-import { carouselProjects, categories } from "@/components/FlowingCircleCarousel";
+import MobileNav from "../components/MobileNav";
+import ParallaxTripleColumns from "../components/ParallaxTwo";
+import { carouselProjects, categories as importedCategories } from "@/components/FlowingCircleCarousel";
+
 /** ---------- Fade-in helper ---------- */
 function FadeIn({ children, className = "", threshold = 0.15 }) {
   const ref = useRef(null);
@@ -40,33 +41,34 @@ function FadeIn({ children, className = "", threshold = 0.15 }) {
 }
 
 export default function App() {
-const tripleTiles = useMemo(
-  () => [
-    {
-      id: "games",
-      title: "DIGITAL (PROGRAMMING | MEDIA | APPS)",
-      href: "/projects?cat=games",
-      videoSrc: "/videos/games.mp4",
-      poster: "/videos/games-poster.jpg",
-    },
-    {
-      id: "film",
-      title: "PHYSICAL (ENGINEERING | EVENTS | SPACES)",
-      href: "/projects?cat=film",
-      videoSrc: "/videos/film.mp4",
-      poster: "/videos/film-poster.jpg",
-    },
-    {
-      id: "engineering",
-      title: "ALL PROJECTS",
-      href: "/projects?cat=engineering",
-      videoSrc: "/videos/engineering.mp4",
-      poster: "/videos/engineering-poster.jpg",
-    },
-  ],
-  []
-);
+  const tripleTiles = useMemo(
+    () => [
+      {
+        id: "games",
+        title: "DIGITAL (PROGRAMMING | MEDIA | APPS)",
+        href: "/projects?cat=games",
+        videoSrc: "/videos/games.mp4",
+        poster: "/videos/games-poster.jpg",
+      },
+      {
+        id: "film",
+        title: "PHYSICAL (ENGINEERING | EVENTS | SPACES)",
+        href: "/projects?cat=film",
+        videoSrc: "/videos/film.mp4",
+        poster: "/videos/film-poster.jpg",
+      },
+      {
+        id: "engineering",
+        title: "ALL PROJECTS",
+        href: "/projects?cat=engineering",
+        videoSrc: "/videos/engineering.mp4",
+        poster: "/videos/engineering-poster.jpg",
+      },
+    ],
+    []
+  );
 
+  // Your local categories (kept as-is)
   const categories = useMemo(
     () => [
       { key: "games", label: "Games", imgSrc: "/images/games.png" },
@@ -76,78 +78,77 @@ const tripleTiles = useMemo(
     ],
     []
   );
-// Featured projects (3 large circles)
-const featured = useMemo(
-  () => [
-    {
-      id: "inside-risk",
-      title: "InsideRisk",
-      desc:
-        "PM'ed a redesign of our 4-hour flagship into 30 minute, AI-integrated modules for top-100 global companies.",
-      href: "/projects/inside-risk",
-      image: "/images/feat-a.jpg",
-    },
-    {
-      id: "color-guard",
-      title: "Color Guard",
-      desc:
-        "Shipped iOS game. Average session over 20 minutes, players in 10 countries.",
-      href: "/projects/color-guard",
-      image: "/images/feat-b.jpg",
-    },
-    {
-      id: "long-time-lets-see",
-      title: "Long Time, Let’s See!",
-      desc:
-        "Social media designed like a dating app — getting users off the app for new experiences.",
-      href: "/projects/long-time-lets-see",
-      image: "/images/feat-c.jpg",
-    },
-  ],
-  []
-);
 
+  // Featured projects (3 large circles)
+  const featured = useMemo(
+    () => [
+      {
+        id: "inside-risk",
+        title: "InsideRisk",
+        desc:
+          "PM'ed a redesign of our 4-hour flagship into 30 minute, AI-integrated modules for top-100 global companies.",
+        href: "/projects/inside-risk",
+        image: "/images/feat-a.jpg",
+      },
+      {
+        id: "color-guard",
+        title: "Color Guard",
+        desc: "Shipped iOS game. Average session over 20 minutes, players in 10 countries.",
+        href: "/projects/color-guard",
+        image: "/images/feat-b.jpg",
+      },
+      {
+        id: "long-time-lets-see",
+        title: "Long Time, Let’s See!",
+        desc:
+          "Social media designed like a dating app — getting users off the app for new experiences.",
+        href: "/projects/long-time-lets-see",
+        image: "/images/feat-c.jpg",
+      },
+    ],
+    []
+  );
 
-useEffect(() => {
-  const items = document.querySelectorAll("[data-featured]");
+  useEffect(() => {
+    const items = document.querySelectorAll("[data-featured]");
 
-  let armedItem = null;
+    let armedItem = null;
 
-  const onTap = (e) => {
-    // desktop = normal behavior
-    if (window.matchMedia("(hover: hover)").matches) return;
+    const onTap = (e) => {
+      // desktop = normal behavior
+      if (window.matchMedia("(hover: hover)").matches) return;
 
-    const item = e.currentTarget;
+      const item = e.currentTarget;
 
-    if (armedItem !== item) {
-      e.preventDefault(); // stop navigation
+      if (armedItem !== item) {
+        e.preventDefault(); // stop navigation
+        armedItem?.classList.remove("isArmed");
+        item.classList.add("isArmed");
+        armedItem = item;
+      } else {
+        // second tap → allow navigation
+        armedItem = null;
+      }
+    };
+
+    const clear = () => {
       armedItem?.classList.remove("isArmed");
-      item.classList.add("isArmed");
-      armedItem = item;
-    } else {
-      // second tap → allow navigation
       armedItem = null;
-    }
-  };
+    };
 
-  const clear = () => {
-    armedItem?.classList.remove("isArmed");
-    armedItem = null;
-  };
-
-  items.forEach((item) => {
-    item.addEventListener("click", onTap);
-  });
-
-  document.addEventListener("touchstart", clear);
-
-  return () => {
     items.forEach((item) => {
-      item.removeEventListener("click", onTap);
+      item.addEventListener("click", onTap);
     });
-    document.removeEventListener("touchstart", clear);
-  };
-}, []);
+
+    document.addEventListener("touchstart", clear);
+
+    return () => {
+      items.forEach((item) => {
+        item.removeEventListener("click", onTap);
+      });
+      document.removeEventListener("touchstart", clear);
+    };
+  }, []);
 
   // Carousel items (smaller circles with title + category icon)
   const carouselItems = useMemo(
@@ -168,7 +169,7 @@ useEffect(() => {
     []
   );
 
-  // ✅ Step 4: Timeline items + render
+  // Timeline items + render
   const timelineItems = useMemo(
     () => [
       {
@@ -176,11 +177,11 @@ useEffect(() => {
         date: "2023 — Spring 2027",
         title: "Yale University",
         subtitle: "3.83 GPA | Cognitive Science of Subconscious and Interactive Experience.",
-        bullets:[
-    "MBA Coursework in UX Research / Design, Consumer Behavior",
-    "M.Arch Coursework in Multisensory and Inclusive Spaces",
-    "Undergrad incl. Psychology of Marketing and Media, Computational Neuroscience, Cognitive Science of Large Language Models, Game Design, Digital IP, Formal Philosophy, Computer Science (Data Structures, Algorithms)"
-  ],
+        bullets: [
+          "MBA Coursework in UX Research / Design, Consumer Behavior",
+          "M.Arch Coursework in Multisensory and Inclusive Spaces",
+          "Undergrad incl. Psychology of Marketing and Media, Computational Neuroscience, Cognitive Science of Large Language Models, Game Design, Digital IP, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
+        ],
         dotImage: { src: "/images/yale.png", alt: "hths" },
       },
       {
@@ -188,13 +189,12 @@ useEffect(() => {
         date: "2025",
         title: "InsideRisk",
         subtitle: "Project Manager and AI-Integration Lead",
-        bullets:["Co-designed and delivered immersive leadership & recruiting programs used by top-100 global companies.",
+        bullets: [
+          "Co-designed and delivered immersive leadership & recruiting programs used by top-100 global companies.",
           "Managed end-to-end production of 15-20 minute behavioral assessment under strict constraints, aligning writers, designers, and data specialists to increase deployability and preserve psychometric validity of 400%+ longer modules.",
-          "Led, as PM, redesign of flagship 4-hour program as 30-minute AI-integrated modules, enabling scalable delivery."],
-        description:
-          "Leader in novel psychometric assessments and immersive crisis trainings",
-        // optional image:
-        // image: { src: "/images/timeline-insiderisk.jpg", alt: "InsideRisk" },
+          "Led, as PM, redesign of flagship 4-hour program as 30-minute AI-integrated modules, enabling scalable delivery.",
+        ],
+        description: "Leader in novel psychometric assessments and immersive crisis trainings",
         dotImage: { src: "/images/ir.jpeg", alt: "hths" },
         tags: ["Design, Filmmaking"],
       },
@@ -203,11 +203,11 @@ useEffect(() => {
         date: "Summer 2025",
         title: "Kojima Productions at Outernet",
         subtitle: "Experience Manager and Storefront Designer",
-        bullets:["Returned to the Outernet for Kojima Productions game release event",
+        bullets: [
+          "Returned to the Outernet for Kojima Productions game release event",
           "Designed storefront and trained attendants, leading to near total sellthrough and >12 hour consumer engagement",
-          "MCeed ceremony with top names in Game Development industry."],
-        // optional image:
-        // image: { src: "/images/timeline-insiderisk.jpg", alt: "InsideRisk" },
+          "MCeed ceremony with top names in Game Development industry.",
+        ],
         tags: ["Engineering, Design"],
       },
       {
@@ -215,12 +215,12 @@ useEffect(() => {
         date: "2024",
         title: "Color Guard",
         subtitle: "Self Published iOS Game",
-        description:
-          "Most recent of my 10+ shipped games on iOS, Android, and Web",
-        bullets:
-          ["Shipped mobile game to players in more than 10 countries", 
-            "Iterated anti-fun mitigation behaviors via analytics / playtesting; redesigned resource curves to eliminate dominant strategies.",
-          "20 minute average play session, marking a tremendous success of multiple rounds per open."],
+        description: "Most recent of my 10+ shipped games on iOS, Android, and Web",
+        bullets: [
+          "Shipped mobile game to players in more than 10 countries",
+          "Iterated anti-fun mitigation behaviors via analytics / playtesting; redesigned resource curves to eliminate dominant strategies.",
+          "20 minute average play session, marking a tremendous success of multiple rounds per open.",
+        ],
         tags: ["Games, Design, Engineering"],
         dotImage: { src: "/images/feat-b.jpg", alt: "ColorGuard" },
       },
@@ -231,10 +231,12 @@ useEffect(() => {
         subtitle: "Production and Experience Intern",
         description:
           "Immersive events venue in London, featuring some of the largest screens in the world.",
-        bullets: ["Developed management system for dynamic quoting, inventory, and logistics, used by rotating teams w. 2,000+ items.",
+        bullets: [
+          "Developed management system for dynamic quoting, inventory, and logistics, used by rotating teams w. 2,000+ items.",
           "Designed flow and staging layouts to activate space, maximize engagement across multi-format events and product releases",
-          "Project-managed and directed multi-event pre-show, including History of Denmark Street musical documentary."],
-          tags:["Engineering, Filmmaking, Design"],
+          "Project-managed and directed multi-event pre-show, including History of Denmark Street musical documentary.",
+        ],
+        tags: ["Engineering, Filmmaking, Design"],
         dotImage: { src: "/images/ovl.png", alt: "ovl" },
       },
       {
@@ -242,43 +244,111 @@ useEffect(() => {
         date: "2022-2023",
         title: "ABCYa",
         subtitle: "Game Design and Development Mentee",
-        description:
-          "Educational game development company serving >100 million users yearly.",
-        bullets: 
-        ["Developed full-stack for Designed 'Shakesperean Rap Battles' game following in-house Agile workflow.",
-          "Supported CDN maintenance and crossfunctional team processes."],
-          tags:["Games, Engineering, Design"],
+        description: "Educational game development company serving >100 million users yearly.",
+        bullets: [
+          "Developed full-stack for Designed 'Shakesperean Rap Battles' game following in-house Agile workflow.",
+          "Supported CDN maintenance and crossfunctional team processes.",
+        ],
+        tags: ["Games, Engineering, Design"],
         dotImage: { src: "/images/abc.png", alt: "abcya" },
       },
       {
         id: "t-hths",
         date: "2019-2023",
         title: "High Technology High School",
-        subtitle: "1580 SAT | Principal's Award, National Merit Scholar, and AP Scholar with Distinction",
-        bullets: 
-        ["Graduated on Civil Engineering track with end-to-end development of Habitat for Humanity project.",
-          "Designed StoryVox OCR reader as capstone Product Engineering project"],
-          tags:["Engineering"],
+        subtitle:
+          "1580 SAT | Principal's Award, National Merit Scholar, and AP Scholar with Distinction",
+        bullets: [
+          "Graduated on Civil Engineering track with end-to-end development of Habitat for Humanity project.",
+          "Designed StoryVox OCR reader as capstone Product Engineering project",
+        ],
+        tags: ["Engineering"],
         dotImage: { src: "/images/hths.png", alt: "hths" },
       },
     ],
     []
   );
 
-const categoryMeta = useMemo(() => {
-  const m = {};
-  for (const c of categories) m[c.key] = c;
-  return m;
-}, [categories]);
+  const categoryMeta = useMemo(() => {
+    const m = {};
+    for (const c of categories) m[c.key] = c;
+    return m;
+  }, [categories]);
+
+  /**
+   * --- Intro video logic ---
+   * - First visit in a tab/session: play once.
+   * - When it ends: freeze on last frame.
+   * - Returning to home in same session: don't replay; show frozen last frame immediately.
+   */
+  const videoRef = useRef(null);
+  const [shouldAutoplay, setShouldAutoplay] = useState(false);
+
+  useEffect(() => {
+    const key = "introPlayedThisSession";
+    const alreadyPlayed = sessionStorage.getItem(key) === "1";
+
+    if (!alreadyPlayed) {
+      // First visit this session -> autoplay once
+      setShouldAutoplay(true);
+      sessionStorage.setItem(key, "1");
+    } else {
+      // Returning this session -> don't autoplay
+      setShouldAutoplay(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    const freezeOnLastFrame = async () => {
+      try {
+        // Seek to the last moment and pause.
+        // Some browsers need a small epsilon to land on a decodable frame.
+        const epsilon = 0.05;
+        const target = Math.max(0, (v.duration || 0) - epsilon);
+        v.currentTime = target;
+        v.pause();
+      } catch {
+        // If seeking fails, at least ensure it isn't looping/replaying.
+        v.pause();
+      }
+    };
+
+    const onEnded = () => {
+      freezeOnLastFrame();
+    };
+
+    v.addEventListener("ended", onEnded);
+
+    // If we are NOT autoplaying (returning in session),
+    // immediately show the last frame by waiting for metadata then seeking.
+    if (!shouldAutoplay) {
+      const onLoadedMeta = () => freezeOnLastFrame();
+
+      if (v.readyState >= 1) {
+        freezeOnLastFrame();
+      } else {
+        v.addEventListener("loadedmetadata", onLoadedMeta, { once: true });
+      }
+    }
+
+    return () => {
+      v.removeEventListener("ended", onEnded);
+    };
+  }, [shouldAutoplay]);
 
   return (
     <div className="pageRoot">
-      <MobileNav revealOnScroll/>
+      <MobileNav revealOnScroll />
+
       {/* Fixed hero video behind everything */}
       <header className="heroFixed" aria-label="Intro video">
         <video
+          ref={videoRef}
           className="heroVideo"
-          autoPlay
+          autoPlay={shouldAutoplay}
           muted
           playsInline
           preload="auto"
@@ -289,16 +359,16 @@ const categoryMeta = useMemo(() => {
 
         <div className="heroOverlay">
           <button
-  className="scrollArrow"
-  type="button"
-  aria-label="Scroll to content"
-  onClick={() => {
-    document.querySelector(".contentSheet")?.scrollIntoView({ behavior: "smooth" });
-  }}
->
-  <span className="arrowStem" aria-hidden="true" />
-  <span className="arrowHead" aria-hidden="true" />
-</button>
+            className="scrollArrow"
+            type="button"
+            aria-label="Scroll to content"
+            onClick={() => {
+              document.querySelector(".contentSheet")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            <span className="arrowStem" aria-hidden="true" />
+            <span className="arrowHead" aria-hidden="true" />
+          </button>
         </div>
       </header>
 
@@ -306,7 +376,7 @@ const categoryMeta = useMemo(() => {
       <main className="contentSheet">
         <div className="sheetInner">
           <FadeIn className="section centerBlock">
-            <p className="blurb" id = "about">
+            <p className="blurb" id="about">
               I am a Creative Technologist and Psychological Engineer,
               <br />
               creating user-focused, subconsciously powerful experiences.
@@ -315,13 +385,15 @@ const categoryMeta = useMemo(() => {
 
           <FadeIn className="section centerBlock">
             <a href="/process" className="bigButton">
-              Visualize my Process
+              Experience my Process
             </a>
-            <br/>
-            <p>From 10+ shipped independent videogames and apps to 5+ years of professional development experience;
-              <br/><br/>or from backend production for events and venues <br/>to 30+ professional acting credits and musical performances to audiences of 5k+;
-              <br/><br/>my <strong>Cognitive Design Process</strong> remains the same.</p>
-            
+            <br />
+            <p className="vocation">
+              I am a multi-disciplinary creator, working in programming, architecture, professional performance, and event-planning.
+              <br />
+              <br /> Each passion is not only unified by my Cognitive-Science based design philosophy, but
+              irrevocably contributes to it.
+            </p>
           </FadeIn>
 
           <FadeIn className="section">
@@ -334,60 +406,54 @@ const categoryMeta = useMemo(() => {
 
             <div className="featuredGrid">
               {featured.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                className="featuredCircle"
-                data-featured
-                style={{ backgroundImage: `url(${item.image})` }}
-              >
-                <div className="featuredHover">
-                  <div className="featuredTitle">{item.title}</div>
-                  <div className="featuredDesc">{item.desc}</div>
-                </div>
-              </a>
-            ))}
+                <a
+                  key={item.id}
+                  href={item.href}
+                  className="featuredCircle"
+                  data-featured
+                  style={{ backgroundImage: `url(${item.image})` }}
+                >
+                  <div className="featuredHover">
+                    <div className="featuredTitle">{item.title}</div>
+                    <div className="featuredDesc">{item.desc}</div>
+                  </div>
+                </a>
+              ))}
             </div>
           </FadeIn>
 
-          {/* ✅ Resume Timeline section */}
+          {/* Resume Timeline section */}
           <div className="section" id="resume">
             <ResumeTimeline items={timelineItems} />
           </div>
 
           <FadeIn className="section" threshold={0.05}>
-           <div className="sectionHeader" id="process">
-  <div>
-    {/*<h3 className="sectionSubtitle">Other projects</h3>*/}
-  <button
-  className="scrollArrow"
-  type="button"
-  aria-label="Scroll to content"
-  onClick={() => {
-  document.getElementById("processRevealAnchor")
-    ?.scrollIntoView({ behavior: "smooth", block: "start" });
-}}
->
-  <span className="arrowStem2" aria-hidden="true" />
-  <span className="arrowHead2" aria-hidden="true" />
-</button>
-  </div>
+            <div className="sectionHeader" id="process">
+              <div>
+                <button
+                  className="scrollArrow"
+                  type="button"
+                  aria-label="Scroll to content"
+                  onClick={() => {
+                    document
+                      .getElementById("processRevealAnchor")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                >
+                  <span className="arrowStem2" aria-hidden="true" />
+                  <span className="arrowHead2" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
 
-  {/*<a href="/projects" className="seeAllLink">
-    See all →
-  </a>*/}
-</div>
-            {/* <FlowingCircleCarousel
-              items={carouselItems}
-              categoryMeta={categoryMeta}
-            /> */}
+            {/* <FlowingCircleCarousel items={carouselItems} categoryMeta={categoryMeta} /> */}
           </FadeIn>
-          
         </div>
       </main>
+
       <div id="processRevealAnchor" />
-<ParallaxTripleColumns tiles={tripleTiles} />
-<section id = "contact"></section>
+      <ParallaxTripleColumns tiles={tripleTiles} />
+      <section id="contact"></section>
     </div>
   );
 }

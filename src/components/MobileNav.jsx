@@ -32,6 +32,8 @@ export default function MobileNav({
   scrollContainerSelector = ".contentSheet",
   revealOnScroll = false,
   alwaysVisible = false,
+  // NEW: key used for session gating (optional to override)
+  revealOnceSessionKey = "mobileNavRevealDoneThisSession",
 }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -53,9 +55,16 @@ export default function MobileNav({
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Reveal logic
+  // Reveal logic (NOW: only once per session)
   React.useEffect(() => {
     if (alwaysVisible || !revealOnScroll) {
+      setIsVisible(true);
+      return;
+    }
+
+    // If we've already revealed once this session, stay visible immediately.
+    const alreadyRevealed = sessionStorage.getItem(revealOnceSessionKey) === "1";
+    if (alreadyRevealed) {
       setIsVisible(true);
       return;
     }
@@ -68,22 +77,21 @@ export default function MobileNav({
       return (window.scrollY || 0) > 0;
     };
 
+    // If user loads in already scrolled, reveal and mark the session flag.
     if (getScrolled()) {
       setIsVisible(true);
+      sessionStorage.setItem(revealOnceSessionKey, "1");
       return;
     }
 
     let revealed = false;
-    const onKey = (e) => {
-      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " " || e.key === "End") {
-        reveal();
-      }
-    };
 
     const reveal = () => {
       if (revealed) return;
       revealed = true;
+
       setIsVisible(true);
+      sessionStorage.setItem(revealOnceSessionKey, "1");
 
       if (scrollerEl) {
         scrollerEl.removeEventListener("scroll", reveal);
@@ -95,6 +103,12 @@ export default function MobileNav({
         window.removeEventListener("touchmove", reveal);
       }
       window.removeEventListener("keydown", onKey);
+    };
+
+    const onKey = (e) => {
+      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " " || e.key === "End") {
+        reveal();
+      }
     };
 
     if (scrollerEl) {
@@ -120,7 +134,7 @@ export default function MobileNav({
       }
       window.removeEventListener("keydown", onKey);
     };
-  }, [alwaysVisible, revealOnScroll, scrollContainerSelector]);
+  }, [alwaysVisible, revealOnScroll, scrollContainerSelector, revealOnceSessionKey]);
 
   const rootClass = `mobileNav${isVisible ? " isVisible" : ""}`;
 
@@ -129,24 +143,17 @@ export default function MobileNav({
     return href === "/" ? pathname === "/" : pathname?.startsWith(href);
   };
 
-  const getScrollContainer = () =>
-    (scrollContainerSelector && document.querySelector(scrollContainerSelector)) || null;
-
   const scrollToSelector = (selector) => {
     const el = document.querySelector(selector);
     if (!el) {
       console.warn(`Element not found for selector: ${selector}`);
       return;
     }
-
-    // Just use scrollIntoView for everything - it works!
     el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   // Which group should show its subitems?
-  const routeGroupKey =
-    items.find((it) => it.key && isRouteActive(it.href))?.key || null;
-
+  const routeGroupKey = items.find((it) => it.key && isRouteActive(it.href))?.key || null;
   const visibleGroupKey = openGroupKey ?? pageKey ?? routeGroupKey;
 
   const onParentClick = (e, item) => {
@@ -167,11 +174,11 @@ export default function MobileNav({
   const onSubClick = (e, child) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (child.scrollTo) {
       scrollToSelector(child.scrollTo);
     }
-    
+
     setMenuOpen(false);
   };
 

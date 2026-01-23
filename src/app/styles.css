@@ -11,7 +11,29 @@ body {
 .tripleTitle {
   font-weight: 700;
 }
+.timelineCollapsible {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+  will-change: max-height, opacity;
+}
 
+.timelineCollapsible.isOpen {
+  opacity: 1;
+}
+
+.timelineCollapsibleInner {
+  transform: translateY(-6px);
+  transition: transform 220ms ease;
+}
+
+.timelineCollapsible.isOpen .timelineCollapsibleInner {
+  transform: translateY(0);
+}
+.vocation {
+  width: 50%;
+}
 :root {
   --sheet: #ffffff;
   --ink: #0b0b0b;
@@ -302,7 +324,43 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+.tripleParallax {
+  /* Use dynamic viewport units for mobile browser UI (Chrome/Safari) */
+  min-height: 240dvh;
+  background: #000;
+  position: relative;
+}
 
+.tripleSticky{
+  position: sticky;
+  top: 0;
+
+  /* Dynamic viewport height helps avoid “bottom bar” clipping */
+  height: 100dvh;
+
+  /* Add a little safe-area/bottom breathing room */
+  padding-bottom: max(env(safe-area-inset-bottom, 0px));
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tripleTitle {
+  position: absolute;
+  left: clamp(14px, 2.2vw, 36px);
+
+  /* Push title up above the bottom browser UI / safe area */
+  bottom: calc(clamp(16px, 4vh, 48px) + env(safe-area-inset-bottom, 0px));
+
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1;
+
+  font-size: clamp(18px, 2.5vw, 34px);
+  text-shadow: 0 10px 26px rgba(0,0,0,0.40);
+}
 /* Extra bottom room so you can reach “page bottom” easily */
 .footerSpace { height: 240px; }
 
@@ -318,21 +376,7 @@ body {
   background: rgba(0, 0, 0, 0.5);
 }
 /* --- 3-column parallax reveal section --- */
-.tripleParallax {
-  /* ~1 screen to reveal + a little extra scroll “breathing room” */
-  min-height: 240vh;
-  background: #000;
-  position: relative;
-}
 
-.tripleSticky{
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .tripleRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -377,20 +421,6 @@ body {
     rgba(0,0,0,0.55),
     rgba(0,0,0,0.15)
   );
-}
-
-.tripleTitle {
-  position: absolute;
-  left: clamp(14px, 2.2vw, 36px);
-  bottom: clamp(16px, 4vh, 48px);
-
-  color: #fff;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  line-height: 1;
-
-  font-size: clamp(18px, 2.5vw, 34px);
-  text-shadow: 0 10px 26px rgba(0,0,0,0.40);
 }
 
 .tripleTile:focus-visible {

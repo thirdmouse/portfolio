@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+/*
 
+  background: #38b6ff;
+  background: rgb(47, 116, 199);
+  border-color: rgba(56,182,255,0.35);
+*/
 /* ------------------------------------------------------------------
    Design tokens (aligned with styles.css)
 -------------------------------------------------------------------*/
@@ -10,9 +15,9 @@
   --hair: rgba(11, 11, 11, 0.10);
 
   /* Process-specific accents */
-  --accent: #2563eb;          /* blue-600 */
-  --accent-soft: rgba(37, 99, 235, 0.06);
-  --accent-soft-2: rgba(96, 165, 250, 0.06);
+  --accent: #38b6ff;          /* blue-600 */
+  --accent-soft: rgb(47, 116, 199, 0.5);
+  --accent-soft-2: rgba(56,182,255,0.35);
 
   /* Effects */
   --radius-xl: 26px;
@@ -50,7 +55,7 @@
 }
 
 /* ------------------------------------------------------------------
-   Fixed Header
+   Fixed Header (legacy - kept but hidden below)
 -------------------------------------------------------------------*/
 .processHeader {
   position: fixed;
@@ -73,19 +78,6 @@
   align-items: center;
 }
 
-.processBackLink {
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-  text-decoration: none;
-  transition: opacity var(--ease);
-}
-
-.processBackLink:hover {
-  opacity: 0.7;
-}
-
 .processHeaderTitle {
   font-size: clamp(1.25rem, 3vw, 1.875rem);
   font-weight: 700;
@@ -102,10 +94,22 @@
    Scroll Container
 -------------------------------------------------------------------*/
 .processScrollContainer {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  height: 100dvh;
+  overflow-y: auto;
+
+  /* ✅ Wheel/trackpad should be free: NO scroll-snap here */
+  scroll-snap-type: none;
+
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  scroll-padding-top: 88px; /* ~72px header + a bit of air */
+  scroll-padding-bottom: max(env(safe-area-inset-bottom, 0px), 24px);
+
+  overscroll-behavior-y: contain;
+
+  /* Give space for MobileNav (fixed) */
+  padding-top: 72px;
 }
 
 /* ------------------------------------------------------------------
@@ -113,9 +117,8 @@
 -------------------------------------------------------------------*/
 .processHero {
   height: 100vh;
-  scroll-snap-align: start;
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: center;
   background: linear-gradient(to bottom, var(--sheet), rgba(239, 246, 255, 0.30));
   padding: 0 1.5rem;
@@ -130,8 +133,9 @@
   font-size: clamp(1.25rem, 2.5vw, 1.875rem);
   line-height: 1.6;
   color: rgba(11, 11, 11, 0.92);
-  margin: 0 0 2rem;
   letter-spacing: -0.015em;
+  margin: 0 0 2rem;
+  margin-top: 10% !important;
 }
 
 .processHeroText strong {
@@ -169,7 +173,7 @@
   width: 0.25rem;
   height: 0.5rem;
   background: rgba(11, 11, 11, 0.35);
-  border-radius: 0.25rem;
+  border-radius: 0;
 }
 
 @keyframes bounce {
@@ -181,12 +185,11 @@
    Process Steps
 -------------------------------------------------------------------*/
 .processStep {
-  min-height: 100vh;
-  scroll-snap-align: start;
+  min-height: 110dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5rem 1.5rem;
+  padding: 4.25rem 1.5rem;
   position: relative;
 }
 
@@ -277,7 +280,11 @@
   .processStepVisual--left { order: 1; }
 }
 
+/* ------------------------------------------------------------------
+   Step Image (image under gradient + number)
+-------------------------------------------------------------------*/
 .processStepImageWrapper {
+  position: relative;
   aspect-ratio: 1;
   width: 100%;
   max-width: 600px;
@@ -289,19 +296,37 @@
   overflow: hidden;
 }
 
-.processStepPlaceholder {
+.processStepImage {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom right, rgba(219, 234, 254, 0.9), rgba(191, 219, 254, 0.9));
+  object-fit: cover;
+  opacity: 0.3;
+  transform: scale(1.02);
+}
+
+.processStepOverlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background: linear-gradient(
+    to bottom right,
+    rgba(219, 234, 254, 0.75),
+    rgba(191, 219, 254, 0.65)
+  );
 }
 
 .processStepNumber {
+  position: relative;
+  z-index: 1;
+
   font-size: clamp(4rem, 10vw, 8rem);
   font-weight: 700;
-  color: rgba(37, 99, 235, 0.22);
+  color: rgba(47, 116, 199, 0.85);
 }
 
 .processStepCounter {
@@ -322,7 +347,6 @@
 -------------------------------------------------------------------*/
 .processCTA {
   min-height: 100vh;
-  scroll-snap-align: start;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -425,8 +449,8 @@
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 9999px;
+  border-color: transparent;
   background: rgba(11,11,11,0.16);
-  border: 1px solid rgba(11,11,11,0.10);
   cursor: pointer;
   transition: opacity var(--ease), transform var(--ease), background var(--ease);
   padding: 0;
@@ -439,12 +463,11 @@
 
 .processProgressDot--active {
   background: var(--accent);
-  border-color: rgba(37,99,235,0.35);
   transform: scale(1.25);
 }
 
 /* ------------------------------------------------------------------
-   Example Boxes
+   Example Boxes + Smooth Accordion
 -------------------------------------------------------------------*/
 .processExamples {
   display: grid;
@@ -452,7 +475,13 @@
   gap: 0.75rem;
   margin: 1rem 0;
 }
+.processExamples {
+  align-items: start;   /* ✅ don't stretch items to match row height */
+}
 
+.processExampleBox {
+  align-self: start;    /* ✅ each card sizes to its own content */
+}
 .processExampleBox {
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid var(--hair);
@@ -464,6 +493,43 @@
 .processExampleBox:hover {
   box-shadow: 0 14px 34px rgba(0,0,0,0.10);
   transform: translateY(-1px);
+}
+/* Bottom caption bar spanning full width */
+.processStepCaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+
+  padding: 10px 28px;
+
+  /* darker blue gradient */
+  background: linear-gradient(
+    0deg,
+    rgba(10, 45, 95, 0.7),
+    rgba(20, 80, 150, 0)
+  );
+
+    border-color:transparent;
+  /* subtle separation */
+  backdrop-filter: blur(1px);
+}
+
+/* Text styles */
+.processStepCaptionText,
+.processStepCaptionLink {
+  display: block;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+}
+
+.processStepCaptionLink:hover {
+  text-decoration: underline;
+  color: #fff;
 }
 
 .processExampleHeader {
@@ -527,14 +593,31 @@
   letter-spacing: 0.02em;
 }
 
-.processExampleArrow {
-  color: var(--accent);
-  flex-shrink: 0;
-  transition: transform var(--ease);
+.processExampleChevron {
+  font-size: 1.05rem;
+  line-height: 1;
 }
 
-.processExampleArrow--open {
-  transform: rotate(180deg);
+/* ✅ Smooth open/close: measured max-height + gentle slide */
+.processExampleCollapsible {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+  will-change: max-height, opacity;
+}
+
+.processExampleCollapsible.isOpen {
+  opacity: 1;
+}
+
+.processExampleCollapsibleInner {
+  transform: translateY(-6px);
+  transition: transform 220ms ease;
+}
+
+.processExampleCollapsible.isOpen .processExampleCollapsibleInner {
+  transform: translateY(0);
 }
 
 .processExampleDetail {
@@ -542,12 +625,6 @@
   font-size: 0.875rem;
   line-height: 1.6;
   color: var(--muted);
-  animation: slideDown 200ms ease;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ------------------------------------------------------------------
@@ -561,57 +638,12 @@
   .processExampleType { font-size: 0.7rem; }
 }
 
-
 /* ------------------------------------------------------------------
-   Consistency tweaks for shared MobileNav + shared chevrons
+   Consistency tweaks for shared MobileNav + title bar
 -------------------------------------------------------------------*/
-
-/* Give space for MobileNav (fixed) */
-.processScrollContainer {
-  padding-top: 72px;
-}
-
-/* Title section uses shared .sectionTitle from styles.css */
-.processTitleSection {
-  padding: 2.25rem 1.5rem 0.75rem;
-}
-
-.processTitleInner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.processTitle {
-  margin: 0 0 0.35rem;
-  letter-spacing: -0.02em;
-}
-
-.processTitleSubtitle {
-  margin: 0;
-  color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.5;
-}
-
-/* Hero CTAs reuse .bigButton, but tighten layout on mobile */
-.processHeroCtas {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-/* Make ResumeTimeline-style chevron sit nicely in example headers */
-.processExampleChevron {
-  font-size: 1.05rem;
-  line-height: 1;
-}
-
-/* Ensure any remaining header styles don't fight MobileNav */
 .processHeader {
   display: none;
 }
-
 
 /* --- Title bar (simple white H1 strip) --- */
 .processTitleBar {
@@ -625,7 +657,8 @@
 .processTitleBarInner {
   max-width: 980px;
   margin: 0 auto;
-  padding: 18px 18px;
+  height: 72px;
+  padding: 0 18px;
   display: flex;
   align-items: center;
   justify-content: center;

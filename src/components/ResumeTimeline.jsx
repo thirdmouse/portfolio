@@ -17,6 +17,34 @@ import React from "react";
  *   dotImage?: { src: string, alt?: string },
  * }
  */
+function Collapsible({ isOpen, children, className = "" }) {
+  const innerRef = React.useRef(null);
+  const [height, setHeight] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+
+    const measure = () => setHeight(el.scrollHeight);
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [children]);
+
+  return (
+    <div
+      className={`timelineCollapsible ${isOpen ? "isOpen" : ""} ${className}`}
+      style={{ maxHeight: isOpen ? height : 0 }}
+      aria-hidden={!isOpen}
+    >
+      <div ref={innerRef} className="timelineCollapsibleInner">
+        {children}
+      </div>
+    </div>
+  );
+}
 
 export default function ResumeTimeline({ items, scrollContainerSelector = ".contentSheet" }) {
   const itemRefs = React.useRef(new Map());
@@ -191,6 +219,7 @@ export default function ResumeTimeline({ items, scrollContainerSelector = ".cont
                 </div>
 
                 {/* Full content (same as before) */}
+                <Collapsible isOpen={isOpen}>
                 <div
                   id={`timeline-details-${it.id}`}
                   className="timelineDetails"
@@ -240,7 +269,7 @@ export default function ResumeTimeline({ items, scrollContainerSelector = ".cont
                       ) : null}
                     </>
                   )}
-                </div>
+                </div></Collapsible>
               </button>
             </div>
           );
