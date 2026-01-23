@@ -38,10 +38,15 @@ const steps = [
     no:2,
     id: "Discover",
     title: "Think about Thinking",
-    subtitle: "Using Cognitive Science's 'what's it like?' principle",
-    description:
-      "Research existing solutions, and apply archetypical maxims to the problem itself. Discover a gap where standard conventions cognitively fall short: this is what makes a solution novel.",
-    image: "/images/bat.jpg",
+    subtitle: "'Empathetic Design' using Cognitive Science's 'what's it like?' principle",
+    description: (
+  <>
+    Good experiential design addresses Step 1&apos;s &quot;world,&quot; through careful study
+    of users&apos; expectations of that medium and cognitive subversion of that. It&apos;s why my work is
+    inherently interdisciplinary, and is focused on making the audience <strong>feel</strong>, atop
+    the traditional &quot;show don&apos;t tell.&quot;
+  </>
+),image: "/images/bat.jpg",
   credit: "Cover of Thomas Nagel's 'What's It Like To Be A Bat?' (1974), a foundational book in the philosophy of cognitive science.",
     examples: [
       {
@@ -66,7 +71,7 @@ const steps = [
     title: "Move Fast and Break Things",
     subtitle: "Per Jobs, prototype rapidly and kill your darlings",
     description:
-      "Prototypes need to evoke that final experience, regardless of early versus final medium. Cardboard can be a videogame, or a conference room a concert hall.",
+      "Prototypes need to evoke that final experience and evoke that feeling, regardless of medium-matching. Cardboard can be a videogame, or a conference room a concert hall.",
     image: "/images/martini.png",
   credit: "Guy Manuel's 'The Making of a Perfect Martini,' a representation of the controlled chaos and creativity of good prototyping.",
     examples: [
@@ -91,8 +96,11 @@ const steps = [
     id: "Test",
     title: "Simulate and Test",
     subtitle: "With some experience, give it to the audience as early as possible",
-    description:
-      "Make sure base usage, like moving or enacting some command, does not require instruction beyond diegesis, and is joyful. Listen to what users tell you, but more importantly listen to their actions as they test.",
+    description: (
+  <>
+    Base usage needs to be intuitive, diegetic, and <strong>joyful</strong>. At this stage, my biggest inspirations are Mario, Disneyland, and Apple. Listen to what the audience <strong>says</strong>, but pay even more attention to what they <strong>do</strong>.
+  </>
+    ),
     image: "/images/brunelleschi.png",
   credit: "Brunelleschi's model of the Duomo in Florence... just an egg, used to represent the geometry which made the curvature possible.",
     examples: [
@@ -117,8 +125,11 @@ const steps = [
     id: "Iterate",
     title: "Bridge Building",
     subtitle: "Analyze what the user tried to do versus what they did",
-    description:
-      "Design microinteractivity to make evaluating what can be done easier. Redesign macrointeractivity to make executing what you want to do better.",
+    description: (
+  <>
+      Design microinteractivity to make <strong>evaluating what can be done</strong> easier. Redesign macrointeractivity to make <strong>executing what you want to do</strong> better. Don't address questions by explaining, make sure they never arise.
+  </>
+    ),
     image: "/images/airport.jpg",
   credit: "The Houston Airport reduced complaints that it's baggage claim took too long by moving it further away- then, people weren't waiting, they were walking.",
     examples: [
@@ -144,7 +155,7 @@ const steps = [
     title: "Fresh Produce",
     subtitle: "You have to deliver eventually",
     description:
-      "Communicate what you have. Don't wait for perfection but get to great, then brand a simple yellow circle as pac-man. Polish microinteractivity: it'll make the macro- actions worth it.",
+      "Communicate what you have. Don't wait for perfection but get to great, then brand a simple yellow circle as pac-man. Polish microinteractivity: it's those tiny decisions that make the professional-feeling versus the 'incomplete'.",
     image: "/images/pacman.png",
   credit: "Pac-Man, early revolutionary of Game Feel and sensory UX design. Excellent analysis in Noah Wardrup-Fruin's 'How Pac-Man Eats.'",
     examples: [

@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 const DEFAULT_ITEMS = [
   {
     key: "home",
-    href: "/",
+    href: "/#afterIntro",
+
     label: "Home",
     children: [
       { label: "About", scrollTo: "#about" },

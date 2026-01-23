@@ -7,6 +7,7 @@ import ResumeTimeline from "../components/ResumeTimeline";
 import MobileNav from "../components/MobileNav";
 import ParallaxTripleColumns from "../components/ParallaxTwo";
 import { carouselProjects, categories as importedCategories } from "@/components/FlowingCircleCarousel";
+import { video } from "framer-motion/m";
 
 /** ---------- Fade-in helper ---------- */
 function FadeIn({ children, className = "", threshold = 0.15 }) {
@@ -85,8 +86,7 @@ export default function App() {
       {
         id: "inside-risk",
         title: "InsideRisk",
-        desc:
-          "PM'ed a redesign of our 4-hour flagship into 30 minute, AI-integrated modules for top-100 global companies.",
+        desc: "PM'ed a redesign of our 4-hour flagship into 30 minute, AI-integrated modules for top-100 global companies.",
         href: "/projects/inside-risk",
         image: "/images/feat-a.jpg",
       },
@@ -100,8 +100,7 @@ export default function App() {
       {
         id: "long-time-lets-see",
         title: "Long Time, Let’s See!",
-        desc:
-          "Social media designed like a dating app — getting users off the app for new experiences.",
+        desc: "Social media designed like a dating app — getting users off the app for new experiences.",
         href: "/projects/long-time-lets-see",
         image: "/images/feat-c.jpg",
       },
@@ -111,7 +110,6 @@ export default function App() {
 
   useEffect(() => {
     const items = document.querySelectorAll("[data-featured]");
-
     let armedItem = null;
 
     const onTap = (e) => {
@@ -136,20 +134,14 @@ export default function App() {
       armedItem = null;
     };
 
-    items.forEach((item) => {
-      item.addEventListener("click", onTap);
-    });
-
+    items.forEach((item) => item.addEventListener("click", onTap));
     document.addEventListener("touchstart", clear);
 
     return () => {
-      items.forEach((item) => {
-        item.removeEventListener("click", onTap);
-      });
+      items.forEach((item) => item.removeEventListener("click", onTap));
       document.removeEventListener("touchstart", clear);
     };
   }, []);
-
   // Carousel items (smaller circles with title + category icon)
   const carouselItems = useMemo(
     () => [
@@ -176,11 +168,11 @@ export default function App() {
         id: "t-now",
         date: "2023 — Spring 2027",
         title: "Yale University",
-        subtitle: "3.83 GPA | Cognitive Science of Subconscious and Interactive Experience.",
+        subtitle: "3.83 GPA | Cognitive Science of Subconscious and Interactive Experience",
         bullets: [
-          "MBA Coursework in UX Research / Design, Consumer Behavior",
           "M.Arch Coursework in Multisensory and Inclusive Spaces",
-          "Undergrad incl. Psychology of Marketing and Media, Computational Neuroscience, Cognitive Science of Large Language Models, Game Design, Digital IP, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
+          "MBA Coursework in UX Research / Design, Consumer Behavior",
+          "Undergrad incl. Psychology of Marketing and Media, Architecture, Computational Neuroscience, Mechanical Design, Cognitive Science of Large Language Models, Game Design, Digital IP, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
         ],
         dotImage: { src: "/images/yale.png", alt: "hths" },
       },
@@ -190,7 +182,7 @@ export default function App() {
         title: "InsideRisk",
         subtitle: "Project Manager and AI-Integration Lead",
         bullets: [
-          "Co-designed and delivered immersive leadership & recruiting programs used by top-100 global companies.",
+          "Co-designed and delivered live and digital immersive leadership & recruiting programs used by top-100 global companies.",
           "Managed end-to-end production of 15-20 minute behavioral assessment under strict constraints, aligning writers, designers, and data specialists to increase deployability and preserve psychometric validity of 400%+ longer modules.",
           "Led, as PM, redesign of flagship 4-hour program as 30-minute AI-integrated modules, enabling scalable delivery.",
         ],
@@ -282,63 +274,22 @@ export default function App() {
    * - Returning to home in same session: don't replay; show frozen last frame immediately.
    */
   const videoRef = useRef(null);
-  const [shouldAutoplay, setShouldAutoplay] = useState(false);
-
   useEffect(() => {
-    const key = "introPlayedThisSession";
-    const alreadyPlayed = sessionStorage.getItem(key) === "1";
+  if (typeof window === "undefined") return;
 
-    if (!alreadyPlayed) {
-      // First visit this session -> autoplay once
-      setShouldAutoplay(true);
-      sessionStorage.setItem(key, "1");
-    } else {
-      // Returning this session -> don't autoplay
-      setShouldAutoplay(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-
-    const freezeOnLastFrame = async () => {
-      try {
-        // Seek to the last moment and pause.
-        // Some browsers need a small epsilon to land on a decodable frame.
-        const epsilon = 0.05;
-        const target = Math.max(0, (v.duration || 0) - epsilon);
-        v.currentTime = target;
-        v.pause();
-      } catch {
-        // If seeking fails, at least ensure it isn't looping/replaying.
-        v.pause();
-      }
-    };
-
-    const onEnded = () => {
-      freezeOnLastFrame();
-    };
-
-    v.addEventListener("ended", onEnded);
-
-    // If we are NOT autoplaying (returning in session),
-    // immediately show the last frame by waiting for metadata then seeking.
-    if (!shouldAutoplay) {
-      const onLoadedMeta = () => freezeOnLastFrame();
-
-      if (v.readyState >= 1) {
-        freezeOnLastFrame();
-      } else {
-        v.addEventListener("loadedmetadata", onLoadedMeta, { once: true });
-      }
-    }
-
-    return () => {
-      v.removeEventListener("ended", onEnded);
-    };
-  }, [shouldAutoplay]);
-
+  const hash = window.location.hash;
+  if (hash !== "#afterIntro") return;
+  // Optional: stop/skip the video if we came here via the Home button
+  const v = videoRef.current;
+  if (v) {
+    try {
+      v.pause();
+      // If you want it to appear "complete", jump near the end:
+      const epsilon = 0.05;
+      if (v.readyState >= 1 && v.duration) v.currentTime = Math.max(0, v.duration - epsilon);
+    } catch {}
+  }
+}, []);
   return (
     <div className="pageRoot">
       <MobileNav revealOnScroll />
@@ -348,7 +299,7 @@ export default function App() {
         <video
           ref={videoRef}
           className="heroVideo"
-          autoPlay={shouldAutoplay}
+          autoPlay
           muted
           playsInline
           preload="auto"
