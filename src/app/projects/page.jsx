@@ -306,7 +306,7 @@ export default function ProjectsPage() {
       // OR match (any selected tag).
       return p.tags?.some((t) => activeTags.has(t));
     });
-  }, [projects, activeCats, medium, activeTags]);
+  }, [projects, medium, activeTags]);
 
   return (
     <main className="projectsPageV2">
