@@ -19,18 +19,18 @@ const steps = [
   credit: "Architect Zaha Hadid's Thesis, based on Malevich's Tektonik- an abstract floor plan as a representative model, rather than a literal one.",
     examples: [
       {
-        title: "Color Guard",
-        type: "game",
-        image: "/images/feat-b.jpg",
+        title: "Long Time, Let's See!",
+        type: "social media design",
+        image: "/images/feat-c.jpg",
         detail:
-          "Researched mobile gaming habits and player psychology to understand attention spans. Analyzed successful casual games to identify core engagement loops. Defined success as creating a game that feels rewarding in 2-minute bursts but encourages 20+ minute sessions.",
+          "HMW research based on social media problem statements revealed opportunity to capitalize on user desires for actually social forms of media. Before any ideas were drawn, we talked about ideal results and mapped existing solutions.",
       },
       {
-        title: "InsideRisk",
-        type: "product redesign",
-        image: "/images/ir.jpeg",
+        title: "Outernet",
+        type: "venue design",
+        image: "/images/ovl.png",
         detail:
-          "Mapped stakeholder needs across Fortune 100 clients, internal teams, and end users. Identified constraints: psychometric validity, production timelines, and scalability. Established that success meant maintaining assessment quality while reducing time by 87.5%.",
+          "Before any fancy design work, performers have needs and audiences have capacities. My inventory management system was customizable to each event's scale and staff experience, ensuring smooth operations whether for 50 or 5000 attendees.",
       },
     ],
   },
@@ -50,18 +50,18 @@ const steps = [
   credit: "Cover of Thomas Nagel's 'What's It Like To Be A Bat?' (1974), a foundational book in the philosophy of cognitive science.",
     examples: [
       {
-        title: "Kojima Productions",
-        type: "live event",
-        image: "/images/ovl.png",
+        title: "Color Guard",
+        type: "game",
+        image: "/images/feat-b.jpg",
         detail:
-          "Studied how fans experience game releases—anticipation, community, and tactile connection to IP. Identified gap: most pop-up stores feel transactional. Novel approach: designed storefront as an extension of game world itself, creating 12+ hour engagement through environmental storytelling.",
+          "Recognizing the tower defense genre's long-term strategy focus, I designed Color Guard to press on short-term tactics. That idea began and pervaded the design, from the core 'explode' mechanic to the shop economics, as a cognitive reframing of audience familiarity.",
       },
       {
-        title: "Long Time, Let's See",
-        type: "social app",
-        image: "/images/feat-c.jpg",
+        title: "ABCYa",
+        type: "Shakesperean Rap Battles",
+        image: "/images/abc.png",
         detail:
-          "Analyzed why social media feels draining—infinite scroll, comparison anxiety, passive consumption. Applied dating app's 'intentional connection' model to friendships. The novel gap: social apps keep you scrolling; this one pushes you to meet up and log off.",
+          "After identifying literature-based educational games as a gap, I leveraged modern associations of lyric verse in rap and educational psychology to begin crafting a game with a teach-then-rapid-fire-reinforce mechanic.",
       },
     ],
   },
@@ -76,18 +76,18 @@ const steps = [
   credit: "Guy Manuel's 'The Making of a Perfect Martini,' a representation of the controlled chaos and creativity of good prototyping.",
     examples: [
       {
-        title: "Color Guard",
-        type: "game",
-        image: "/images/feat-b.jpg",
+        title: "Touchscreen Experiments",
+        type: "engineering",
+        image: "/images/thumbs/ts.png",
         detail:
-          "Built 5+ paper prototypes testing different grid sizes and movement rules before touching code. Killed a complex 'combo system' that tested well but broke the core loop. Cardboard tiles revealed the joy was in spatial puzzle-solving, not flashy effects.",
+          "I've iterated on novel methods of touchscreen interaction to understand their impacts on users and avoid growing comfortable with arbitrary convention while understanding its utility.",
       },
       {
-        title: "Outernet Venues",
-        type: "event production",
+        title: "Kojima at OVL",
+        type: "event production and design",
         image: "/images/ovl.png",
         detail:
-          "Created foam-core spatial mockups of staging layouts at 1:20 scale. Tested flow with stand-in audience members. Scrapped initial 'theater-style' seating that felt impressive but created dead zones. Rapid iteration led to dynamic, activating configurations.",
+          "After creating an initial storefront designed for throughline ingress/egress, rapid complete layout alterations were necessary due to high demand. By reemphasizing different products through tailor-made solutions, we maintained cohesion while achieving near total sellout and engagement of over twelve continuous hours.",
       },
     ],
   },
@@ -105,18 +105,18 @@ const steps = [
   credit: "Brunelleschi's model of the Duomo in Florence... just an egg, used to represent the geometry which made the curvature possible.",
     examples: [
       {
-        title: "Color Guard",
+        title: "Want Cake, Am Lazy",
         type: "game",
-        image: "/images/feat-b.jpg",
+        image: "/images/thumbs/wcal.png",
         detail:
-          "Released TestFlight build to 20 players with zero instructions. Watched screen recordings: players who got past tutorial played 3x longer. What they said: 'cool game!' What they did: 60% quit during onboarding. The actions spoke louder—tutorial needed a redesign.",
+          "Simulated a game requiring object based A-B interaction with paper prototypes, bypassing development time towards the core creative concept- almost an improvised workshop, showing what people wanted to interact with when they looked into the room, and later developing the most creative and funniest solutions.",
       },
       {
         title: "InsideRisk",
         type: "product redesign",
         image: "/images/ir.jpeg",
         detail:
-          "Ran modules with test groups before full rollout. Users said they 'understood the scenarios.' Analytics showed 40% made choices inconsistent with their stated values. Their actions revealed we needed clearer consequence framing, not simpler language.",
+          "Staged live conversations and psychological evaluations to understand what made immersion with AI agents possible. Iterated on live event methodologies to create true immersion both inside and outside of ideal spaces- and, improved where audiences claimed to get a lot out of conversations, but their moment-to-moment said otherwise.",
       },
     ],
   },
@@ -138,14 +138,14 @@ const steps = [
         type: "game",
         image: "/images/feat-b.jpg",
         detail:
-          "Players tried to chain moves but couldn't see valid paths. Added subtle highlight glow on available tiles (microinteractivity). They tried to plan 3 moves ahead but couldn't track. Added optional 'ghost preview' mode (macrointeractivity). Sessions jumped from 8 to 23 minutes.",
+          "The core problem I found was players were optimizing away fun in the late-game by upgrading one guard and never exploding it, rather than diversifying and adapting as intended. This was counteracted in simple ways: first, making game-feel for lower upgraded explosions feel more powerful; second, adding a 'pentagon' enemy who destroys high-level guards; and third, flipping the shop economy to make cheap upgrades the most useful- encouraging all guards to be upgraded.",
       },
       {
-        title: "Kojima Productions",
-        type: "live event",
-        image: "/images/ovl.png",
+        title: "Curses!",
+        type: "physical card game",
+        image: "/images/curses.png",
         detail:
-          "Attendees tried to photograph everything but lighting made it hard. Redesigned key product displays with photo-friendly lighting (micro). They wanted to stay but didn't know when events started. Created visible countdown displays throughout space (macro). Engagement time doubled.",
+          "With a core gameplay loop of forbidding then coaxing behaviors (like the titular cursing), edge-case players got stuck in negative feedback loops of refusing to engage with the group. I added the 'quest' mechanic, leveraging the fantastical and ridiculous vibe, which required environmental and social engagement- beyond breaking quiet loops, this added memorable moments and further coaxed laughter and cursed exclamations.",
       },
     ],
   },
@@ -160,18 +160,18 @@ const steps = [
   credit: "Pac-Man, early revolutionary of Game Feel and sensory UX design. Excellent analysis in Noah Wardrup-Fruin's 'How Pac-Man Eats.'",
     examples: [
       {
-        title: "Color Guard",
+        title: "InsideRisk",
         type: "game",
-        image: "/images/feat-b.jpg",
+        image: "/images/ir.jpeg",
         detail:
-          "Shipped with known edge case: rare tile configurations could soft-lock. Instead of delaying, added a 'shuffle board' button that turned the bug into a feature—players could reset without penalty. Clear tutorial slide explained it. Zero complaints, 4.2 star rating.",
+          "In our goal to achieve live-matching immersion in a digital experience, microinteractions took from documentaries to compliment the medium rather than try to make it feel live towards an inevitable stripped-back results. When we couldn't have AI video conversations, we fell back on phone calls- creating a more business like and in-the-moment ecosystem that heightened immersion and psychometric validity rather than insisting on an impossible goal.",
       },
       {
-        title: "ABCYa",
-        type: "educational game",
-        image: "/images/abc.png",
+        title: "Outernet",
+        type: "venue design",
+        image: "/images/ovl.png",
         detail:
-          "Shakespearean Rap Battles had animation glitches on older iPads. Embraced it: added intentional 'glitch aesthetic' to all animations, made it feel like vinyl scratching. Wrote clear browser compatibility guide. Teachers loved the style; legacy device issues became a feature.",
+          "In the modern premium-experience based economy, knowing when to just dim the lights and fog a stage front is critical. Emphasizing a multisensory approach and knowing what makes an experience feel premium beyond only cost, end-to-end work from client quotes to event layouts and live feeds was optimized for cohesion. VIP and accessible spaces were scalable and adaptable, allowing for a multi-tier experience sheerly through framing.",
       },
     ],
   },
@@ -396,12 +396,10 @@ const handleDotClick = (index) => scrollToStepMiddle(index);
               From 10+ shipped videogames and apps to 5+ years of professional development;
               <br />
               <br />
-              or from backend production for events and venues to 30+ acting credits and performances to 5k+
-              audiences;
+              or from backend production for events and venues to 30+ acting credits and performances to audiences of 5k+;
               <br />
               <br />
-              even as a volunteer STEM curriculum designer or music instructor;
-              my <strong>Cognitive Design Process</strong> remains the same.
+              my <strong>Cognitive Design Process</strong> remains the same as an experience designer.
             </p>
           </div>
         </section>

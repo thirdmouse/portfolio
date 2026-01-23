@@ -34,6 +34,12 @@ body {
 .vocation {
   width: 50%;
 }
+
+@media (max-width: 900px) {
+  .vocation {
+    width: 75%;
+  }
+}
 :root {
   --sheet: #ffffff;
   --ink: #0b0b0b;
