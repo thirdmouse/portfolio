@@ -401,6 +401,7 @@ const handleDotClick = (index) => scrollToStepMiddle(index);
               <br />
               my <strong>Cognitive Design Process</strong> remains the same as an experience designer.
             </p>
+            <p className = "processDisclaimer"><br/><br/><br/><br/>It's constantly evolved in my interdisciplinary exploration- and I'm enthusiastic to see what it becomes next as I learn and continue my young career.</p>
           </div>
         </section>
 

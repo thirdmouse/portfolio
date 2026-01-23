@@ -32,7 +32,7 @@ body {
   transform: translateY(0);
 }
 .vocation {
-  width: 50%;
+  width: 75%;
 }
 
 @media (max-width: 900px) {

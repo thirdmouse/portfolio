@@ -340,7 +340,7 @@ export default function App() {
             </a>
             <br />
             <p className="vocation">
-              I am a multi-disciplinary creator, working in programming, architecture, professional performance, and event-planning.
+              I am a multi-disciplinary creator, working and learning in programming, architecture, professional performance, and event-planning.
               <br />
               <br /> Each passion is not only unified by my Cognitive-Science based design philosophy, but
               irrevocably contributes to it.
