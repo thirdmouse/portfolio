@@ -232,6 +232,27 @@ export default function App() {
         dotImage: { src: "/images/ovl.png", alt: "ovl" },
       },
       {
+        id: "t-stewart",
+        date: "2019-Now",
+        title: "Stewart Talent and TM Talent",
+        subtitle: "Professional Actor based in NYC",
+        description: (
+    <>
+      <a>Act professionally in animation, film, tv, and theater. 30+ credits acting,
+      singing, and hosting. Resume available</a> {" "}
+      <a
+        href="https://tinyurl.com/cpactingresume"
+        target="_blank"
+        rel="noreferrer"
+        className="underline"
+      >
+        here.
+      </a>
+    </>),
+        tags: ["Filmmaking"],
+        dotImage: { src: "/images/stewart.jpeg", alt: "stw" },
+      },
+      {
         id: "t-abcya",
         date: "2022-2023",
         title: "ABCYa",

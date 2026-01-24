@@ -714,6 +714,13 @@ body {
   display: block;
 }
 
+
+.timelineDescription {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.78);
+}
 .timelineDescription p {
   margin: 0;
   font-size: 13px;
@@ -721,6 +728,12 @@ body {
   color: rgba(11,11,11,0.78);
 }
 
+.timelineDescription a {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.78);
+}
 .timelineBullets {
   margin: 10px 0 0;
   padding-left: 18px;
