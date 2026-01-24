@@ -62,8 +62,8 @@ export default function App() {
         id: "all",
         title: "ALL PROJECTS",
         href: "/projects",
-        videoSrc: "/videos/engineering.mp4",
-        poster: "/videos/engineering-poster.jpg",
+        videoSrc: "/videos/allprojects.mov",
+        poster: "/videos/allprojects.jpg",
       },
     ],
     []
@@ -274,22 +274,51 @@ export default function App() {
    * - Returning to home in same session: don't replay; show frozen last frame immediately.
    */
   const videoRef = useRef(null);
-  useEffect(() => {
+useEffect(() => {
   if (typeof window === "undefined") return;
+  if (window.location.hash !== "#afterIntro") return;
 
-  const hash = window.location.hash;
-  if (hash !== "#afterIntro") return;
-  // Optional: stop/skip the video if we came here via the Home button
+  const el = document.getElementById("afterIntro");
+  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+
   const v = videoRef.current;
-  if (v) {
+  if (!v) return;
+
+  const epsilon = 0.05;
+
+  const skipToEndAndPause = () => {
     try {
+      // duration is only valid after metadata loads
+      const d = v.duration;
+      if (Number.isFinite(d) && d > 0) {
+        v.currentTime = Math.max(0, d - epsilon);
+      }
       v.pause();
-      // If you want it to appear "complete", jump near the end:
-      const epsilon = 0.05;
-      if (v.readyState >= 1 && v.duration) v.currentTime = Math.max(0, v.duration - epsilon);
-    } catch {}
+    } catch {
+      try { v.pause(); } catch {}
+    }
+  };
+
+  // If metadata is already ready, do it now.
+  if (v.readyState >= 1) {
+    skipToEndAndPause();
+    return;
   }
+
+  // Otherwise wait for metadata (more reliable on production/CDN)
+  const onMeta = () => skipToEndAndPause();
+  v.addEventListener("loadedmetadata", onMeta, { once: true });
+
+  // Some browsers/CDN timing edge cases: also try once it can play
+  const onCanPlay = () => skipToEndAndPause();
+  v.addEventListener("canplay", onCanPlay, { once: true });
+
+  return () => {
+    v.removeEventListener("loadedmetadata", onMeta);
+    v.removeEventListener("canplay", onCanPlay);
+  };
 }, []);
+
   return (
     <div className="pageRoot">
       <MobileNav revealOnScroll />
@@ -302,7 +331,7 @@ export default function App() {
           autoPlay
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="/video-poster.jpg"
         >
           <source src="/intro.mp4" type="video/mp4" />
