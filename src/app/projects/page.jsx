@@ -259,12 +259,12 @@ export default function ProjectsPage() {
 
   const mediumStatement = React.useMemo(() => {
     if (medium === "physical") {
-      return "Physical work is often the fastest path to truth: friction, weight, timing, and space design the experience with you.";
+      return "My physical work is about creating a space where experiences are heightened- harnessing all of the senses to enhance whatever content is being delivered.";
     }
     if (medium === "digital") {
-      return "Digital work is a precision playground: microinteractions, pacing, and systems can be tuned down to the millisecond.";
+      return "My digital work is about forming experiences that are effective in any location to broad audiences: microactivity and systems are precise and tuned per the medium.";
     }
-    return "I see physical and digital as complementary—often the same experience, expressed through different constraints and senses.";
+    return "I see physical and digital as complementary— often comprising the same experience, expressed through different constraints and senses.";
   }, [medium]);
 
   // --- Tag filter ---

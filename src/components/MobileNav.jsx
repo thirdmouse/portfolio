@@ -138,10 +138,13 @@ export default function MobileNav({
   }, [alwaysVisible, revealOnScroll, scrollContainerSelector, revealOnceSessionKey]);
 
   const rootClass = `mobileNav${isVisible ? " isVisible" : ""}`;
+  
+  const normalizeHref = (href) => (href ? href.split("#")[0] : href);
 
   const isRouteActive = (href) => {
-    if (!href) return false;
-    return href === "/" ? pathname === "/" : pathname?.startsWith(href);
+    const base = normalizeHref(href);
+    if (!base) return false;
+    return base === "/" ? pathname === "/" : pathname?.startsWith(base);
   };
 
   const scrollToSelector = (selector) => {
