@@ -383,18 +383,18 @@ useEffect(() => {
               creating user-focused, subconsciously powerful experiences.
             </p>
           </FadeIn>
-
           <FadeIn className="section centerBlock">
+            <p className="vocation">
+              <br /> My diverse enthusiasm reaches programming, architecture, professional acting and performance, and events management-
+               <br/>
+                <br/>Each passion is not only unified by my Cognitive-Science based design philosophy, but
+              irrevocably contributes to it.
+            </p>
+            <br/>
             <a href="/process" className="bigButton">
               Experience my Process
             </a>
-            <br />
-            <p className="vocation">
-              I am a multi-disciplinary creator, working and learning in programming, architecture, professional performance, and event-planning.
-              <br />
-              <br /> Each passion is not only unified by my Cognitive-Science based design philosophy, but
-              irrevocably contributes to it.
-            </p>
+            <br/>
           </FadeIn>
 
           <FadeIn className="section">
@@ -421,6 +421,26 @@ useEffect(() => {
                 </a>
               ))}
             </div>
+          </FadeIn>
+
+          <FadeIn className="cta">
+            <br/>
+            <h2>I'm looking for my next steps. I want to design, manage, and deliver experiences with and learn from companies that make an impact and create culture. </h2>
+            <br/>
+          <button
+            type="button"
+            aria-label="Scroll to contact"
+            className="bigButton2"
+            label="Contact Me"
+            onClick={() => {
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Contact Me
+          </button>
+            <br/>
+            <br/>
+            <p>Here's what I've already done.</p>
           </FadeIn>
 
           {/* Resume Timeline section */}
