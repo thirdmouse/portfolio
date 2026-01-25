@@ -93,17 +93,19 @@ export default function ProjectsPage() {
       {
         id: "wcal",
         title: "Want Cake, Am Lazy",
-        subtitle: "Rapid ideation through simulation",
+        subtitle: "Puzzle-Box Game",
         description:
-          "Paper-prototyped interaction loops to discover what people naturally reach for—then built the “funniest” solutions.",
-        category: "design",
-        medium: "digital",
-        tags: ["prototyping", "figma"],
+          "Emergent gameplay through puzzle-box design. Prototyped with paper models, streamlining dev process and revealing what people actually wanted to do, rather than designing towards arbitrary goals.",
+        category: "games",
+        medium: "Both",
+        tags: ["prototyping", "miro", "game-engine", "physical-design", "programming"],
         thumbSrc: "/images/thumbs/wcal.png",
         caseStudy: {
           role: "Designer / Builder",
           outcome:
-            "Fast prototyping helped validate the core interactions before investing in implementation.",
+            "WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.",
+          process:
+            "hey",
         },
       },
       {
