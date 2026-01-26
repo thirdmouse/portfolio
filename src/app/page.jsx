@@ -235,11 +235,11 @@ export default function App() {
         id: "t-stewart",
         date: "2019-Now",
         title: "Stewart Talent and TM Talent",
-        subtitle: "Professional Actor based in NYC",
+        subtitle: "Professional Actor based in NYC - incl. 2M+ views as CatRat in Gabby's Dollhouse on Roblox",
         description: (
     <>
       <a>Act professionally in animation, film, tv, and theater. 30+ credits acting,
-      singing, and hosting. Resume available</a> {" "}
+      singing, and hosting.Resume available</a> {" "}
       <a
         href="https://tinyurl.com/cpactingresume"
         target="_blank"
@@ -385,7 +385,7 @@ useEffect(() => {
           </FadeIn>
           <FadeIn className="section centerBlock">
             <p className="vocation">
-              <br /> My diverse enthusiasm reaches programming, architecture, professional acting and performance, and events management-
+              <br /> My diverse enthusiasm reaches programming, architecture, professional acting and performance, and events management...
                <br/>
                 <br/>Each passion is not only unified by my Cognitive-Science based design philosophy, but
               irrevocably contributes to it.
@@ -425,7 +425,7 @@ useEffect(() => {
 
           <FadeIn className="cta">
             <br/>
-            <h2>I'm looking for my next steps. I want to design, manage, and deliver experiences with and learn from companies that make an impact and create culture. </h2>
+            <h2>I'm looking for my next steps. I want to design, manage, and deliver experiences with - and learn from - companies that make an impact and create culture. </h2>
             <br/>
           <button
             type="button"

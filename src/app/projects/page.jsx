@@ -14,24 +14,6 @@ import MobileNav from "../../components/MobileNav";
  * - Cards with href get a subtle blue "hasLink" highlight
  * - Cards without href open a fullscreen modal (inspired by Process example boxes)
  */
-
-const TAGS = [
-  { key: "figma", label: "Figma" },
-  { key: "miro", label: "Miro" },
-  { key: "demo", label: "Playable Demo" },
-  { key: "video-editing", label: "Video Editing (Premiere, Final Cut)" },
-  { key: "game-engine", label: "Game Engine (Unity, Unreal)" },
-  { key: "physical-design", label: "Physical Design" },
-  { key: "event-design", label: "Event Design" },
-  { key: "sensory-design", label: "Sensory Design" },
-  { key: "engineering", label: "Engineering" },
-  { key: "programming", label: "Programming (C#, Python, React, Matlab)" },
-  { key: "data-analysis", label: "Data Analysis" },
-  { key: "prototyping", label: "Prototyping" },
-  { key: "manufacturing", label: "Manufacturing" },
-  { key: "performance", label: "Performance" },
-  { key: "user", label: "User Testing" },
-];
 function Collapsible({ isOpen, children, className = "" }) {
   const innerRef = React.useRef(null);
   const [height, setHeight] = React.useState(0);
@@ -71,6 +53,16 @@ function hashToMedium(hash) {
 }
 
 export default function ProjectsPage() {
+  const [openDropdowns, setOpenDropdowns] = React.useState(() => new Set());
+
+const toggleDropdown = (id) => {
+  setOpenDropdowns((prev) => {
+    const next = new Set(prev);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    return next;
+  });
+};
   const [tagsOpen, setTagsOpen] = React.useState(false);
 
     const CATEGORY_META = React.useMemo(
@@ -82,232 +74,350 @@ export default function ProjectsPage() {
     }),
     []
   );
+const projects = React.useMemo(
+  () => [
+    {
+      id: "inside-risk",
+      title: "InsideRisk",
+      subtitle: "AI-integrated psychometric experiences",
+      description:
+        "Redesigned a flagship 4-hour experience into fast, modular delivery—keeping immersion while scaling to enterprise clients.",
+      // TODO: add additional longform blocks / images / metrics
+      category: "design",
+      medium: "digital",
+      tags: [
+        "team",
+        "management",
+        "prototyping",
+        "agile",
+        "ux-research",
+        "data-analysis",
+        "video-editing",
+        "film",
+        "design",
+        "engineering",
+        "event",
+        "miro",
+        "figma",
+        "programming",
+      ],
+      href: "/projects/inside-risk",
+      thumbSrc: "/images/ir.jpeg",
+      // TODO: caseStudy: { role: "", outcome: (<>...</>) }
+    },
 
-  const projects = React.useMemo(
-    () => [
-      {
-        id: "inside-risk",
-        title: "InsideRisk",
-        subtitle: "AI-integrated psychometric experiences",
-        description:
-          "Redesigned a flagship 4-hour experience into fast, modular delivery—keeping immersion while scaling to enterprise clients.",
-        category: "design",
-        medium: "digital",
-        tags: ["figma", "programming", "data-analysis"],
-        href: "/projects/inside-risk",
-        thumbSrc: "/images/ir.jpeg",
-      },
-      {
-        id: "color-guard",
-        title: "Color Guard",
-        subtitle: "iOS game design + analytics iteration",
-        description:
-          "Shipped to players in 10+ countries. Iterated economy + anti-fun mitigation using playtests and telemetry.",
-        category: "games",
-        medium: "digital",
-        tags: ["game-engine", "programming", "data-analysis"],
-        href: "/projects/color-guard",
-        thumbSrc: "/images/feat-b.jpg",
-      },
-      {
-        id: "long-time-lets-see",
-        title: "Long Time, Let’s See!",
-        subtitle: "Social media as an “experience matcher”",
-        description:
-          "A social platform designed like a dating app—optimized to get users off the app and into new experiences.",
-        category: "design",
-        medium: "digital",
-        tags: ["figma", "prototyping"],
-        href: "/projects/long-time-lets-see",
-        thumbSrc: "/images/feat-c.jpg",
-      },
+    {
+      id: "color-guard",
+      title: "Color Guard",
+      subtitle: "iOS game design + analytics iteration",
+      description:
+        "Shipped to players in 10+ countries. Iterated economy + anti-fun mitigation using playtests and telemetry.",
+      // TODO: add playtest notes / charts / iteration snapshots
+      category: "games",
+      medium: "digital",
+      tags: [
+        "solo",
+        "prototyping",
+        "agile",
+        "ux-research",
+        "video-editing",
+        "game",
+        "design",
+        "unity",
+        "programming",
+      ],
+      href: "/projects/color-guard",
+      thumbSrc: "/images/feat-b.jpg",
+    },
 
-      // Existing thumbnails (kept) — add richer metadata + some are modal-only for now.
-      {
-        id: "wcal",
-        title: "Want Cake, Am Lazy",
-        subtitle: "Puzzle-Box Game (Demo and Miro board)",
-        description:
-          "Emergent gameplay through puzzle-box design. Prototyped with paper models, streamlining dev process and revealing what people actually wanted to do, rather than designing towards arbitrary goals.",
-        category: "games",
-        medium: "Both",
-        tags: ["prototyping", "miro", "game-engine", "physical-design", "programming", "demo", "prototyping", "user"],
-        thumbSrc: "/images/thumbs/wcal.png",
-        caseStudy: {
-          role: "Designer (independent)",
-          outcome:
-            (
-  <>
-    WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.
-    <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
-      <div className="caseImageCaption">
-        <span className="caseImageCaptionText">
-          Title screen and view of the room in the demo.
-        </span>
-      </div>
-    </div>
-    <br/>
-    To prototype, I realized that any digital version would require a complex AI-integrated physics system- or, I could actually harness <strong>user creativity.</strong>
+    {
+      id: "long-time-lets-see",
+      title: "Long Time, Let’s See!",
+      subtitle: "Social media as an “experience matcher”",
+      description:
+        "A social platform designed like a dating app—optimized to get users off the app and into new experiences.",
+      // TODO: add concept flow / screens / user value prop
+      category: "design",
+      medium: "digital",
+      tags: [
+        "team",
+        "prototyping",
+        "ux-research",
+        "design",
+        "engineering",
+        "miro",
+        "figma",
+        "programming",
+      ],
+      href: "/projects/long-time-lets-see",
+      thumbSrc: "/images/feat-c.jpg",
+    },
 
-    <br/>
-    <br/>
-    I built a physical model with as many odd appliances as could be made apparent, and let people run wild- I documented it on
-      <a
-        href="https://miro.com/app/board/uXjVJl-U6CY=/?share_link_id=520286821732"
-        target="_blank"
-        rel="noreferrer"
-        className="underline"
-      >
-       a Miro board
-      </a>, and it resulted in <a
-        href="https://charlie-patton.itch.io/want-cake-am-lazy"
-        target="_blank"
-        rel="noreferrer"
-        className="underline"
-      >
-        this demo
-      </a>. Try starting a fire and making a boat; or using a vent to blow a slice of cake to you!   
-      <div className="caseImageWrapper">
-        <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
-        <div className="caseImageCaption">
-          <span className="caseImageCaptionText">
-            Title screen and view of the room in the demo.
-          </span>
-        </div>
-      </div>   
-  </>
-)
-        },
+    {
+      id: "wcal",
+      title: "Want Cake, Am Lazy",
+      subtitle: "Puzzle-Box Game (Demo and Miro board)",
+      description:
+        "Emergent gameplay through puzzle-box design. Prototyped with paper models, streamlining dev process and revealing what people actually wanted to do, rather than designing towards arbitrary goals.",
+      // TODO: add short summary text box (problem / approach / result)
+      category: "games",
+      medium: "Both",
+      tags: [
+        "solo",
+        "prototyping",
+        "ux-research",
+        "game",
+        "design",
+        "miro",
+        "unity",
+        "programming",
+        "manufacturing",
+        "cad",
+      ],
+      thumbSrc: "/images/thumbs/wcal.png",
+      caseStudy: {
+        role: "Designer (independent)",
+        // TODO: split into sections (problem / prototype / learnings / next)
+        outcome: (
+          <>
+            {/* TODO: add a 1–2 sentence “Outcome summary” here */}
+
+            WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.
+
+            {/* TODO: image + caption blocks */}
+            <div className="caseImageWrapper">
+              <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
+              <div className="caseImageCaption">
+                <span className="caseImageCaptionText">
+                  {/* TODO: caption text */}
+                  Title screen and view of the room in the demo.
+                </span>
+              </div>
+            </div>
+
+            {/* TODO: add more text blocks / links / second image */}
+          </>
+        ),
       },
-      {
-        id: "closet",
-        title: "Closet",
-        subtitle: "Cinematography + editing study",
-        description:
-          "Video-editing and cinematography experiment seeking to create horror through the unexpected and uncanny.",
-        category: "film",
-        medium: "digital",
-        tags: ["video-editing"],
-        thumbSrc: "/images/thumbs/closet.png",
+    },
+
+    {
+      id: "closet",
+      title: "Closet",
+      subtitle: "Cinematography + editing study",
+      description:
+        "Video-editing and cinematography experiment seeking to create horror through the unexpected and uncanny.",
+      // TODO: add embed / stills / edit notes
+      category: "film",
+      medium: "digital",
+      tags: ["solo", "video-editing"],
+      thumbSrc: "/images/thumbs/closet.png",
+    },
+
+    {
+      id: "heat",
+      title: "Heat",
+      subtitle: "Editing + narrative rhythm",
+      description:
+        "A film edit focused on intensity curves: when to compress, when to linger, and where to let silence land.",
+      // TODO: add edit breakdown / before-after clips
+      category: "film",
+      medium: "digital",
+      tags: ["solo", "video-editing", "film"],
+      thumbSrc: "/images/thumbs/heat.png",
+    },
+
+    {
+      id: "storyvox",
+      title: "Storyvox",
+      subtitle: "Assistive OCR reader",
+      description:
+        "Capstone product engineering project: a reader that bridges text recognition to usable, human-centered output.",
+      // TODO: add system diagram / user flow / testing notes
+      category: "engineering",
+      medium: "digital",
+      tags: ["team", "management", "ux-research", "engineering", "programming", "manufacturing", "cad"],
+      thumbSrc: "/images/thumbs/storyvox.png",
+    },
+
+    {
+      id: "touchscreen",
+      title: "Touchscreen Experiments",
+      subtitle: "Novel interaction affordances",
+      description:
+        "Iterated on unconventional touch input patterns to understand what feels intuitive, playful, and precise.",
+      // TODO: add gifs / interaction notes / prototype links
+      category: "design",
+      medium: "digital",
+      tags: ["solo", "ux-research", "sensory-design", "data-analysis", "design", "engineering", "unity", "programming"],
+      thumbSrc: "/images/thumbs/ts.png",
+    },
+
+    {
+      id: "curses",
+      title: "Curses!",
+      subtitle: "Physical Card Game (Downloadable and Playable)",
+      description:
+        "Designed social mechanics to coax group play and break negative loops, toward laughter-first participation.",
+      // TODO: add print-and-play link / photos / rules snippet
+      category: "games",
+      medium: "physical",
+      tags: ["solo", "prototyping", "ux-research", "game", "design", "manufacturing"],
+      thumbSrc: "/images/thumbs/curses.png",
+      caseStudy: {
+        role: "Designer (independent)",
+        outcome: (
+          <>
+            {/* TODO: add outcome text + images */}
+          </>
+        ),
       },
-      {
-        id: "curses",
-        title: "Curses!",
-        subtitle: "Physical Card Game (Downloadable and Playable)",
-        description:
-          "Designed social mechanics to coax group play and break negative loops, toward laughter-first participation.",
-        category: "games",
-        medium: "physical",
-        tags: ["physical-design", "sensory-design", "demo", "prototyping", "user"],
-        thumbSrc: "/images/thumbs/curses.png",
-        caseStudy: {
-          role: "Designer (independent)",
-          outcome: "engaged"
-        }
-      },
-      {
-        id: "touchscreen",
-        title: "Touchscreen Experiments",
-        subtitle: "Novel interaction affordances",
-        description:
-          "Iterated on unconventional touch input patterns to understand what feels intuitive, playful, and precise.",
-        category: "design",
-        medium: "digital",
-        tags: ["prototyping", "programming"],
-        thumbSrc: "/images/thumbs/ts.png",
-      },
-      {
-        id: "storyvox",
-        title: "Storyvox",
-        subtitle: "Assistive OCR reader",
-        description:
-          "Capstone product engineering project: a reader that bridges text recognition to usable, human-centered output.",
-        category: "engineering",
-        medium: "digital",
-        tags: ["engineering", "programming", "data-analysis"],
-        thumbSrc: "/images/thumbs/storyvox.png",
-      },
-      {
-        id: "heat",
-        title: "Heat",
-        subtitle: "Editing + narrative rhythm",
-        description:
-          "A film edit focused on intensity curves: when to compress, when to linger, and where to let silence land.",
-        category: "film",
-        medium: "digital",
-        tags: ["video-editing"],
-        thumbSrc: "/images/thumbs/heat.png",
-      },
-      {
-        id: "guerra",
-        title: "Guerra de Discretos",
-        subtitle: "Systems-first game design",
-        description:
-          "Shipped game experiment exploring rules as “experience levers”—balance, pacing, and player intent.",
-        category: "games",
-        medium: "digital",
-        tags: ["game-engine", "programming"],
-        thumbSrc: "/images/thumbs/guerra.png",
-      },
-      {
-        id: "rover",
-        title: "Lil' Dipper Rover",
-        subtitle: "Prototyping a physical system",
-        description:
-          "Built and iterated a small rover concept—mechanics, fabrication constraints, and test-driven iteration.",
-        category: "engineering",
-        medium: "physical",
-        tags: ["engineering", "prototyping", "manufacturing"],
-        thumbSrc: "/images/thumbs/rover.png",
-      },
-      {
-        id: "sisyphus",
-        title: "Requiem for Sisyphus",
-        subtitle: "Vaudeville-Silent inspired slapstick comedy film",
-        description:
-          "Telling a classic story about two drunken cowboys, their conflict, and their inevitable coming-to-terms for a class in Stage Combat",
-        category: "film",
-        medium: "digital",
-        tags: ["video-editing", "performance"],
-        thumbSrc: "/images/thumbs/sisyphus.png",
-      },
-      {
-        id: "hanger",
-        title: "Cart Hanger",
-        subtitle: "Manufacturable physical design",
-        description:
-          "A hardware concept shaped by constraints: tolerances, assembly, and how objects teach use through form.",
-        category: "engineering",
-        medium: "physical",
-        tags: ["physical-design", "engineering", "manufacturing"],
-        thumbSrc: "/images/thumbs/hanger.png",
-      },
-      {
-        id: "acropolis",
-        title: "Live from the Acropolis",
-        subtitle: "Performance + spatial staging",
-        description:
-          "Designed a live experience with emphasis on audience flow, sightlines, and sensory “moments.”",
-        category: "design",
-        medium: "physical",
-        tags: ["event-design", "sensory-design"],
-        thumbSrc: "/images/thumbs/athens.png",
-      },
-      {
-        id: "habitat",
-        title: "PLTW Habitat for Humanity",
-        subtitle: "End-to-end civil engineering project",
-        description:
-          "From planning to execution—physical constraints, stakeholder needs, and making complexity feel simple.",
-        category: "engineering",
-        medium: "physical",
-        tags: ["engineering", "manufacturing"],
-        thumbSrc: "/images/thumbs/habitat.png",
-      },
-    ],
-    []
-  );
+    },
+
+    {
+      id: "acropolis",
+      title: "Live from the Acropolis",
+      subtitle: "Performance + spatial staging",
+      description:
+        "Designed a live experience with emphasis on audience flow, sightlines, and sensory “moments.”",
+      // TODO: add staging plan / photos / reflection
+      category: "design",
+      medium: "physical",
+      tags: ["solo", "sensory-design", "video-editing", "event"],
+      thumbSrc: "/images/thumbs/athens.png",
+    },
+
+    // --- These next ones appear in the spreadsheet but not in your pasted code earlier.
+    // Keeping them here with clear placeholders so you can fill them in.
+
+    {
+      id: "kojima-ovl",
+      title: "Kojima @ OVL",
+      subtitle: "TODO: subtitle",
+      description: "TODO: short description",
+      // TODO: add longform text blocks / links
+      category: "design",
+      medium: "physical",
+      tags: ["team", "management", "sensory-design", "design", "event"],
+      thumbSrc: "/images/thumbs/kojima.png", // TODO: set thumb path
+    },
+
+    {
+      id: "yale-historical-society",
+      title: "Yale Historical Society",
+      subtitle: "TODO: subtitle",
+      description: "TODO: short description",
+      // TODO: add longform text blocks / links
+      category: "design",
+      medium: "physical",
+      tags: ["team", "management", "data-analysis", "event", "manufacturing"],
+      thumbSrc: "/images/thumbs/yale.png", // TODO: set thumb path
+    },
+
+    {
+      id: "flannel",
+      title: "FLANNEL. (band)",
+      subtitle: "TODO: subtitle",
+      description: "TODO: short description",
+      // TODO: add longform text blocks / links
+      category: "design",
+      medium: "physical",
+      tags: ["team", "management", "design", "event"],
+      thumbSrc: "/images/thumbs/flannel.png", // TODO: set thumb path
+    },
+
+    {
+      id: "requiem-for-sisyphus",
+      title: "Requiem for Sisyphus",
+      subtitle: "Silent inspired slapstick comedy film",
+      description:
+        "Telling a classic story about two drunken cowboys, their conflict, and their inevitable coming-to-terms for a class in Stage Combat",
+      // TODO: add link / stills / edit notes
+      category: "film",
+      medium: "digital",
+      tags: ["team", "film", "video-editing"],
+      thumbSrc: "/images/thumbs/sisyphus.png",
+    },
+
+    {
+      id: "guerra",
+      title: "Guerra de Discretos",
+      subtitle: "Systems-first game design",
+      description:
+        "Shipped game experiment exploring rules as “experience levers”—balance, pacing, and player intent.",
+      // TODO: add ruleset / balancing notes
+      category: "games",
+      medium: "digital",
+      tags: ["team", "game", "design", "manufacturing"],
+      thumbSrc: "/images/thumbs/guerra.png",
+    },
+
+    {
+      id: "rover",
+      title: "Lil' Dipper Rover",
+      subtitle: "Prototyping a physical system",
+      description:
+        "Built and iterated a small rover concept—mechanics, fabrication constraints, and test-driven iteration.",
+      // TODO: add build photos / iteration notes
+      category: "engineering",
+      medium: "physical",
+      tags: ["team", "management", "agile", "engineering", "programming", "manufacturing"],
+      thumbSrc: "/images/thumbs/rover.png",
+    },
+
+    {
+      id: "habitat",
+      title: "PLTW Habitat for Humanity",
+      subtitle: "End-to-end civil engineering project",
+      description:
+        "From planning to execution—physical constraints, stakeholder needs, and making complexity feel simple.",
+      // TODO: add drawings / deliverables
+      category: "engineering",
+      medium: "physical",
+      tags: ["solo", "engineering", "cad"],
+      thumbSrc: "/images/thumbs/habitat.png",
+    },
+
+    {
+      id: "hanger",
+      title: "Cart Hanger",
+      subtitle: "Manufacturable physical design",
+      description:
+        "A hardware concept shaped by constraints: tolerances, assembly, and how objects teach use through form.",
+      // TODO: add CAD renders / manufacturing notes
+      category: "engineering",
+      medium: "physical",
+      tags: ["team", "prototyping", "agile", "ux-research", "engineering", "manufacturing", "cad"],
+      thumbSrc: "/images/thumbs/hanger.png",
+    },
+
+    {
+      id: "neuroscience-research",
+      title: "Neuroscience Research",
+      subtitle: "TODO: subtitle",
+      description: "TODO: short description",
+      // TODO: add methods / findings
+      category: "engineering",
+      medium: "digital",
+      tags: ["solo", "data-analysis", "engineering", "programming"],
+      thumbSrc: "/images/thumbs/neuro.png", // TODO: set thumb path
+    },
+
+    {
+      id: "llm-research",
+      title: "LLM Research",
+      subtitle: "TODO: subtitle",
+      description: "TODO: short description",
+      // TODO: add methods / findings
+      category: "engineering",
+      medium: "digital",
+      tags: ["solo", "data-analysis", "engineering"],
+      thumbSrc: "/images/thumbs/llm.png", // TODO: set thumb path
+    },
+  ],
+  []
+);
+
 
   // --- Physical / Digital state (synced to hash) ---
   const [medium, setMedium] = React.useState("all"); // "physical" | "digital" | "all"
@@ -350,19 +460,77 @@ export default function ProjectsPage() {
     return "";
   }, [medium]);
 
-  // --- Tag filter ---
-  const [activeTags, setActiveTags] = React.useState(() => new Set());
+  // --- Grouped filters (multi-select per group) ---
+const FILTER_GROUPS = [
+  {
+    id: "group",
+    label: "Group",
+    options: [
+      { key: "solo", label: "Solo" },
+      { key: "team", label: "Team" },
+    ],
+  },
+  {
+    id: "skills",
+    label: "Skills",
+    options: [
+      { key: "management", label: "Management" },
+      { key: "prototyping", label: "Prototyping" },
+      { key: "agile", label: "Agile" },
+      { key: "ux-research", label: "UX Research" },
+      { key: "sensory-design", label: "Sensory Design" },
+      { key: "data-analysis", label: "Data Analysis" },
+    ],
+  },
+  {
+    id: "medium",
+    label: "Medium",
+    options: [
+      { key: "game", label: "Game" },
+      { key: "film", label: "Film" },
+      { key: "design", label: "Design" },
+      { key: "engineering", label: "Engineering" },
+      { key: "event", label: "Event" },
+    ],
+  },
+  {
+    id: "tools",
+    label: "Tools",
+    options: [
+      { key: "miro", label: "Miro" },
+      { key: "figma", label: "Figma" },
+      { key: "unity", label: "Unity" },
+      { key: "programming", label: "Programming" },
+    ],
+  },
+];
 
-  const toggleTag = (key) => {
-    setActiveTags((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
-  };
+const [filters, setFilters] = React.useState(() => ({
+  group: new Set(),
+  skills: new Set(),
+  medium: new Set(),
+  tools: new Set(),
+}));
 
-  const deselectAll = () => setActiveTags(new Set());
+const toggleFilter = (groupId, key) => {
+  setFilters((prev) => {
+    const next = { ...prev };
+    const set = new Set(next[groupId]);
+    if (set.has(key)) set.delete(key);
+    else set.add(key);
+    next[groupId] = set;
+    return next;
+  });
+};
+
+const deselectAll = () => {
+  setFilters({
+    group: new Set(),
+    skills: new Set(),
+    medium: new Set(),
+    tools: new Set(),
+  });
+};
 
   // --- Modal ---
   const [openProjectId, setOpenProjectId] = React.useState(null);
@@ -378,18 +546,25 @@ export default function ProjectsPage() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
+const visibleProjects = React.useMemo(() => {
+  return projects.filter((p) => {
+    if (medium !== "all" && p.medium !== medium) return false;
 
-  const visibleProjects = React.useMemo(() => {
-    return projects.filter((p) => {
-      if (medium !== "all" && p.medium !== medium) return false;
+    const tags = p.tags || [];
 
-      // If no tags selected, don't filter by tag.
-      if (activeTags.size === 0) return true;
+    // For each group: if nothing selected, ignore that group.
+    // If selected, project must match at least one option from that group.
+    for (const g of FILTER_GROUPS) {
+      const selected = filters[g.id];
+      if (!selected || selected.size === 0) continue;
 
-      // OR match (any selected tag).
-      return p.tags?.some((t) => activeTags.has(t));
-    });
-  }, [projects, medium, activeTags]);
+      const hit = tags.some((t) => selected.has(t));
+      if (!hit) return false;
+    }
+
+    return true;
+  });
+}, [projects, medium, filters]);
 
   return (
     <main className="projectsPageV2">
@@ -439,50 +614,60 @@ export default function ProjectsPage() {
 
         {/* Tags */}
         {/* Tags */}
-<div className="tagPanel" aria-label="Project tags">
-  <button
-    className="tagPanelTop tagPanelToggle"
-    type="button"
-    onClick={() => setTagsOpen((v) => !v)}
-    aria-expanded={tagsOpen}
-    aria-controls="projects-tags-collapsible"
-  >
-    <div className="tagPanelTopLeft">
-      <div className="tagPanelHint">Tags filter by tool / medium (multi-select).</div>
-    </div>
-
-    <span className={`tagChevron ${tagsOpen ? "isOpen" : ""}`} aria-hidden="true">
-      ▾
-    </span>
+{/* Grouped filters row */}
+<div className="tagDropdownRow" aria-label="Project filters">
+  {/* far-left pill */}
+  <button className="tagClear" type="button" onClick={deselectAll}>
+    Deselect
   </button>
 
-  <Collapsible isOpen={tagsOpen}>
-    <div id="projects-tags-collapsible">
-      <div className="tagPanelActions">
-        <button className="tagClear" type="button" onClick={deselectAll}>
-          Deselect all
-        </button>
-      </div>
+  {FILTER_GROUPS.map((g) => {
+    const count = filters[g.id]?.size || 0;
+    const isOpen = openDropdowns.has(g.id);
 
-      <div className="tagGrid">
-        {TAGS.map((t) => {
-          const isOn = activeTags.has(t.key);
-          return (
-            <button
-              key={t.key}
-              className={`tagChip ${isOn ? "isOn" : ""}`}
-              type="button"
-              onClick={() => toggleTag(t.key)}
-              aria-pressed={isOn}
-            >
-              {t.label}
-            </button>
-          );
-        })}
+    return (
+      <div key={g.id} className="tagDropdown">
+        <button
+          type="button"
+          className={`tagDropdownPill ${count ? "hasSelection" : ""}`}
+          onClick={() => toggleDropdown(g.id)}
+          aria-expanded={isOpen}
+          aria-controls={`tag-dd-${g.id}`}
+        >
+          <span className="tagDropdownLabel">
+            {g.label}{count ? ` (${count})` : ""}
+          </span>
+
+          <span className={`timelineChevron ${isOpen ? "isOpen" : ""}`} aria-hidden="true">
+            ▾
+          </span>
+        </button>
+
+        <Collapsible isOpen={isOpen}>
+          <div id={`tag-dd-${g.id}`} className="tagDropdownMenu">
+            <div className="tagGrid">
+              {g.options.map((opt) => {
+                const isOn = filters[g.id]?.has(opt.key);
+                return (
+                  <button
+                    key={opt.key}
+                    className={`tagChip ${isOn ? "isOn" : ""}`}
+                    type="button"
+                    onClick={() => toggleFilter(g.id, opt.key)}
+                    aria-pressed={isOn}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </Collapsible>
       </div>
-    </div>
-  </Collapsible>
+    );
+  })}
 </div>
+
 
       </header>
 

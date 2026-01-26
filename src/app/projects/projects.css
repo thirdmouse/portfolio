@@ -117,6 +117,78 @@
   color: var(--ink);
   text-align: center;
 }
+.tagDropdownRow{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  align-items: start;
+}
+/* each dropdown "unit" */
+.tagDropdown{
+  flex: 1 1 0;          /* 5 equal columns */
+  position: relative;   /* needed if you overlay the menu */
+}
+
+/* the dropdown trigger pill */
+.tagDropdownPill{
+  border: 1px solid rgba(11,11,11,0.18);
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  width: 100%;
+  justify-content: space-between;
+}.tagDropdownMenu .tagGrid{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Make each option full-width (stacked) */
+.tagDropdownMenu .tagChip{
+  width: 100%;
+  justify-content: flex-start; /* text aligns nicely */
+}
+
+.tagDropdownPill:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+.tagDropdownPill.hasSelection{
+  border-color: rgba(56,182,255,0.55);
+  box-shadow: 0 12px 24px rgba(56,182,255,0.14);
+}
+
+.tagDropdownLabel{
+  font-size: 12px;
+}
+
+/* collapsible (ResumeTimeline-style max-height) */
+.tagDropdownCollapsible{
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 260ms ease;
+}
+
+.tagDropdownCollapsibleInner{
+  padding-top: 10px;
+}
+
+/* dropdown menu surface */
+.tagDropdownMenu{
+  border: 1px solid rgba(11,11,11,0.12);
+  background: rgba(255,255,255,0.96);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+}
 
 /* Header spacing (since title bar is sticky) */
 .projectsHeaderV2{
@@ -258,6 +330,11 @@
   border-radius: 999px;
   padding: 10px 12px;
   cursor: pointer;
+  text-overflow: unset;
+  font-size: clamp(11px, 1.2vw, 14px);
+  overflow: hidden;
+  text-align: center;   
+  word-break: normal;
   font-size: 12px;
   transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
