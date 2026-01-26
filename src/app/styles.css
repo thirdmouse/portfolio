@@ -341,10 +341,12 @@ body {
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 520ms ease, transform 520ms ease;
+  pointer-events: none;
 }
 .fadeIn.isVisible {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 .tripleParallax {
   /* Use dynamic viewport units for mobile browser UI (Chrome/Safari) */

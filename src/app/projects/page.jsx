@@ -18,6 +18,7 @@ import MobileNav from "../../components/MobileNav";
 const TAGS = [
   { key: "figma", label: "Figma" },
   { key: "miro", label: "Miro" },
+  { key: "demo", label: "Playable Demo" },
   { key: "video-editing", label: "Video Editing (Premiere, Final Cut)" },
   { key: "game-engine", label: "Game Engine (Unity, Unreal)" },
   { key: "physical-design", label: "Physical Design" },
@@ -28,7 +29,37 @@ const TAGS = [
   { key: "data-analysis", label: "Data Analysis" },
   { key: "prototyping", label: "Prototyping" },
   { key: "manufacturing", label: "Manufacturing" },
+  { key: "performance", label: "Performance" },
+  { key: "user", label: "User Testing" },
 ];
+function Collapsible({ isOpen, children, className = "" }) {
+  const innerRef = React.useRef(null);
+  const [height, setHeight] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+
+    const measure = () => setHeight(el.scrollHeight);
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [children]);
+
+  return (
+    <div
+      className={`projectsCollapsible ${isOpen ? "isOpen" : ""} ${className}`}
+      style={{ maxHeight: isOpen ? height : 0 }}
+      aria-hidden={!isOpen}
+    >
+      <div ref={innerRef} className="projectsCollapsibleInner">
+        {children}
+      </div>
+    </div>
+  );
+}
 
 // Small helper: normalize hash => "physical" | "digital" | "all"
 function hashToMedium(hash) {
@@ -40,6 +71,8 @@ function hashToMedium(hash) {
 }
 
 export default function ProjectsPage() {
+  const [tagsOpen, setTagsOpen] = React.useState(false);
+
     const CATEGORY_META = React.useMemo(
     () => ({
       games: { label: "Games", imgSrc: "/images/games.png" },
@@ -93,27 +126,66 @@ export default function ProjectsPage() {
       {
         id: "wcal",
         title: "Want Cake, Am Lazy",
-        subtitle: "Puzzle-Box Game",
+        subtitle: "Puzzle-Box Game (Demo and Miro board)",
         description:
           "Emergent gameplay through puzzle-box design. Prototyped with paper models, streamlining dev process and revealing what people actually wanted to do, rather than designing towards arbitrary goals.",
         category: "games",
         medium: "Both",
-        tags: ["prototyping", "miro", "game-engine", "physical-design", "programming"],
+        tags: ["prototyping", "miro", "game-engine", "physical-design", "programming", "demo", "prototyping", "user"],
         thumbSrc: "/images/thumbs/wcal.png",
         caseStudy: {
-          role: "Designer / Builder",
+          role: "Designer (independent)",
           outcome:
-            "WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.",
-          process:
-            "hey",
+            (
+  <>
+    WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.
+    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          Title screen and view of the room in the demo.
+        </span>
+      </div>
+    </div>
+    <br/>
+    To prototype, I realized that any digital version would require a complex AI-integrated physics system- or, I could actually harness <strong>user creativity.</strong>
+
+    <br/>
+    <br/>
+    I built a physical model with as many odd appliances as could be made apparent, and let people run wild- I documented it on
+      <a
+        href="https://miro.com/app/board/uXjVJl-U6CY=/?share_link_id=520286821732"
+        target="_blank"
+        rel="noreferrer"
+        className="underline"
+      >
+       a Miro board
+      </a>, and it resulted in <a
+        href="https://charlie-patton.itch.io/want-cake-am-lazy"
+        target="_blank"
+        rel="noreferrer"
+        className="underline"
+      >
+        this demo
+      </a>. Try starting a fire and making a boat; or using a vent to blow a slice of cake to you!   
+      <div className="caseImageWrapper">
+        <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
+        <div className="caseImageCaption">
+          <span className="caseImageCaptionText">
+            Title screen and view of the room in the demo.
+          </span>
+        </div>
+      </div>   
+  </>
+)
         },
       },
       {
         id: "closet",
-        title: "A Closet",
+        title: "Closet",
         subtitle: "Cinematography + editing study",
         description:
-          "Short-form film experiment focused on pacing, framing, and emotional clarity through cut structure.",
+          "Video-editing and cinematography experiment seeking to create horror through the unexpected and uncanny.",
         category: "film",
         medium: "digital",
         tags: ["video-editing"],
@@ -122,13 +194,17 @@ export default function ProjectsPage() {
       {
         id: "curses",
         title: "Curses!",
-        subtitle: "Physical card game UX",
+        subtitle: "Physical Card Game (Downloadable and Playable)",
         description:
-          "Designed social mechanics to coax group play and break negative loops—toward laughter-first participation.",
+          "Designed social mechanics to coax group play and break negative loops, toward laughter-first participation.",
         category: "games",
         medium: "physical",
-        tags: ["physical-design", "sensory-design", "prototyping"],
+        tags: ["physical-design", "sensory-design", "demo", "prototyping", "user"],
         thumbSrc: "/images/thumbs/curses.png",
+        caseStudy: {
+          role: "Designer (independent)",
+          outcome: "engaged"
+        }
       },
       {
         id: "touchscreen",
@@ -188,12 +264,12 @@ export default function ProjectsPage() {
       {
         id: "sisyphus",
         title: "Requiem for Sisyphus",
-        subtitle: "Film as experiential design",
+        subtitle: "Vaudeville-Silent inspired slapstick comedy film",
         description:
-          "A study in mood and structure—how editing and composition can feel like interactive pacing.",
+          "Telling a classic story about two drunken cowboys, their conflict, and their inevitable coming-to-terms for a class in Stage Combat",
         category: "film",
         medium: "digital",
-        tags: ["video-editing", "sensory-design"],
+        tags: ["video-editing", "performance"],
         thumbSrc: "/images/thumbs/sisyphus.png",
       },
       {
@@ -252,12 +328,17 @@ export default function ProjectsPage() {
   }, []);
 
   const setMediumAndHash = React.useCallback((next) => {
-    setMedium(next);
-    if (typeof window === "undefined") return;
-    const h = next === "all" ? "all" : next;
-    // replace so back button isn't annoying
-    window.history.replaceState(null, "", `#${h}`);
-  }, []);
+  // toggle: clicking the active filter turns it off
+  const resolved = (medium === next) ? "all" : next;
+
+  setMedium(resolved);
+
+  if (typeof window === "undefined") return;
+
+  window.history.replaceState(null, "", `#${resolved}`);
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}, [medium]);
+
 
   const mediumStatement = React.useMemo(() => {
     if (medium === "physical") {
@@ -266,7 +347,7 @@ export default function ProjectsPage() {
     if (medium === "digital") {
       return "My digital work is about forming experiences that are effective in any location to broad audiences: microactivity and systems are precise and tuned per the medium.";
     }
-    return "I see physical and digital as complementary— often comprising the same experience, expressed through different constraints and senses.";
+    return "";
   }, [medium]);
 
   // --- Tag filter ---
@@ -323,14 +404,19 @@ export default function ProjectsPage() {
       <header className="projectsHeaderV2" aria-label="Projects">
         <div className="projectsTitleBlock">
           <p className="projectsIntroV2">
-            Work across mediums—built around microinteractivity, cognitive framing, and the feeling a system leaves behind.
+            Work across mediums—built around microinteractivity and cognitive framing, focusing on the feeling that a psychologically informed system leaves behind.
           </p>
+          <br/>
+          <a href="/process" className="bigButton">
+              Or, read about <strong>how</strong> I work on the process page
+            </a>
+            <br/>
+            <p className="projectsIntroV2">I see physical and digital as complementary— the same experiences expressed through different constraints and senses. But, if you're looking for one medium or means in particular:</p>
         </div>
 
         {/* Physical / OR / Digital selector */}
         <div className="podRow" aria-label="Physical or digital">
           <button
-            id="physical"
             className={`podChoice ${medium === "physical" ? "isActive" : ""}`}
             type="button"
             onClick={() => setMediumAndHash("physical")}
@@ -340,18 +426,6 @@ export default function ProjectsPage() {
           </button>
 
           <button
-            id="all"
-            className={`podOr ${medium === "all" ? "isActive" : ""}`}
-            type="button"
-            onClick={() => setMediumAndHash("all")}
-            aria-pressed={medium === "all"}
-            title="Show both"
-          >
-            OR
-          </button>
-
-          <button
-            id="digital"
             className={`podChoice ${medium === "digital" ? "isActive" : ""}`}
             type="button"
             onClick={() => setMediumAndHash("digital")}
@@ -364,32 +438,52 @@ export default function ProjectsPage() {
         <p className="podStatement">{mediumStatement}</p>
 
         {/* Tags */}
-        <div className="tagPanel" aria-label="Project tags">
-          <div className="tagPanelTop">
-            <button className="tagClear" type="button" onClick={deselectAll}>
-              Deselect all
+        {/* Tags */}
+<div className="tagPanel" aria-label="Project tags">
+  <button
+    className="tagPanelTop tagPanelToggle"
+    type="button"
+    onClick={() => setTagsOpen((v) => !v)}
+    aria-expanded={tagsOpen}
+    aria-controls="projects-tags-collapsible"
+  >
+    <div className="tagPanelTopLeft">
+      <div className="tagPanelHint">Tags filter by tool / medium (multi-select).</div>
+    </div>
+
+    <span className={`tagChevron ${tagsOpen ? "isOpen" : ""}`} aria-hidden="true">
+      ▾
+    </span>
+  </button>
+
+  <Collapsible isOpen={tagsOpen}>
+    <div id="projects-tags-collapsible">
+      <div className="tagPanelActions">
+        <button className="tagClear" type="button" onClick={deselectAll}>
+          Deselect all
+        </button>
+      </div>
+
+      <div className="tagGrid">
+        {TAGS.map((t) => {
+          const isOn = activeTags.has(t.key);
+          return (
+            <button
+              key={t.key}
+              className={`tagChip ${isOn ? "isOn" : ""}`}
+              type="button"
+              onClick={() => toggleTag(t.key)}
+              aria-pressed={isOn}
+            >
+              {t.label}
             </button>
+          );
+        })}
+      </div>
+    </div>
+  </Collapsible>
+</div>
 
-            <div className="tagPanelHint">Tags filter by tool / medium (multi-select).</div>
-          </div>
-
-          <div className="tagGrid">
-            {TAGS.map((t) => {
-              const isOn = activeTags.has(t.key);
-              return (
-                <button
-                  key={t.key}
-                  className={`tagChip ${isOn ? "isOn" : ""}`}
-                  type="button"
-                  onClick={() => toggleTag(t.key)}
-                  aria-pressed={isOn}
-                >
-                  {t.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
       </header>
 
       <section className="productsGridV2" aria-label="All projects">

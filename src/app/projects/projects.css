@@ -22,6 +22,93 @@
   justify-content: center;
 }
 
+
+.caseImageWrapper{
+  position: relative;
+  width: 50%;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-left:25%;
+  margin-top:20px;
+  z-index: 0;
+}
+
+.caseimage{
+  width: 100%;
+  position: center;
+  height: auto;
+  display: block;
+}
+
+.caseImageCaption{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 18px;
+  background: linear-gradient(
+    0deg,
+    rgba(10, 45, 95, 0.7),
+    rgba(20, 80, 150, 0)
+  );
+  backdrop-filter: blur(1px);
+}
+
+.caseImageCaptionText{
+  display: block;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+}
+/* collapsible shell (max-height animated) */
+.projectsCollapsible{
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 260ms ease;
+}
+
+.projectsCollapsibleInner{
+  padding-top: 10px;
+}
+
+/* make the tag panel top act like a header row button */
+.tagPanelToggle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0; /* tagPanelTop already handles spacing in your layout */
+  cursor: pointer;
+}
+
+.tagPanelTopLeft{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tagChevron{
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 200ms ease;
+  opacity: 0.85;
+}
+
+.tagChevron.isOpen{
+  transform: rotate(180deg);
+}
+
+/* optional: keep "Deselect all" from stretching layout */
+.tagPanelActions{
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
 .projectsTitleH1{
   margin: 0;
   font-size: clamp(22px, 3.2vw, 34px);
@@ -69,7 +156,7 @@
 /* PHYSICAL / OR / DIGITAL */
 .podRow{
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 14px;
   align-items: center;
   margin: 26px auto 12px;
@@ -354,6 +441,8 @@
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 18px;
   box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+
 }
 
 .projectModalHeader{
@@ -363,6 +452,7 @@
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--hair);
   padding: 14px 16px;
+  z-index: 10;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
