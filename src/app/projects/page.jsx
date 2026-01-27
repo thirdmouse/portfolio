@@ -112,56 +112,6 @@ const toggleDropdown = (id) => {
 
  const projects = React.useMemo(
   () => [
-    {
-      id: "inside-risk",
-      title: "InsideRisk",
-      subtitle: "AI-integrated psychometric experiences",
-      description:
-        "Leadership analysis and training company serving top-100 gloabl companies; worked as experience designer and on AI-integration",
-      medium: "digital",
-      category: "engineering",
-      tags: [
-        "group",
-        "management",
-        "prototyping",
-        "agile",
-        "uxr",
-        "data",
-        "video",
-        "design",
-        "engineering",
-        "event",
-        "miro",
-        "figma",
-        "programming",
-      ],
-      thumbSrc: "./images/ir.jpeg",
-      caseStudy: {
-          role: "Experience Designer and AI Integration",
-          outcome:
-            (
-  <>
-Worked on live events and digital programs for InsideRisk, producing industry-leading AI-integrated leadership seminars and programs. <strong>Pictures limited for confidentiality.</strong>
-<br/></>),
-caseStudy:(<>
-
-I was tasked with reformatting our 4 our live flagship into AI-integrated virtual modules for scalability and digital benefit. This was achieved through <strong>observation of user and HR requirements for length, learning continuity, and micro-observations informing behavioral opportunities.</strong> After the success of this project (read below), I was <strong>project-lead on a client project from the ground-up for a 15 minute demo experience.</strong>
-
-<br/>
-<br/>
-Conducting user research and AI functionality tests, as well as carefully mapping existing content, the team and I iterated versions through multiple lengths and timeframes. I was in charge of many of the edits, as well as designing, testing, and iterating the AI agents for conversational segments.
-
-<br/>
-<br/>
-A key necessity was preserving psychometric validity, requiring utmost immersion. This was achieved, despite the digital environment, through <strong>microinteractivity designs offering a balance of novelty and consistency per psychological notions like choice overload and framing techniques</strong>; capturing attention throughout sessions reaching lengths of up to an hour.
-
-<br/>
-<br/>
-AI-agent Conversations also had to be relentlessly fine-tuned based on careful behavioral test insights. Questions had to press users to learn, but also analyze their shortcomings rather than making opportunities obvious. Clients were tremendously satisfied, <strong>leading to near-decade long contracts.</strong>
-  </>
-)
-        },
-    },
 
     {
       id: "color-guard",
@@ -295,6 +245,56 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
     During the event itself, I was in the booth as the Voice of God, as well as assisting in general technical processes to ensure smooth event execution.</>)
   }
 },
+    {
+      id: "inside-risk",
+      title: "InsideRisk",
+      subtitle: "AI-integrated psychometric experiences",
+      description:
+        "Leadership analysis and training company serving top-100 gloabl companies; worked as experience designer and on AI-integration",
+      medium: "digital",
+      category: "engineering",
+      tags: [
+        "group",
+        "management",
+        "prototyping",
+        "agile",
+        "uxr",
+        "data",
+        "video",
+        "design",
+        "engineering",
+        "event",
+        "miro",
+        "figma",
+        "programming",
+      ],
+      thumbSrc: "./images/ir.jpeg",
+      caseStudy: {
+          role: "Experience Designer and AI Integration",
+          outcome:
+            (
+  <>
+Worked on live events and digital programs for InsideRisk, producing industry-leading AI-integrated leadership seminars and programs. <strong>Pictures limited for confidentiality.</strong>
+<br/></>),
+caseStudy:(<>
+
+I was tasked with reformatting our 4 our live flagship into AI-integrated virtual modules for scalability and digital benefit. This was achieved through <strong>observation of user and HR requirements for length, learning continuity, and micro-observations informing behavioral opportunities.</strong> After the success of this project (read below), I was <strong>project-lead on a client project from the ground-up for a 15 minute demo experience.</strong>
+
+<br/>
+<br/>
+Conducting user research and AI functionality tests, as well as carefully mapping existing content, the team and I iterated versions through multiple lengths and timeframes. I was in charge of many of the edits, as well as designing, testing, and iterating the AI agents for conversational segments.
+
+<br/>
+<br/>
+A key necessity was preserving psychometric validity, requiring utmost immersion. This was achieved, despite the digital environment, through <strong>microinteractivity designs offering a balance of novelty and consistency per psychological notions like choice overload and framing techniques</strong>; capturing attention throughout sessions reaching lengths of up to an hour.
+
+<br/>
+<br/>
+AI-agent Conversations also had to be relentlessly fine-tuned based on careful behavioral test insights. Questions had to press users to learn, but also analyze their shortcomings rather than making opportunities obvious. Clients were tremendously satisfied, <strong>leading to near-decade long contracts.</strong>
+  </>
+)
+        },
+    },
     {
       id: "wcal",
       title: "Want Cake, Am Lazy",
@@ -588,7 +588,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
     role: "Treasurer and Executive Board Member",
     outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective.
     <br/>
-    <br/>Organized social and educational events for a group of around fifty active members.</>)
+    <br/>Organized social and educational events for a group of around fifty active members by leveraging a 15k+ budget..</>)
   }
 },
     {
