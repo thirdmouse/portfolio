@@ -379,7 +379,7 @@ useEffect(() => {
         <div className="sheetInner">
           <FadeIn className="section centerBlock">
             <p className="blurb" id="about">
-              I am a Creative Technologist and Psychological Engineer,
+              I am a Creative Strategist and Psychological Engineer,
               <br />
               creating user-focused, subconsciously powerful experiences.
             </p>

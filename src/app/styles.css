@@ -353,6 +353,7 @@ body {
   min-height: 240dvh;
   background: #000;
   position: relative;
+  pointer-events: none;
 }
 
 .tripleSticky{
@@ -368,6 +369,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 }
 
 .tripleTitle {
@@ -415,6 +417,7 @@ body {
   width: 100%;
   text-decoration: none;
   overflow: hidden;
+  pointer-events: auto;
 
   /* JS drives these; transition helps it feel “quick” but not jarring */
   opacity: 0;
