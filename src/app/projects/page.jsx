@@ -144,8 +144,8 @@ const toggleDropdown = (id) => {
 Worked on live events and digital programs for InsideRisk, producing industry-leading AI-integrated leadership seminars and programs. <strong>Pictures limited for confidentiality.</strong>
 <br/></>),
 caseStudy:(<>
-<br/>
-I was tasked with reformatting our 4 our live flagship into AI-integrated virtual modules for scalability and digital benefit. After the success of this project (read below), I was <strong>project-lead on a client project from the ground-up for a 15 minute demo experience.</strong>
+
+I was tasked with reformatting our 4 our live flagship into AI-integrated virtual modules for scalability and digital benefit. This was achieved through <strong>observation of user and HR requirements for length, learning continuity, and micro-observations informing behavioral opportunities.</strong> After the success of this project (read below), I was <strong>project-lead on a client project from the ground-up for a 15 minute demo experience.</strong>
 
 <br/>
 <br/>
@@ -157,7 +157,7 @@ A key necessity was preserving psychometric validity, requiring utmost immersion
 
 <br/>
 <br/>
-AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to press users to learn, but also analyze their shortcomings rather than making opportunities obvious. Clients were tremendously satisfied, <strong>leading to near-decade long contracts.</strong>
+AI-agent Conversations also had to be relentlessly fine-tuned based on careful behavioral test insights. Questions had to press users to learn, but also analyze their shortcomings rather than making opportunities obvious. Clients were tremendously satisfied, <strong>leading to near-decade long contracts.</strong>
   </>
 )
         },
@@ -190,7 +190,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         outcome:(<>
           Inspired by the intersection of Kandinsky's abstract art and Jazz rhythms ala Charlie Parker; hoping to instigate tactical short-term thinking in a Tower Defense game, usually known for longer-term strategy. This was achieved through the "explode" mechanic and enemy / level designs befitting it, promenintly featured <strong>in the game's marketing campaign which I self-directed.</strong> Shipped to players in 10+ countries, average session lengths exceeding 20 minutes.
         </>),
-        caseStudy:(<>Though I observed my ideal thought patterns in the early-game, the late-game saw players optimize away the fun of the experience.
+        caseStudy:(<>Though I observed my ideal thought patterns in the early-game, late-game behavioral analysis revealed that players optimized away the fun of the experience.
         <div className="caseImageWrapper">
       <img className="caseimage" src="./images/cg.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
@@ -279,7 +279,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   caseStudy: {
     role: "Assistant Manager and Experience Designer",
     outcome: (<>
-  Live-managed event featuring the some of the largest names in media. Designed storefront to optimize retention and event entry, MCeed live event.
+  Live-managed event featuring the some of the largest names in media. Mapped audience flow patterns to <strong>design storefront experience that maximized dwell time and emotional brand engagement,</strong> contributing to near-total sell-through and extended on-site interactions.
     <div className="caseImageWrapper">
       <img className="caseimage" src="./images/kjovl.jpg" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
@@ -289,7 +289,10 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       </div>
     </div></>),
     caseStudy:(<>Designed storefront flow for optimal flow based on audience behavior- per the demographic, consumers lingered for some time to analyze collectibles. So, the layout followed the Apple Store mentality of <strong>bidirectionality and broad product access.</strong><br/><br/>
-    The event itself happened in HERE, a below ground venue, so ingress-egress was particularly oriented for through-store and to-event motion. Audience retention lasted over 12 hours, and post-event buzz carried a near-total sellout.</>)
+    The event happened in HERE, a below ground venue, so ingress-egress was particularly oriented for through-store and to-event motion. Audience retention lasted over 12 hours, and post-event buzz carried a near-total sellout.
+    <br/>
+    <br/>
+    During the event itself, I was in the booth as the Voice of God, as well as assisting in general technical processes to ensure smooth event execution.</>)
   }
 },
     {
@@ -378,9 +381,9 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   thumbSrc: "./images/thumbs/ovl.png",
   caseStudy: {
     role: "Production Intern",
-    outcome: (<>See Kojima @ OVL project for most recent work. Interned on live event design and staging with production team. <strong>Project-led inventory management and quoting system able to streamline and enable client and performer adaptation</strong>. OVL manages three venues at different depths in the city block it encompasses- worked on intermediary and venue-specific projects.
+    outcome: (<>OVL manages three venues at different depths in the city block it encompasses- worked on intermediary and venue-specific projects. See Kojima @ OVL project for most recent work. Interned on live event design and staging with production team; <strong>Project-led inventory management and quoting system able to streamline and enable client and performer adaptation</strong>.
     </>),
-    caseStudy:(<><strong>Directed 'History of Denmark Street' musical history documentary,</strong> as part of a strategy plan to develop sentiment for the venue in the area.
+    caseStudy:(<><strong>Directed 'History of Denmark Street' musical history documentary,</strong> as part of a strategy campaign to develop sentiment for the venue in the area, in reaction to the perspective of OVL as hyper-corporatized and a culture-remover rather than opportunity for local growth.
     <br/>
     <br/> 
     Collated historical footage and edited tailor-made for the HERE screen, at the time the largest in the world. Developed connected event featuring licensed historic concert footage and retro merchandise sales as part of a multi-sensory experience able to fill schedule gaps at low notice.
@@ -392,6 +395,8 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         </span>
       </div>
     </div>
+    <br/>
+    This, coupled with using above ground venues for traditional rock and band concerts, allowed a reframing of OVL and HERE's goals to align with the cultural and public perspective.
     </>)
   },
 },
@@ -461,7 +466,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "figma",
         "programming",
       ],
-      thumbSrc: "./images/feat-c.jpg",
+      thumbSrc: "./images/ltls.jpg",
       caseStudy: {
         role: "UX Research Team Member, Co-Lead Conceptual Designer",
         outcome: (<>Produced <a href="https://docs.google.com/file/d/1JF5VJYW4z3KcEQiUvlPzUnsjHf5MIp0X/view">lo-fi</a> and < a href="https://docs.google.com/file/d/1MU9CGKLCVWJr5Y97MteZu1mGAd0dIi64/preview">med-fi</a> models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
@@ -1078,28 +1083,28 @@ const visibleProjects = React.useMemo(() => {
                   </div>
                 ) : null}
 
-                {openProject.caseStudy ? (
-                  <div className="projectModalCase">
-                    {openProject.caseStudy.role ? (
-                      <p>
-                        <strong>Role:</strong> {openProject.caseStudy.role}
-                      </p>
-                    ) : null}
-                    {openProject.caseStudy.outcome ? (
-                      <p>
-                        <strong>Outcome:</strong> {openProject.caseStudy.outcome}
-                      </p>
-                    ) : null}
-                    {openProject.caseStudy.caseStudy ? (
-                      <p>
-                        <strong>Case Study:</strong> {openProject.caseStudy.caseStudy}
-                      </p>
-                    ) : null}
-                  </div>
-                ) : (
-                  <div className="projectModalCase">
-                  </div>
-                )}
+                <div className="projectModalCase">
+  {openProject.caseStudy.role ? (
+    <p><strong>Role:</strong> {openProject.caseStudy.role}</p>
+  ) : null}
+
+  {openProject.caseStudy.outcome ? (
+    <div className="projectModalBlock">
+      <strong>Outcome:</strong>
+      <div className="projectModalContent">{openProject.caseStudy.outcome}</div>
+    </div>
+  ) : null}
+
+  {openProject.caseStudy.caseStudy ? (
+    <div className="projectModalBlock">
+      <br/>
+      <strong>Case Study:</strong>
+      <div className="projectModalContent">{openProject.caseStudy.caseStudy}</div>
+    </div>
+  ) : null}
+</div>
+
+
               </div>
             </motion.div>
           </motion.div>

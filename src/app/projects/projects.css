@@ -647,3 +647,19 @@
   line-height: 1.65;
   color: rgba(11,11,11,0.78);
 }
+
+
+/* make div-based content feel like text */
+.projectModalCase p{
+  margin: 0 0 0.75em 0;
+}
+
+.projectModalCase p:last-child{
+  margin-bottom: 0;
+}
+
+/* spacing for your injected blocks */
+.projectModalContent{
+  margin-top: 0.35em;
+}
+

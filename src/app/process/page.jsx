@@ -21,16 +21,16 @@ const steps = [
       {
         title: "Long Time, Let's See!",
         type: "social media design",
-        image: "/images/feat-c.jpg",
+        image: "/images/ltls.jpg",
         detail:
-          "HMW research based on social media problem statements revealed opportunity to capitalize on user desires for actually social forms of media. Before any ideas were drawn, we talked about ideal results and mapped existing solutions.",
+          "HMW research based on social media problem statements revealed opportunity to capitalize on user desires for actually social forms of media. Before any ideas were drawn, we talked about ideal behavioral results and mapped existing solutions by their strategies, both effective and ineffective.",
       },
       {
         title: "Outernet",
-        type: "venue design",
+        type: "adaptive strategy system",
         image: "/images/ovl.png",
         detail:
-          "Before any fancy design work, performers have needs and audiences have capacities. My inventory management system was customizable to each event's scale and staff experience, ensuring smooth operations whether for 50 or 5000 attendees.",
+          "Before any fancy design work, performers have needs and audiences have capacities. My inventory management system was customizable to each event's scale and staff experience, ensuring smooth operations whether for 50 or 5000 attendees to deliver quotes, stage and flow layouts, and general end-to-end strategy resources.",
       },
     ],
   },
@@ -42,7 +42,7 @@ const steps = [
     description: (
   <>
     Good experiential design addresses Step 1&apos;s &quot;world,&quot; through careful study
-    of users&apos; expectations of that medium and cognitive subversion of that. It&apos;s why my work is
+    of users&apos; behaviors in and expectations of that medium and possible cognitive subversions of that. It&apos;s why my work is
     inherently interdisciplinary, and is focused on making the audience <strong>feel</strong>, atop
     the traditional &quot;show don&apos;t tell.&quot;
   </>
@@ -168,7 +168,7 @@ const steps = [
       },
       {
         title: "Outernet",
-        type: "venue design",
+        type: "live experience design",
         image: "/images/ovl.png",
         detail:
           "In the modern premium-experience based economy, knowing when to just dim the lights and fog a stage front is critical. Emphasizing a multisensory approach and knowing what makes an experience feel premium beyond only cost, end-to-end work from client quotes to event layouts and live feeds was optimized for cohesion. VIP and accessible spaces were scalable and adaptable, allowing for a multi-tier experience sheerly through framing.",
@@ -313,7 +313,7 @@ const handleDotClick = (index) => scrollToStepMiddle(index);
               or from backend production for events and venues to 30+ acting credits and performances to audiences of 5k+;
               <br />
               <br />
-              my <strong>Cognitive Design Process</strong> remains the same as an experience designer.
+              my <strong>Cognitive Design Process</strong> remains the same as an experience designer and creative strategist.
             </p>
             <p className = "processDisclaimer"><br/><br/><br/><br/>It's constantly evolved in my interdisciplinary exploration- and I'm enthusiastic to see what it becomes next as I learn and continue my young career.</p>
           </div>
