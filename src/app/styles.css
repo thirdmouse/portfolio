@@ -424,6 +424,7 @@ body {
   /* Optional separators */
   /* border-left: 1px solid rgba(255,255,255,0.10); */
 }
+
 .tripleTile:first-child {
   border-left: none;
 }

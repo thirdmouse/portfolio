@@ -235,14 +235,14 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "design",
     "event",
   ],
-  thumbSrc: "/images/flannel.jpeg",
+  thumbSrc: "./images/flannel.jpg",
   caseStudy: {
           role: "Drummer and Vocalist",
           outcome:
             (
   <>
  I'm a founding member of <strong>Yale University's most popular band, FLANNEL. </strong>I drum and sing in genres ranging from the classic rock of Fleetwood Mac to modern hits like Paramore, Geese, or Clairo.    <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/yso.jpg" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/yso.jpg" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           Playing at the Yale Symphony Orchestra show, as taken from the official @yale instagram.
@@ -255,7 +255,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     <br/>
     As a member, I'm often in charge of setlisting and play an integral role in managing performance logistics and styles, as well as curating group creative strategy and branding efforts.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/gig.jpg" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/gig.jpg" alt="" aria-hidden="true" />
     </div>
   </>
 )
@@ -568,10 +568,10 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   ],
   thumbSrc: "/images/yale.jpg",
   caseStudy:{
-    Role: "Treasurer and Executive Board Member",
-    Outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective.
+    role: "Treasurer and Executive Board Member",
+    outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective.
     <br/>
-    <br/>Organized social and educational events </>)
+    <br/>Organized social and educational events for a group of around fifty active members.</>)
   }
 },
     {
