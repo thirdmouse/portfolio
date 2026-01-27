@@ -1,38 +1,47 @@
 # Copilot instructions for this repository
 
-Purpose: give AI coding agents the immediate, practical knowledge to work on this Next.js portfolio.
+Purpose: give AI coding agents immediate, practical knowledge to be productive on this Next.js portfolio.
 
-- **Quick start (local)**: run `npm install` then `npm run dev` (starts Next dev server). Build with `npm run build` and serve with `npm run start`. Lint with `npm run lint`.
+Quick start (local):
+- `npm install`
+- `npm run dev` (Next dev server)
+- `npm run build` then `npm run start` to serve production build
+- `npm run lint` for lint checks
 
-- **Framework & layout**: this is a Next.js (app directory) project (Next 16) using React 19. Source is under `src/app`. Global layout lives in `src/app/layout.jsx` and global styles in `src/app/globals.css`.
+Repo snapshot:
+- Next.js (app directory) project. Source: `src/app`.
+- Global layout: [src/app/layout.jsx](src/app/layout.jsx#L1)
+- Global CSS: [src/app/globals.css](src/app/globals.css#L1)
 
-- **Server vs Client components**: files are server components by default. Any file with the directive `"use client"` at the top is a client component (example: `src/app/projects/page.jsx`). Respect that when adding hooks or browser-only APIs.
+Must-know patterns and conventions:
+- Server vs Client: files are server components by default. Add `"use client"` at top to opt into client behavior (see `src/app/projects/page.jsx` which is a client component).
+- Projects data: the canonical project list lives inline in `src/app/projects/page.jsx` — edit that `projects` array to add/remove projects (include `id`, `title`, `subtitle`, `description`, `category`, `medium`, `tags`, `thumbSrc`, optional `href` or `caseStudy`).
+- Hash-driven medium filter: medium filter is synced to URL hash (`#physical`, `#digital`, `#all`) via `hashToMedium` and `window.history.replaceState` — test hash behavior in a browser because it relies on `window` APIs.
+- Filters: FILTER_GROUPS in `src/app/projects/page.jsx` groups filters. Selected values are stored as `Set` objects in React state — always replace with a new `Set` when toggling.
+- Collapsible pattern: `Collapsible` measures `scrollHeight` with `ResizeObserver` (used for dropdowns). Keep this pattern when building similar components.
+- Card behavior: project cards render `motion.a` when `href` exists, otherwise `motion.button` that opens the fullscreen modal (`openProjectId`). Follow existing `framer-motion` usage (`AnimatePresence`, `layout`, short durations).
 
-- **Routing & pages**: pages are filesystem routes under `src/app` (e.g., `src/app/projects/page.jsx` → `/projects`). Some project detail experiences use in-page modals (see the modal logic in the projects page) while others link to `href` paths.
+Styling & assets:
+- Prefer per-page CSS under `src/app/*/*.css` (e.g., [src/app/projects/projects.css](src/app/projects/projects.css#L1)). Tailwind/PostCSS is present but the codebase uses plain CSS for small changes.
+- Static assets: `public/images` and `public/images/thumbs` — reference these directly in `src` attributes (Next Image is not used).
 
-- **State + URL patterns**: the projects page syncs a medium filter to the hash (`#physical`, `#digital`, `#all`) using `hashToMedium` and `window.history.replaceState`. Tag filters use a `Set` stored in React state and OR-match semantics (any selected tag shows the project).
+Components & examples:
+- Reusable components in `src/components` (e.g., `MobileNav.jsx`, `FlowingCircleCarousel.jsx`). Check for `"use client"` before adding hooks.
+- Animation: `framer-motion` is used across the projects grid and modal (`AnimatePresence`, `motion.*`). Keep transitions and `layout` props consistent.
 
-- **Assets & static files**: images and thumbnails live in `public/images` and `public/images/thumbs`. Use those paths directly in `src` attributes (Next Image is not used here).
+Tooling & TypeScript:
+- The project uses JSX files; `tsconfig.json` contains an alias `@/* -> ./src/*` but most imports are relative. Avoid changing import styles unless adding TypeScript.
+- ESLint: `eslint.config.mjs`. Use `npm run lint`.
 
-- **Styling**: project uses plain CSS files (per-page CSS in `src/app/*/*.css`) and also has Tailwind/PostCSS installed. Prefer the existing CSS files for small changes; introduce Tailwind classes only after ensuring its config is used project-wide.
+Practical editing notes (concrete examples):
+- Add a project: edit `projects` array in [src/app/projects/page.jsx](src/app/projects/page.jsx#L1). Example fields: `id`, `title`, `subtitle`, `description`, `category`, `medium`, `tags`, `thumbSrc`, `demo`, `href`, `caseStudy`.
+- Add CSS tweaks: edit or create `src/app/projects/projects.css` or the matching page-level CSS file.
+- Browser-only behaviors: any logic that reads `window.location.hash`, `window.history`, or uses `ResizeObserver` must run in a client component.
 
-- **Animation & UX patterns**: `framer-motion` is used for layout/entrance animations (see `AnimatePresence` and `motion.*` in `src/app/projects/page.jsx`). When updating animated elements, follow the existing transition durations and `layout` usage.
+Small code hygiene notes found while exploring:
+- `src/app/projects/page.jsx` imports `transpileModule` from `typescript` but does not use it — consider removing unused imports during cleanup.
 
-- **Components**: reusable UI lives in `src/components` (examples: `MobileNav.jsx`, `FlowingCircleCarousel.jsx`). Many components are client components — check for `"use client"` and browser-only APIs before converting to server components.
+When to run the app in the browser:
+- Test interactive behaviors (hash-based medium switching, modal open/close, dropdowns) on the dev server: `npm run dev` and open in Chrome/Firefox.
 
-- **TypeScript & tooling**: repo has `tsconfig.json` and type packages installed, but most source files are `.jsx`. `tsconfig` includes an alias `@/* -> ./src/*` — prefer relative paths unless adding TypeScript files or expanding alias usage.
-
-- **Linting & conventions**: ESLint config is customized in `eslint.config.mjs` using `eslint-config-next` presets. Run `npm run lint` to surface quick issues.
-
-- **Small code patterns worth noting**:
-  - Collapsible UI: local `Collapsible` in `src/app/projects/page.jsx` measures `scrollHeight` with a `ResizeObserver` — preserve that pattern for collapsible areas.
-  - Project cards: code toggles between `motion.a` and `motion.button` depending on `href` presence; non-linked cards open a fullscreen modal via `openProjectId` state.
-  - Tag filtering uses `activeTags` as a `Set` — mutate by creating a new `Set` in `setState` to preserve immutability.
-
-- **When to run the app in the browser**: the projects page uses `window.location.hash` and `window.history` — test those behaviors in the browser (dev server) instead of relying only on unit tests.
-
-- **Common edits an AI might perform**:
-  - Add new project entries: update the `projects` array in `src/app/projects/page.jsx`. Include `id`, `title`, `subtitle`, `description`, `category`, `medium`, `tags`, `thumbSrc` and optionally `href` or `caseStudy`.
-  - Add small UI tweaks: prefer editing the relevant `.css` under `src/app/*/` to match site style.
-
-If anything here is unclear or you want more examples (component patterns, build/deploy details, or file-level links), say which area to expand and I will iterate.
+If anything in these instructions is unclear or you'd like more specific examples (component wiring, where to add tests, or a checklist for a PR), tell me which area to expand and I'll iterate.

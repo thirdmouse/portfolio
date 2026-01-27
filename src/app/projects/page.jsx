@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import "../styles.css";
 import "./projects.css";
 import MobileNav from "../../components/MobileNav";
+import { transpileModule } from "typescript";
 
 /**
  * Projects page revamp:
@@ -14,6 +15,46 @@ import MobileNav from "../../components/MobileNav";
  * - Cards with href get a subtle blue "hasLink" highlight
  * - Cards without href open a fullscreen modal (inspired by Process example boxes)
  */
+
+const TAGS = [
+  /*
+  { key: "figma", label: "Figma" },
+  { key: "miro", label: "Miro" },
+  { key: "demo", label: "Playable Demo" },
+  { key: "video-editing", label: "Video Editing (Premiere, Final Cut)" },
+  { key: "game-engine", label: "Game Engine (Unity, Unreal)" },
+  { key: "physical-design", label: "Physical Design" },
+  { key: "event-design", label: "Event Design" },
+  { key: "sensory-design", label: "Sensory Design" },
+  { key: "engineering", label: "Engineering" },
+  { key: "programming", label: "Programming (C#, Python, React, Matlab)" },
+  { key: "data-analysis", label: "Data Analysis" },
+  { key: "prototyping", label: "Prototyping" },
+  { key: "manufacturing", label: "Manufacturing" },
+  { key: "performance", label: "Performance" },
+  { key: "user", label: "User Testing" },*/
+      { key: "solo", label: "Solo" },
+      { key: "group", label: "Group" },
+      { key: "management", label: "Management" },
+      { key: "prototyping", label: "Prototyping" },
+      { key: "agile", label: "Agile" },
+      { key: "uxr", label: "UX Research" },
+      { key: "sensory-design", label: "Sensory Design" },
+      { key: "data", label: "Data Analysis" },
+      { key: "video", label: "Video Editing" },
+      { key: "game", label: "Game" },
+      { key: "film", label: "Film" },
+      { key: "design", label: "Design" },
+      { key: "engineering", label: "Engineering" },
+      { key: "event", label: "Event" },
+      { key: "miro", label: "Miro" },
+      { key: "figma", label: "Figma" },
+      { key: "unity", label: "Unity" },
+      { key: "programming", label: "Programming" },
+      { key: "cad", label: "Manufacturing / CAD" },
+      { key: "sensory", label: "Sensory Design" },
+      { key: "music", label: "Music" },
+];
 function Collapsible({ isOpen, children, className = "" }) {
   const innerRef = React.useRef(null);
   const [height, setHeight] = React.useState(0);
@@ -53,15 +94,9 @@ function hashToMedium(hash) {
 }
 
 export default function ProjectsPage() {
-  const [openDropdowns, setOpenDropdowns] = React.useState(() => new Set());
-
+  const [openDropdown, setOpenDropdown] = React.useState(null);
 const toggleDropdown = (id) => {
-  setOpenDropdowns((prev) => {
-    const next = new Set(prev);
-    if (next.has(id)) next.delete(id);
-    else next.add(id);
-    return next;
-  });
+  setOpenDropdown((prev) => (prev === id ? null : id));
 };
   const [tagsOpen, setTagsOpen] = React.useState(false);
 
@@ -74,26 +109,25 @@ const toggleDropdown = (id) => {
     }),
     []
   );
-const projects = React.useMemo(
+
+ const projects = React.useMemo(
   () => [
     {
       id: "inside-risk",
       title: "InsideRisk",
       subtitle: "AI-integrated psychometric experiences",
       description:
-        "Redesigned a flagship 4-hour experience into fast, modular delivery—keeping immersion while scaling to enterprise clients.",
-      // TODO: add additional longform blocks / images / metrics
-      category: "design",
+        "Leadership analysis and training company serving top-100 gloabl companies; worked as experience designer and on AI-integration",
       medium: "digital",
+      category: "engineering",
       tags: [
-        "team",
+        "group",
         "management",
         "prototyping",
         "agile",
-        "ux-research",
-        "data-analysis",
-        "video-editing",
-        "film",
+        "uxr",
+        "data",
+        "video",
         "design",
         "engineering",
         "event",
@@ -101,9 +135,32 @@ const projects = React.useMemo(
         "figma",
         "programming",
       ],
-      href: "/projects/inside-risk",
       thumbSrc: "/images/ir.jpeg",
-      // TODO: caseStudy: { role: "", outcome: (<>...</>) }
+      caseStudy: {
+          role: "Experience Designer and AI Integration",
+          outcome:
+            (
+  <>
+Worked on live events and digital programs for InsideRisk, producing industry-leading AI-integrated leadership seminars and programs. <strong>Pictures limited for confidentiality.</strong>
+<br/></>),
+caseStudy:(<>
+<br/>
+I was tasked with reformatting our 4 our live flagship into AI-integrated virtual modules for scalability and digital benefit. After the success of this project (read below), I was <strong>project-lead on a client project from the ground-up for a 15 minute demo experience.</strong>
+
+<br/>
+<br/>
+Conducting user research and AI functionality tests, as well as carefully mapping existing content, the team and I iterated versions through multiple lengths and timeframes. I was in charge of many of the edits, as well as designing, testing, and iterating the AI agents for conversational segments.
+
+<br/>
+<br/>
+A key necessity was preserving psychometric validity, requiring utmost immersion. This was achieved, despite the digital environment, through <strong>microinteractivity designs offering a balance of novelty and consistency per psychological notions like choice overload and framing techniques</strong>; capturing attention throughout sessions reaching lengths of up to an hour.
+
+<br/>
+<br/>
+AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to press users to learn, but also analyze their shortcomings rather than making opportunities obvious. Clients were tremendously satisfied, <strong>leading to near-decade long contracts.</strong>
+  </>
+)
+        },
     },
 
     {
@@ -112,132 +169,317 @@ const projects = React.useMemo(
       subtitle: "iOS game design + analytics iteration",
       description:
         "Shipped to players in 10+ countries. Iterated economy + anti-fun mitigation using playtests and telemetry.",
-      // TODO: add playtest notes / charts / iteration snapshots
       category: "games",
       medium: "digital",
       tags: [
         "solo",
         "prototyping",
         "agile",
-        "ux-research",
-        "video-editing",
+        "uxr",
+        "video",
         "game",
         "design",
         "unity",
         "programming",
       ],
-      href: "/projects/color-guard",
       thumbSrc: "/images/feat-b.jpg",
+      demo: true,
+      caseStudy:{
+        role: "Sole Developer",
+        outcome:(<>
+          Inspired by the intersection of Kandinsky's abstract art and Jazz rhythms ala Charlie Parker; hoping to instigate tactical short-term thinking in a Tower Defense game, usually known for longer-term strategy. This was achieved through the "explode" mechanic and enemy / level designs befitting it, promenintly featured <strong>in the game's marketing campaign which I self-directed.</strong> Shipped to players in 10+ countries, average session lengths exceeding 20 minutes.
+        </>),
+        caseStudy:(<>Though I observed my ideal thought patterns in the early-game, the late-game saw players optimize away the fun of the experience.
+        <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/cg.png" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          A "boring screen" in Color Guard- this many similarly upgraded guards signaled a problem.
+        </span>
+      </div>
+    </div>
+    <br/>
+    This requires a balancing act: ideally, not punishing undesired long-term behavior and thereby removing fun, but rather <strong>rewarding the behavior which I as the designer know to be the most interesting</strong> through careful tweaks.
+    <br/><br/>
+    Difficulty spikes need to be readible, and challenges surmountable. Prodding more fun behavior was done in three ways:
+    <br/><br/>
+    First, I added the <strong>Pentagon enemies, who would target and destroy high level guards.</strong> Up to that point, guards were only "exploded" by players- new players got a surprise, and old players were offered a full-circle final challenge as is the goal of a well-designed game.
+    <br/><br/>
+    Secondly, I <strong>enhanced the game-feel of low-level explosions.</strong> With rewarding jazz blasts, screen rotation and shake, and a circle effect mimicking the art of the game's inspiration, players were satisfied with their guards' sacrifice and felt less need to "save" them.
+    <br/><br/>
+    Lastly, the in-game economy was altered. Rather than pricing the best upgrades the highest, I made them the cheapest. <strong>This way, players would spread the upgrades among the towers rather than saving to get the "best" upgrade for one.</strong> This also allowed an increase in general difficulty to increase thought-provoking challenge.
+    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/cgamefeel.png" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          An example of the upgraded game-feel, on a screen where pro-fun behavior is observed.
+        </span>
+      </div>
+    </div></>)
+    
+      }
     },
+
+{
+  id: "flannel",
+  title: "FLANNEL.",
+  subtitle: "Drummer and Singer in signed rock band",
+  description:
+    "Yale Battle of the Bands winners, signed by indie label 17o1 records, play to audiences of 2.5k+",
+  category: "design",
+  medium: "physical",
+  tags: [
+    "group",
+    "management",
+    "design",
+    "event",
+  ],
+  thumbSrc: "/images/flannel.jpeg",
+  caseStudy: {
+          role: "Drummer and Vocalist",
+          outcome:
+            (
+  <>
+ I'm a founding member of <strong>Yale University's most popular band, FLANNEL. </strong>I drum and sing in genres ranging from the classic rock of Fleetwood Mac to modern hits like Paramore, Geese, or Clairo.    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/yso.jpg" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          Playing at the Yale Symphony Orchestra show, as taken from the official @yale instagram.
+        </span>
+      </div>
+    </div>
+    <br/>
+    We opened for two of the biggest annual events on campus, Spring Fling and the Symphony Orchestra Halloween show: per the Yale Daily News, <strong>the first band to do so</strong>.
+    <br/>
+    <br/>
+    As a member, I'm often in charge of setlisting and play an integral role in managing performance logistics and styles, as well as curating group creative strategy and branding efforts.
+    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/gig.jpg" alt="" aria-hidden="true" />
+    </div>
+  </>
+)
+        },
+},{
+  id: "ovl",
+  title: "Outernet Venues Live",
+  subtitle: "Production Intern at Live Music and Experiential Venue",
+  description:
+    "Designed and staged world-class live events at three London SoHo venues, featuring some of the largest screens in the world.",
+  category: "design",
+  medium: "physical",
+  tags: [
+    "group",
+    "management",
+    "sensory",
+    "design",
+    "event",
+  ],
+  thumbSrc: "/images/thumbs/ovl.png",
+  caseStudy: {
+    role: "Production Intern",
+    outcome: (<>See Kojima @ OVL project for most recent work. Interned on live event design and staging with production team. <strong>Project-led inventory management and quoting system able to streamline and enable client and performer adaptation</strong>. OVL manages three venues at different depths in the city block it encompasses- worked on intermediary and venue-specific projects.
+    </>),
+    caseStudy:(<><strong>Directed 'History of Denmark Street' musical history documentary,</strong> as part of a strategy plan to develop sentiment for the venue in the area.
+    <br/>
+    <br/> 
+    Collated historical footage and edited tailor-made for the HERE screen, at the time the largest in the world. Developed connected event featuring licensed historic concert footage and retro merchandise sales as part of a multi-sensory experience able to fill schedule gaps at low notice.
+    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/here.png" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          A view of the HERE venue, featuring a screen spanning over 45 feet.
+        </span>
+      </div>
+    </div>
+    </>)
+  },
+},
 
     {
       id: "long-time-lets-see",
       title: "Long Time, Let’s See!",
-      subtitle: "Social media as an “experience matcher”",
+      subtitle: "Social media designed to promote off-app exploration",
       description:
-        "A social platform designed like a dating app—optimized to get users off the app and into new experiences.",
-      // TODO: add concept flow / screens / user value prop
+        "A social platform designed like a dating app- optimized to get users off the app and into new experiences.",
       category: "design",
       medium: "digital",
       tags: [
-        "team",
+        "group",
         "prototyping",
-        "ux-research",
+        "uxr",
         "design",
         "engineering",
         "miro",
         "figma",
         "programming",
       ],
-      href: "/projects/long-time-lets-see",
       thumbSrc: "/images/feat-c.jpg",
+      caseStudy: {
+        role: "UX Research Team Member, Co-Lead Conceptual Designer",
+        outcome: (<>Produced lo-fi and med-fi models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
+        <br/><br/>
+        </>),
+      }
     },
-
     {
       id: "wcal",
       title: "Want Cake, Am Lazy",
-      subtitle: "Puzzle-Box Game (Demo and Miro board)",
+      demo: true,
+      subtitle: "Puzzle-Box Game",
       description:
-        "Emergent gameplay through puzzle-box design. Prototyped with paper models, streamlining dev process and revealing what people actually wanted to do, rather than designing towards arbitrary goals.",
-      // TODO: add short summary text box (problem / approach / result)
+        "Emergent gameplay through puzzle-box design and physical prototyping.",
       category: "games",
-      medium: "Both",
+      medium: "digital",
       tags: [
         "solo",
         "prototyping",
-        "ux-research",
+        "uxr",
         "game",
         "design",
+        "engineering",
         "miro",
         "unity",
         "programming",
-        "manufacturing",
         "cad",
-      ],
-      thumbSrc: "/images/thumbs/wcal.png",
-      caseStudy: {
-        role: "Designer (independent)",
-        // TODO: split into sections (problem / prototype / learnings / next)
-        outcome: (
-          <>
-            {/* TODO: add a 1–2 sentence “Outcome summary” here */}
+      ],thumbSrc: "/images/thumbs/wcal.png",
+        caseStudy: {
+          role: "Designer (independent)",
+          outcome:
+            (
+  <>
+    WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.
+    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          Title screen and view of the room in the demo.
+        </span>
+      </div>
+    </div>
+    <br/>
+    To prototype, I realized that any digital version would require a complex AI-integrated physics system- or, I could actually harness <strong>user creativity.</strong>
 
-            WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.
-
-            {/* TODO: image + caption blocks */}
-            <div className="caseImageWrapper">
-              <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
-              <div className="caseImageCaption">
-                <span className="caseImageCaptionText">
-                  {/* TODO: caption text */}
-                  Title screen and view of the room in the demo.
-                </span>
-              </div>
-            </div>
-
-            {/* TODO: add more text blocks / links / second image */}
-          </>
-        ),
-      },
-    },
-
+    <br/>
+    <br/>
+    I built a physical model with as many odd appliances as could be made apparent, and let people run wild- I documented it on
+      <a
+        href="https://miro.com/app/board/uXjVJl-U6CY=/?share_link_id=520286821732"
+        target="_blank"
+        rel="noreferrer"
+        className="underline"
+      >
+       a Miro board
+      </a>, and it resulted in <a
+        href="https://charlie-patton.itch.io/want-cake-am-lazy"
+        target="_blank"
+        rel="noreferrer"
+        className="underline"
+      >
+        this demo
+      </a>. Try starting a fire and making a boat; or using a vent to blow a slice of cake to you!   
+      <div className="caseImageWrapper">
+        <img className="caseimage" src="/images/wcalpm1.png" alt="" aria-hidden="true" />
+        <div className="caseImageCaption">
+          <span className="caseImageCaptionText">
+            My paper model, full of miniature objects for testers to latch onto and lead off of.
+          </span>
+        </div>
+      </div>   
+  </>
+)
+        },
+      },{
+  id: "kojima-ovl",
+  title: "Kojima @ OVL",
+  subtitle: "Live experiential installation",
+  description:
+    "Designed and staged a live experiential event emphasizing sensory pacing, spatial flow, and audience engagement.",
+  category: "design",
+  medium: "physical",
+  tags: [
+    "group",
+    "management",
+    "sensory",
+    "design",
+    "event",
+  ],
+  thumbSrc: "/images/kojima.jpg",
+  caseStudy: {
+    role: "Assistant Manager and Experience Designer",
+    outcome: (<>
+  Live-managed event featuring the some of the largest names in media. Designed storefront to optimize retention and event entry, MCeed live event.
+    <div className="caseImageWrapper">
+      <img className="caseimage" src="/images/kjovl.jpg" alt="" aria-hidden="true" />
+      <div className="caseImageCaption">
+        <span className="caseImageCaptionText">
+          Pre-show work in the booth for a performance.
+        </span>
+      </div>
+    </div></>),
+    caseStudy:(<>Designed storefront flow for optimal flow based on audience behavior- per the demographic, consumers lingered for some time to analyze collectibles. So, the layout followed the Apple Store mentality of <strong>bidirectionality and broad product access.</strong><br/><br/>
+    The event itself happened in HERE, a below ground venue, so ingress-egress was particularly oriented for through-store and to-event motion. Audience retention lasted over 12 hours, and post-event buzz carried a near-total sellout.</>)
+  }
+},
+{
+  id: "curses",
+  title: "Curses!",
+  subtitle: "Party card game",
+  description:
+    "Developed card game centered around forbidding certain words or actions, then coaxing them - like 'cursing' a curse word and then frustrating someone into saying it!",
+  category: "games",
+  medium: "physical",
+  demo: true,
+  tags: [
+    "solo",
+    "prototyping",
+    "uxr",
+    "game",
+    "design",
+  ],
+  thumbSrc: "/images/curses.jpg",
+  caseStudy:{
+    role: "Sole Designer",
+    outcome: "Designed, prototyped, and soft-launched the game. Iterated 'curse' mechanics to ensure players didn't just get completely quiet, added 'quest' mechanic as response to anti-fun behaviors."
+  }
+},
+{
+  id: "neuroscience-research",
+  title: "Neuroscience Research",
+  subtitle: "Data-driven cognitive modeling",
+  description:
+    "Conducted neuroscience research focused on experimental design, data collection, and analytical interpretation.",
+  category: "engineering",
+  medium: "digital",
+  tags: [
+    "solo",
+    "data",
+    "engineering",
+    "programming",
+  ],
+  thumbSrc: "/images/thumbs/neuro.jpg",
+  caseStudy: {
+    role: "Research Assistant",
+    outcome:(<>Produced novel research as seminar final project, adapting the Yale Rutledge Lab's methods towards testing game-like feedback effects on happiness.
+    <br/>
+    <br/>
+    <strong>Analyzed data and fit to a model using linear regression.</strong> Testing four novel hypothesis with modeling techniques, producing a statistically significant result for computerized taunts on user happiness and motivation.</>)
+  }
+},
     {
       id: "closet",
       title: "Closet",
       subtitle: "Cinematography + editing study",
       description:
-        "Video-editing and cinematography experiment seeking to create horror through the unexpected and uncanny.",
-      // TODO: add embed / stills / edit notes
+        "Video-editing and cinematography experiment seeking to create horror through the uncanny.",
       category: "film",
       medium: "digital",
-      tags: ["solo", "video-editing"],
+      tags: [
+        "solo", "video", "film"],
       thumbSrc: "/images/thumbs/closet.png",
-    },
-
-    {
-      id: "heat",
-      title: "Heat",
-      subtitle: "Editing + narrative rhythm",
-      description:
-        "A film edit focused on intensity curves: when to compress, when to linger, and where to let silence land.",
-      // TODO: add edit breakdown / before-after clips
-      category: "film",
-      medium: "digital",
-      tags: ["solo", "video-editing", "film"],
-      thumbSrc: "/images/thumbs/heat.png",
-    },
-
-    {
-      id: "storyvox",
-      title: "Storyvox",
-      subtitle: "Assistive OCR reader",
-      description:
-        "Capstone product engineering project: a reader that bridges text recognition to usable, human-centered output.",
-      // TODO: add system diagram / user flow / testing notes
-      category: "engineering",
-      medium: "digital",
-      tags: ["team", "management", "ux-research", "engineering", "programming", "manufacturing", "cad"],
-      thumbSrc: "/images/thumbs/storyvox.png",
+      caseStudy:{
+        role: "Director",
+        outcome: "View my film, 'Closet', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
+      }
     },
 
     {
@@ -245,98 +487,55 @@ const projects = React.useMemo(
       title: "Touchscreen Experiments",
       subtitle: "Novel interaction affordances",
       description:
-        "Iterated on unconventional touch input patterns to understand what feels intuitive, playful, and precise.",
-      // TODO: add gifs / interaction notes / prototype links
+        "Iterated on unconventional touch input patterns to explore play and precision.",
       category: "design",
       medium: "digital",
-      tags: ["solo", "ux-research", "sensory-design", "data-analysis", "design", "engineering", "unity", "programming"],
+      tags: [
+        "solo",
+        "uxr",
+        "sensory",
+        "data",
+        "design",
+        "engineering",
+        "unity",
+        "programming",
+        "game",
+      ],
       thumbSrc: "/images/thumbs/ts.png",
-    },
-
-    {
-      id: "curses",
-      title: "Curses!",
-      subtitle: "Physical Card Game (Downloadable and Playable)",
-      description:
-        "Designed social mechanics to coax group play and break negative loops, toward laughter-first participation.",
-      // TODO: add print-and-play link / photos / rules snippet
-      category: "games",
-      medium: "physical",
-      tags: ["solo", "prototyping", "ux-research", "game", "design", "manufacturing"],
-      thumbSrc: "/images/thumbs/curses.png",
       caseStudy: {
-        role: "Designer (independent)",
-        outcome: (
-          <>
-            {/* TODO: add outcome text + images */}
-          </>
-        ),
-      },
+
+      }
     },
 
     {
-      id: "acropolis",
-      title: "Live from the Acropolis",
-      subtitle: "Performance + spatial staging",
+      id: "storyvox",
+      title: "Storyvox",
+      subtitle: "Assistive OCR reader",
       description:
-        "Designed a live experience with emphasis on audience flow, sightlines, and sensory “moments.”",
-      // TODO: add staging plan / photos / reflection
-      category: "design",
-      medium: "physical",
-      tags: ["solo", "sensory-design", "video-editing", "event"],
-      thumbSrc: "/images/thumbs/athens.png",
-    },
-
-    // --- These next ones appear in the spreadsheet but not in your pasted code earlier.
-    // Keeping them here with clear placeholders so you can fill them in.
-
-    {
-      id: "kojima-ovl",
-      title: "Kojima @ OVL",
-      subtitle: "TODO: subtitle",
-      description: "TODO: short description",
-      // TODO: add longform text blocks / links
-      category: "design",
-      medium: "physical",
-      tags: ["team", "management", "sensory-design", "design", "event"],
-      thumbSrc: "/images/thumbs/kojima.png", // TODO: set thumb path
+        "Capstone product engineering project focused on accessible text output.",
+      category: "engineering",
+      medium: "digital",
+      tags: [
+        "group",
+        "management",
+        "uxr",
+        "engineering",
+        "programming",
+        "cad",
+      ],
+      thumbSrc: "/images/thumbs/storyvox.png",
     },
 
     {
-      id: "yale-historical-society",
-      title: "Yale Historical Society",
-      subtitle: "TODO: subtitle",
-      description: "TODO: short description",
-      // TODO: add longform text blocks / links
-      category: "design",
-      medium: "physical",
-      tags: ["team", "management", "data-analysis", "event", "manufacturing"],
-      thumbSrc: "/images/thumbs/yale.png", // TODO: set thumb path
-    },
-
-    {
-      id: "flannel",
-      title: "FLANNEL. (band)",
-      subtitle: "TODO: subtitle",
-      description: "TODO: short description",
-      // TODO: add longform text blocks / links
-      category: "design",
-      medium: "physical",
-      tags: ["team", "management", "design", "event"],
-      thumbSrc: "/images/thumbs/flannel.png", // TODO: set thumb path
-    },
-
-    {
-      id: "requiem-for-sisyphus",
-      title: "Requiem for Sisyphus",
-      subtitle: "Silent inspired slapstick comedy film",
+      id: "heat",
+      title: "Heat",
+      subtitle: "Editing + narrative rhythm",
       description:
-        "Telling a classic story about two drunken cowboys, their conflict, and their inevitable coming-to-terms for a class in Stage Combat",
-      // TODO: add link / stills / edit notes
+        "A film edit focused on intensity curves and pacing.",
       category: "film",
       medium: "digital",
-      tags: ["team", "film", "video-editing"],
-      thumbSrc: "/images/thumbs/sisyphus.png",
+      tags: ["solo", "video", "film"],
+      thumbSrc: "/images/thumbs/heat.png",
     },
 
     {
@@ -344,11 +543,10 @@ const projects = React.useMemo(
       title: "Guerra de Discretos",
       subtitle: "Systems-first game design",
       description:
-        "Shipped game experiment exploring rules as “experience levers”—balance, pacing, and player intent.",
-      // TODO: add ruleset / balancing notes
+        "Explores rules as experience levers in competitive play.",
       category: "games",
       medium: "digital",
-      tags: ["team", "game", "design", "manufacturing"],
+      tags: ["group","game", "design"],
       thumbSrc: "/images/thumbs/guerra.png",
     },
 
@@ -357,25 +555,30 @@ const projects = React.useMemo(
       title: "Lil' Dipper Rover",
       subtitle: "Prototyping a physical system",
       description:
-        "Built and iterated a small rover concept—mechanics, fabrication constraints, and test-driven iteration.",
-      // TODO: add build photos / iteration notes
+        "Built and iterated a small rover concept under fabrication constraints.",
       category: "engineering",
       medium: "physical",
-      tags: ["team", "management", "agile", "engineering", "programming", "manufacturing"],
-      thumbSrc: "/images/thumbs/rover.png",
+      tags: [
+        "group",
+        "management",
+        "agile",
+        "engineering",
+        "programming",
+        "cad",
+      ],
+      thumbSrc: "/images/dipper.jpg",
     },
 
     {
-      id: "habitat",
-      title: "PLTW Habitat for Humanity",
-      subtitle: "End-to-end civil engineering project",
+      id: "sisyphus",
+      title: "Requiem for Sisyphus",
+      subtitle: "Silent slapstick comedy film",
       description:
-        "From planning to execution—physical constraints, stakeholder needs, and making complexity feel simple.",
-      // TODO: add drawings / deliverables
-      category: "engineering",
-      medium: "physical",
-      tags: ["solo", "engineering", "cad"],
-      thumbSrc: "/images/thumbs/habitat.png",
+        "Stage-combat-inspired silent comedy film.",
+      category: "film",
+      medium: "digital",
+      tags: ["solo","video", "film"],
+      thumbSrc: "/images/thumbs/sisyphus.png",
     },
 
     {
@@ -383,37 +586,80 @@ const projects = React.useMemo(
       title: "Cart Hanger",
       subtitle: "Manufacturable physical design",
       description:
-        "A hardware concept shaped by constraints: tolerances, assembly, and how objects teach use through form.",
-      // TODO: add CAD renders / manufacturing notes
+        "Hardware concept shaped by fabrication constraints.",
       category: "engineering",
       medium: "physical",
-      tags: ["team", "prototyping", "agile", "ux-research", "engineering", "manufacturing", "cad"],
+      tags: [
+        "group",
+        "prototyping",
+        "agile",
+        "uxr",
+        "engineering",
+        "cad",
+      ],
       thumbSrc: "/images/thumbs/hanger.png",
     },
 
     {
-      id: "neuroscience-research",
-      title: "Neuroscience Research",
-      subtitle: "TODO: subtitle",
-      description: "TODO: short description",
-      // TODO: add methods / findings
-      category: "engineering",
-      medium: "digital",
-      tags: ["solo", "data-analysis", "engineering", "programming"],
-      thumbSrc: "/images/thumbs/neuro.png", // TODO: set thumb path
+      id: "acropolis",
+      title: "Live from the Acropolis",
+      subtitle: "Performance + spatial staging",
+      description:
+        "Designed a live experience focused on audience flow and sensory moments.",
+      category: "design",
+      medium: "physical",
+      tags: [
+        "solo","sensory", "design", "event", "film"],
+      thumbSrc: "/images/thumbs/athens.png",
     },
 
     {
-      id: "llm-research",
-      title: "LLM Research",
-      subtitle: "TODO: subtitle",
-      description: "TODO: short description",
-      // TODO: add methods / findings
+      id: "habitat",
+      title: "PLTW Habitat for Humanity",
+      subtitle: "End-to-end civil engineering project",
+      description:
+        "From planning to execution—engineering with real constraints.",
       category: "engineering",
-      medium: "digital",
-      tags: ["solo", "data-analysis", "engineering"],
-      thumbSrc: "/images/thumbs/llm.png", // TODO: set thumb path
+      medium: "physical",
+      tags: [
+        "solo","engineering", "cad"],
+      thumbSrc: "/images/thumbs/habitat.png",
     },
+{
+  id: "yale-historical",
+  title: "Yale Historical Society",
+  subtitle: "Archival experience design",
+  description:
+    "Designed an interpretive experience for historical material, balancing narrative clarity with physical constraints.",
+  category: "design",
+  medium: "physical",
+  tags: [
+    "group",
+    "management",
+    "data",
+    "design",
+    "event",
+  ],
+  thumbSrc: "/images/thumbs/yale.png",
+},
+
+{
+  id: "llm-research",
+  title: "LLM Research",
+  subtitle: "Applied language model research",
+  description:
+    "Explored large language models through applied experimentation, analysis, and system-level evaluation.",
+  category: "engineering",
+  medium: "digital",
+  tags: [
+    "solo",
+    "data",
+    "engineering",
+    "programming",
+  ],
+  thumbSrc: "/images/thumbs/llm.png",
+},
+
   ],
   []
 );
@@ -467,7 +713,7 @@ const FILTER_GROUPS = [
     label: "Group",
     options: [
       { key: "solo", label: "Solo" },
-      { key: "team", label: "Team" },
+      { key: "group", label: "Team" },
     ],
   },
   {
@@ -477,9 +723,9 @@ const FILTER_GROUPS = [
       { key: "management", label: "Management" },
       { key: "prototyping", label: "Prototyping" },
       { key: "agile", label: "Agile" },
-      { key: "ux-research", label: "UX Research" },
-      { key: "sensory-design", label: "Sensory Design" },
-      { key: "data-analysis", label: "Data Analysis" },
+      { key: "uxr", label: "UX Research" },
+      { key: "sensory", label: "Sensory Design" },
+      { key: "data", label: "Data Analysis" },
     ],
   },
   {
@@ -501,6 +747,7 @@ const FILTER_GROUPS = [
       { key: "figma", label: "Figma" },
       { key: "unity", label: "Unity" },
       { key: "programming", label: "Programming" },
+      { key: "cad", label: "Manufacturing / CAD" },
     ],
   },
 ];
@@ -623,7 +870,7 @@ const visibleProjects = React.useMemo(() => {
 
   {FILTER_GROUPS.map((g) => {
     const count = filters[g.id]?.size || 0;
-    const isOpen = openDropdowns.has(g.id);
+    const isOpen = openDropdown === g.id;
 
     return (
       <div key={g.id} className="tagDropdown">
@@ -705,8 +952,10 @@ const visibleProjects = React.useMemo(() => {
 
                 <div className="projectInfoV2">
                   <div className="projectTitleRow">
-                    <div className="projectTitleV2">{p.title}</div>
-                    <div className="projectMediumPill">{p.medium}</div>
+                    <div className="projectTitleV2">{p.title}</div>  <div className="projectPillGroup">
+    {p.demo ? <div className="projectDemoPill">DEMO</div> : null}
+    <div className="projectMediumPill">{p.medium}</div>
+  </div>
                   </div>
 
                   <div className="projectSubtitleV2">{p.subtitle}</div>
@@ -766,12 +1015,7 @@ const visibleProjects = React.useMemo(() => {
               </div>
 
               <div className="projectModalBody">
-                <p className="projectModalDesc">{openProject.description}</p>
-
-                <div className="projectModalChips">
-                  <span className="projectModalChip">{openProject.medium}</span>
-                  <span className="projectModalChip">{CATEGORY_META[openProject.category]?.label}</span>
-                </div>
+                <p className="projectModalDesc">{openProject.description}</p> 
 
                 {openProject.tags?.length ? (
                   <div className="projectModalTagList">
@@ -795,12 +1039,14 @@ const visibleProjects = React.useMemo(() => {
                         <strong>Outcome:</strong> {openProject.caseStudy.outcome}
                       </p>
                     ) : null}
+                    {openProject.caseStudy.caseStudy ? (
+                      <p>
+                        <strong>Case Study:</strong> {openProject.caseStudy.caseStudy}
+                      </p>
+                    ) : null}
                   </div>
                 ) : (
                   <div className="projectModalCase">
-                    <p>
-                      This is a short “quick case” placeholder—drop in a few paragraphs, links, or bullet points whenever you’re ready.
-                    </p>
                   </div>
                 )}
               </div>

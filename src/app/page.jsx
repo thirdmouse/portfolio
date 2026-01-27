@@ -168,8 +168,9 @@ export default function App() {
         id: "t-now",
         date: "2023 — Spring 2027",
         title: "Yale University",
-        subtitle: "3.83 GPA | Cognitive Science of Subconscious and Interactive Experience",
+        subtitle: "3.83 GPA | Major in Cognitive Science of Subconscious and Interactive Experience",
         bullets: [
+          "Certificates in Spanish and Medieval Studies",
           "M.Arch Coursework in Multisensory and Inclusive Spaces",
           "MBA Coursework in UX Research / Design, Consumer Behavior",
           "Undergrad incl. Psychology of Marketing and Media, Architecture, Computational Neuroscience, Mechanical Design, Cognitive Science of Large Language Models, Game Design, Digital IP, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
@@ -385,7 +386,7 @@ useEffect(() => {
           </FadeIn>
           <FadeIn className="section centerBlock">
             <p className="vocation">
-              <br /> My diverse enthusiasm reaches programming, architecture, professional acting and performance, and events management...
+              <br /> My diverse enthusiasm reaches programming, architecture, professional acting, rock-and-roll drumming, and events management...
                <br/>
                 <br/>Each passion is not only unified by my Cognitive-Science based design philosophy, but
               irrevocably contributes to it.

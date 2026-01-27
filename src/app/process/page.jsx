@@ -69,7 +69,7 @@ const steps = [
     no:3,
     id: "Prototype",
     title: "Move Fast and Break Things",
-    subtitle: "Per Jobs, prototype rapidly and kill your darlings",
+    subtitle: "Per Steve Jobs, prototype rapidly and kill your darlings",
     description:
       "Prototypes need to evoke that final experience and evoke that feeling, regardless of medium-matching. Cardboard can be a videogame, or a conference room a concert hall.",
     image: "/images/martini.png",
@@ -426,7 +426,7 @@ const handleDotClick = (index) => scrollToStepMiddle(index);
 
             <div className="processStepCounter">
               <div className="processStepCounterText">
-                {String(step.id).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
+                {String(step.no).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
               </div>
             </div>
           </section>
