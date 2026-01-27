@@ -210,7 +210,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     <br/><br/>
     Lastly, the in-game economy was altered. Rather than pricing the best upgrades the highest, I made them the cheapest. <strong>This way, players would spread the upgrades among the towers rather than saving to get the "best" upgrade for one.</strong> This also allowed an increase in general difficulty to increase thought-provoking challenge.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="./cgamefeel.png" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/cgamefeel.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           An example of the upgraded game-feel, on a screen where pro-fun behavior is observed.
@@ -415,7 +415,9 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   thumbSrc: "./images/curses.jpg",
   caseStudy:{
     role: "Sole Designer",
-    outcome: "Designed, prototyped, and soft-launched the game. Iterated 'curse' mechanics to ensure players didn't just get completely quiet, added 'quest' mechanic as response to anti-fun behaviors. Downloadable version available!"
+    outcome: (<>Designed, prototyped, and soft-launched the game. Iterated 'curse' mechanics to ensure players didn't just get completely quiet, added 'quest' mechanic as response to anti-fun behaviors. Downloadable version available!
+    <br/><br/>
+    Players each start with a custom curse card, on which they can write any word or phrase to forbid it at the cost of life. Then, through quest cards, requiring tasks; spell cards, minigames; and curse cards more generally forbidding actions like saying anyone's name; players can coax others into getting cursed and steal their life. </>)
   }
 },
 {
@@ -530,14 +532,18 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     {
       id: "acropolis",
       title: "Live from the Acropolis",
-      subtitle: "Performance + spatial staging",
+      subtitle: "Historical Analysis + Sensory Staging",
       description:
-        "Designed a live experience focused on audience flow and sensory moments.",
+        "Designed a live experience focused on audience flow and sensory moments through the Panathenaic Procession documented from the bottom-up.",
       category: "design",
       medium: "physical",
       tags: [
         "solo","sensory", "design", "event", "film"],
       thumbSrc: "./images/thumbs/athens.png",
+      caseStudy: {
+        role: "Experience Designer and Performer",
+        outcome: "Performed a sensory live experience including all five senses based on the lived Ancient Greek experience during the Panathenaia. Conceived as a novel method of tour guiding for greater retention based on pedagogical psychology, the project was guided by Architect and Designer Joel Sanders."
+      }
     },
     {
       id: "guerra",
@@ -549,6 +555,12 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       medium: "physical",
       tags: ["group","game", "design"],
       thumbSrc: "./images/thumbs/guerra.png",
+      caseStudy: {
+        role: "Game Designer",
+        outcome: (<>Designed a game to explore hermenuetic interpretation of Spanish manuscripts. Inspired by Risk and Secret Hitler, each player is given one of the templar orders to support, as well as a hidden <loyalty->
+          <br/><br/>
+          On your turn, you read a manuscript card and must identify a contiguous segment of land wherein the author might have been from based on their symbols. Then, you claim that land- but, players can lie or steal land from one another.</loyalty-></>)
+      }
     },
 
 {
@@ -606,7 +618,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         outcome: "View my short film on my YouTube channel. Performed as an evaluative final for a stage combat class."
       }
     },
-
+/*
     {
       id: "hanger",
       title: "Cart Hanger",
@@ -674,7 +686,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       tags: [
         "solo","engineering", "cad"],
       thumbSrc: "./images/thumbs/habitat.png",
-    },
+    },*/
   ],
   []
 );
