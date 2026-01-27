@@ -102,9 +102,9 @@ const toggleDropdown = (id) => {
 
     const CATEGORY_META = React.useMemo(
     () => ({
-      games: { label: "Games", imgSrc: "/images/games.png" },
-      film: { label: "Film", imgSrc: "/images/film.png" },
-      design: { label: "Design", imgSrc: "/images/design.png" },
+      games: { label: "Games", imgSrc: "./images/games.png" },
+      film: { label: "Film", imgSrc: "./images/film.png" },
+      design: { label: "Design", imgSrc: "./images/design.png" },
       engineering: { label: "Engineering", imgSrc: "/images/engineering.png" },
     }),
     []
@@ -135,7 +135,7 @@ const toggleDropdown = (id) => {
         "figma",
         "programming",
       ],
-      thumbSrc: "/images/ir.jpeg",
+      thumbSrc: "./images/ir.jpeg",
       caseStudy: {
           role: "Experience Designer and AI Integration",
           outcome:
@@ -183,7 +183,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "unity",
         "programming",
       ],
-      thumbSrc: "/images/feat-b.jpg",
+      thumbSrc: "./images/feat-b.jpg",
       demo: true,
       caseStudy:{
         role: "Sole Developer",
@@ -192,7 +192,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         </>),
         caseStudy:(<>Though I observed my ideal thought patterns in the early-game, the late-game saw players optimize away the fun of the experience.
         <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/cg.png" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/cg.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           A "boring screen" in Color Guard- this many similarly upgraded guards signaled a problem.
@@ -210,7 +210,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     <br/><br/>
     Lastly, the in-game economy was altered. Rather than pricing the best upgrades the highest, I made them the cheapest. <strong>This way, players would spread the upgrades among the towers rather than saving to get the "best" upgrade for one.</strong> This also allowed an increase in general difficulty to increase thought-provoking challenge.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/cgamefeel.png" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./cgamefeel.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           An example of the upgraded game-feel, on a screen where pro-fun behavior is observed.
@@ -275,13 +275,13 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "design",
     "event",
   ],
-  thumbSrc: "/images/kojima.jpg",
+  thumbSrc: "./images/kojima.jpg",
   caseStudy: {
     role: "Assistant Manager and Experience Designer",
     outcome: (<>
   Live-managed event featuring the some of the largest names in media. Designed storefront to optimize retention and event entry, MCeed live event.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/kjovl.jpg" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/kjovl.jpg" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           Pre-show work in the booth for a performance.
@@ -313,7 +313,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "unity",
         "programming",
         "cad",
-      ],thumbSrc: "/images/thumbs/wcal.png",
+      ],thumbSrc: "./images/thumbs/wcal.png",
         caseStudy: {
           role: "Designer (independent)",
           outcome:
@@ -321,7 +321,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   <>
     WCAL was inspired by Rube Goldberg machines and 'Please, Don't Touch Anything.' It required players to develop adventurous solutions in a completely normal room to reach cake across it.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/thumbs/wcal.png" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/thumbs/wcal.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           Title screen and view of the room in the demo.
@@ -350,7 +350,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         this demo
       </a>. Try starting a fire and making a boat; or using a vent to blow a slice of cake to you!   
       <div className="caseImageWrapper">
-        <img className="caseimage" src="/images/wcalpm1.png" alt="" aria-hidden="true" />
+        <img className="caseimage" src="./images/wcalpm1.png" alt="" aria-hidden="true" />
         <div className="caseImageCaption">
           <span className="caseImageCaptionText">
             My paper model, full of miniature objects for testers to latch onto and lead off of.
@@ -375,7 +375,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "design",
     "event",
   ],
-  thumbSrc: "/images/thumbs/ovl.png",
+  thumbSrc: "./images/thumbs/ovl.png",
   caseStudy: {
     role: "Production Intern",
     outcome: (<>See Kojima @ OVL project for most recent work. Interned on live event design and staging with production team. <strong>Project-led inventory management and quoting system able to streamline and enable client and performer adaptation</strong>. OVL manages three venues at different depths in the city block it encompasses- worked on intermediary and venue-specific projects.
@@ -385,7 +385,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     <br/> 
     Collated historical footage and edited tailor-made for the HERE screen, at the time the largest in the world. Developed connected event featuring licensed historic concert footage and retro merchandise sales as part of a multi-sensory experience able to fill schedule gaps at low notice.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/here.png" alt="" aria-hidden="true" />
+      <img className="caseimage" src="./images/here.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
           A view of the HERE venue, featuring a screen spanning over 45 feet.
@@ -412,7 +412,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "game",
     "design",
   ],
-  thumbSrc: "/images/curses.jpg",
+  thumbSrc: "./images/curses.jpg",
   caseStudy:{
     role: "Sole Designer",
     outcome: "Designed, prototyped, and soft-launched the game. Iterated 'curse' mechanics to ensure players didn't just get completely quiet, added 'quest' mechanic as response to anti-fun behaviors. Downloadable version available!"
@@ -432,7 +432,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "engineering",
     "programming",
   ],
-  thumbSrc: "/images/thumbs/neuro.jpg",
+  thumbSrc: "./images/thumbs/neuro.jpg",
   caseStudy: {
     role: "Research Assistant",
     outcome:(<>Produced novel research as seminar final project, adapting the Yale Rutledge Lab's methods towards testing game-like feedback effects on happiness.
@@ -459,13 +459,13 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "figma",
         "programming",
       ],
-      thumbSrc: "/images/feat-c.jpg",
+      thumbSrc: "./images/feat-c.jpg",
       caseStudy: {
         role: "UX Research Team Member, Co-Lead Conceptual Designer",
         outcome: (<>Produced <a href="https://docs.google.com/file/d/1JF5VJYW4z3KcEQiUvlPzUnsjHf5MIp0X/view">lo-fi</a> and < a href="https://docs.google.com/file/d/1MU9CGKLCVWJr5Y97MteZu1mGAd0dIi64/preview">med-fi</a> models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
         <br/>
         <div className="caseImageWrapper">
-          <img className="caseimage" src="/images/test.png" alt="" aria-hidden="true" />
+          <img className="caseimage" src="./images/test.png" alt="" aria-hidden="true" />
           <div className="caseImageCaption">
             <span className="caseImageCaptionText">
               Testing the model with end-to-end interaction simulated through existing modular products and verbal prompts.
@@ -488,7 +488,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       medium: "digital",
       tags: [
         "solo", "video", "film"],
-      thumbSrc: "/images/thumbs/closet.png",
+      thumbSrc: "./images/thumbs/closet.png",
       caseStudy:{
         role: "Director",
         outcome: "View my short film, 'Closet', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
@@ -514,7 +514,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "programming",
         "game",
       ],
-      thumbSrc: "/images/thumbs/ts.png",
+      thumbSrc: "./images/thumbs/ts.png",
       caseStudy: {
         role: "Designer and Researcher",
         outcome: (<>Designed, tested, and iterated interaction methods with multitouch screens through Unity on iOS.
@@ -537,7 +537,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       medium: "physical",
       tags: [
         "solo","sensory", "design", "event", "film"],
-      thumbSrc: "/images/thumbs/athens.png",
+      thumbSrc: "./images/thumbs/athens.png",
     },
     {
       id: "guerra",
@@ -548,7 +548,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       category: "games",
       medium: "physical",
       tags: ["group","game", "design"],
-      thumbSrc: "/images/thumbs/guerra.png",
+      thumbSrc: "./images/thumbs/guerra.png",
     },
 
 {
@@ -566,7 +566,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "design",
     "event",
   ],
-  thumbSrc: "/images/yale.jpg",
+  thumbSrc: "./images/yale.jpg",
   caseStudy:{
     role: "Treasurer and Executive Board Member",
     outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective.
@@ -584,7 +584,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       watchHref: "https://youtu.be/0irOis8LlNo?si=7ORBuIp1YCFpvsZw",
       medium: "digital",
       tags: ["solo", "video", "film"],
-      thumbSrc: "/images/thumbs/heat.png",
+      thumbSrc: "./images/thumbs/heat.png",
       caseStudy:{
         role: "Director",
         outcome: "View my short, adapted from 'Heat', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
@@ -599,7 +599,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       category: "film",
       medium: "digital",
       tags: ["solo","video", "film"],
-      thumbSrc: "/images/thumbs/sisyphus.png",
+      thumbSrc: "./images/thumbs/sisyphus.png",
       watchHref:"https://youtu.be/LTF8OGhc6hk?si=78MSlnrUEo6NYVRU",
       caseStudy:{
         role: "Director",
@@ -623,7 +623,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "engineering",
         "cad",
       ],
-      thumbSrc: "/images/thumbs/hanger.png",
+      thumbSrc: "./images/thumbs/hanger.png",
     },
 
     {
@@ -642,7 +642,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "programming",
         "cad",
       ],
-      thumbSrc: "/images/thumbs/storyvox.png",
+      thumbSrc: "./images/thumbs/storyvox.png",
     },
     {
       id: "rover",
@@ -660,7 +660,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "programming",
         "cad",
       ],
-      thumbSrc: "/images/dipper.jpg",
+      thumbSrc: "./images/dipper.jpg",
     },
 
     {
@@ -673,7 +673,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       medium: "physical",
       tags: [
         "solo","engineering", "cad"],
-      thumbSrc: "/images/thumbs/habitat.png",
+      thumbSrc: "./images/thumbs/habitat.png",
     },
   ],
   []
