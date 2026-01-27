@@ -171,6 +171,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "Shipped to players in 10+ countries. Iterated economy + anti-fun mitigation using playtests and telemetry.",
       category: "games",
       medium: "digital",
+      demoHref: "https://apps.apple.com/cz/app/color-guard-tower-defense/id6505026907",
       tags: [
         "solo",
         "prototyping",
@@ -260,11 +261,11 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
 )
         },
 },{
-  id: "ovl",
-  title: "Outernet Venues Live",
-  subtitle: "Production Intern at Live Music and Experiential Venue",
+  id: "kojima-ovl",
+  title: "Kojima @ OVL",
+  subtitle: "Live experiential installation",
   description:
-    "Designed and staged world-class live events at three London SoHo venues, featuring some of the largest screens in the world.",
+    "Designed and staged a live experiential event emphasizing sensory pacing, spatial flow, and audience engagement.",
   category: "design",
   medium: "physical",
   tags: [
@@ -274,53 +275,23 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "design",
     "event",
   ],
-  thumbSrc: "/images/thumbs/ovl.png",
+  thumbSrc: "/images/kojima.jpg",
   caseStudy: {
-    role: "Production Intern",
-    outcome: (<>See Kojima @ OVL project for most recent work. Interned on live event design and staging with production team. <strong>Project-led inventory management and quoting system able to streamline and enable client and performer adaptation</strong>. OVL manages three venues at different depths in the city block it encompasses- worked on intermediary and venue-specific projects.
-    </>),
-    caseStudy:(<><strong>Directed 'History of Denmark Street' musical history documentary,</strong> as part of a strategy plan to develop sentiment for the venue in the area.
-    <br/>
-    <br/> 
-    Collated historical footage and edited tailor-made for the HERE screen, at the time the largest in the world. Developed connected event featuring licensed historic concert footage and retro merchandise sales as part of a multi-sensory experience able to fill schedule gaps at low notice.
+    role: "Assistant Manager and Experience Designer",
+    outcome: (<>
+  Live-managed event featuring the some of the largest names in media. Designed storefront to optimize retention and event entry, MCeed live event.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/here.png" alt="" aria-hidden="true" />
+      <img className="caseimage" src="/images/kjovl.jpg" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
-          A view of the HERE venue, featuring a screen spanning over 45 feet.
+          Pre-show work in the booth for a performance.
         </span>
       </div>
-    </div>
-    </>)
-  },
+    </div></>),
+    caseStudy:(<>Designed storefront flow for optimal flow based on audience behavior- per the demographic, consumers lingered for some time to analyze collectibles. So, the layout followed the Apple Store mentality of <strong>bidirectionality and broad product access.</strong><br/><br/>
+    The event itself happened in HERE, a below ground venue, so ingress-egress was particularly oriented for through-store and to-event motion. Audience retention lasted over 12 hours, and post-event buzz carried a near-total sellout.</>)
+  }
 },
-
-    {
-      id: "long-time-lets-see",
-      title: "Long Time, Let’s See!",
-      subtitle: "Social media designed to promote off-app exploration",
-      description:
-        "A social platform designed like a dating app- optimized to get users off the app and into new experiences.",
-      category: "design",
-      medium: "digital",
-      tags: [
-        "group",
-        "prototyping",
-        "uxr",
-        "design",
-        "engineering",
-        "miro",
-        "figma",
-        "programming",
-      ],
-      thumbSrc: "/images/feat-c.jpg",
-      caseStudy: {
-        role: "UX Research Team Member, Co-Lead Conceptual Designer",
-        outcome: (<>Produced lo-fi and med-fi models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
-        <br/><br/>
-        </>),
-      }
-    },
     {
       id: "wcal",
       title: "Want Cake, Am Lazy",
@@ -330,6 +301,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "Emergent gameplay through puzzle-box design and physical prototyping.",
       category: "games",
       medium: "digital",
+      demoHref: "https://charlie-patton.itch.io/want-cake-am-lazy",
       tags: [
         "solo",
         "prototyping",
@@ -389,12 +361,12 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
 )
         },
       },{
-  id: "kojima-ovl",
-  title: "Kojima @ OVL",
-  subtitle: "Live experiential installation",
+  id: "ovl",
+  title: "Outernet Venues Live",
+  subtitle: "Production Intern at Live Music and Experiential Venue",
   description:
-    "Designed and staged a live experiential event emphasizing sensory pacing, spatial flow, and audience engagement.",
-  category: "design",
+    "Designed and staged world-class live events at three London SoHo venues, featuring some of the largest screens in the world.",
+  category: "engineering",
   medium: "physical",
   tags: [
     "group",
@@ -403,22 +375,25 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     "design",
     "event",
   ],
-  thumbSrc: "/images/kojima.jpg",
+  thumbSrc: "/images/thumbs/ovl.png",
   caseStudy: {
-    role: "Assistant Manager and Experience Designer",
-    outcome: (<>
-  Live-managed event featuring the some of the largest names in media. Designed storefront to optimize retention and event entry, MCeed live event.
+    role: "Production Intern",
+    outcome: (<>See Kojima @ OVL project for most recent work. Interned on live event design and staging with production team. <strong>Project-led inventory management and quoting system able to streamline and enable client and performer adaptation</strong>. OVL manages three venues at different depths in the city block it encompasses- worked on intermediary and venue-specific projects.
+    </>),
+    caseStudy:(<><strong>Directed 'History of Denmark Street' musical history documentary,</strong> as part of a strategy plan to develop sentiment for the venue in the area.
+    <br/>
+    <br/> 
+    Collated historical footage and edited tailor-made for the HERE screen, at the time the largest in the world. Developed connected event featuring licensed historic concert footage and retro merchandise sales as part of a multi-sensory experience able to fill schedule gaps at low notice.
     <div className="caseImageWrapper">
-      <img className="caseimage" src="/images/kjovl.jpg" alt="" aria-hidden="true" />
+      <img className="caseimage" src="/images/here.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
-          Pre-show work in the booth for a performance.
+          A view of the HERE venue, featuring a screen spanning over 45 feet.
         </span>
       </div>
-    </div></>),
-    caseStudy:(<>Designed storefront flow for optimal flow based on audience behavior- per the demographic, consumers lingered for some time to analyze collectibles. So, the layout followed the Apple Store mentality of <strong>bidirectionality and broad product access.</strong><br/><br/>
-    The event itself happened in HERE, a below ground venue, so ingress-egress was particularly oriented for through-store and to-event motion. Audience retention lasted over 12 hours, and post-event buzz carried a near-total sellout.</>)
-  }
+    </div>
+    </>)
+  },
 },
 {
   id: "curses",
@@ -429,6 +404,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   category: "games",
   medium: "physical",
   demo: true,
+  demoHref: "https://drive.google.com/file/d/1tZPT2_B-O2DFR2O4MfxscJY1xjKK9IGG/view",
   tags: [
     "solo",
     "prototyping",
@@ -439,7 +415,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   thumbSrc: "/images/curses.jpg",
   caseStudy:{
     role: "Sole Designer",
-    outcome: "Designed, prototyped, and soft-launched the game. Iterated 'curse' mechanics to ensure players didn't just get completely quiet, added 'quest' mechanic as response to anti-fun behaviors."
+    outcome: "Designed, prototyped, and soft-launched the game. Iterated 'curse' mechanics to ensure players didn't just get completely quiet, added 'quest' mechanic as response to anti-fun behaviors. Downloadable version available!"
   }
 },
 {
@@ -466,9 +442,46 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
   }
 },
     {
+      id: "long-time-lets-see",
+      title: "Long Time, Let’s See!",
+      subtitle: "Social media designed to promote off-app exploration",
+      description:
+        "A social platform designed like a dating app- optimized to get users off the app and into new experiences.",
+      category: "design",
+      medium: "digital",
+      tags: [
+        "group",
+        "prototyping",
+        "uxr",
+        "design",
+        "engineering",
+        "miro",
+        "figma",
+        "programming",
+      ],
+      thumbSrc: "/images/feat-c.jpg",
+      caseStudy: {
+        role: "UX Research Team Member, Co-Lead Conceptual Designer",
+        outcome: (<>Produced <a href="https://docs.google.com/file/d/1JF5VJYW4z3KcEQiUvlPzUnsjHf5MIp0X/view">lo-fi</a> and < a href="https://docs.google.com/file/d/1MU9CGKLCVWJr5Y97MteZu1mGAd0dIi64/preview">med-fi</a> models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
+        <br/>
+        <div className="caseImageWrapper">
+          <img className="caseimage" src="/images/test.png" alt="" aria-hidden="true" />
+          <div className="caseImageCaption">
+            <span className="caseImageCaptionText">
+              Testing the model with end-to-end interaction simulated through existing modular products and verbal prompts.
+            </span>
+          </div>
+        </div>
+        <br/>
+        The product was spun off into a proposed plugin for Instagram wherein algorithms could be shared and posts would have a "share" functionality to create a calendar event for actions.
+        </>),
+      }
+    },
+    {
       id: "closet",
       title: "Closet",
       subtitle: "Cinematography + editing study",
+      watchHref: "https://youtu.be/Z1PgMDV0460?si=fel1tSH3-P4Ulhna",
       description:
         "Video-editing and cinematography experiment seeking to create horror through the uncanny.",
       category: "film",
@@ -478,7 +491,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       thumbSrc: "/images/thumbs/closet.png",
       caseStudy:{
         role: "Director",
-        outcome: "View my film, 'Closet', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
+        outcome: "View my short film, 'Closet', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
       }
     },
 
@@ -503,82 +516,95 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
       ],
       thumbSrc: "/images/thumbs/ts.png",
       caseStudy: {
-
+        role: "Designer and Researcher",
+        outcome: (<>Designed, tested, and iterated interaction methods with multitouch screens through Unity on iOS.
+        <br/><br/>
+        Methods include: 
+        <br/> - a geometric touch-slide system for single-agent group control in a strategy game
+        <br/> - a mobile platformer controller based on box grids in either corner for slides
+        <br/> - an isometric strategy game, a la excomm, with shortest-path finding movement and environmental destruction
+        <br/> - 2D platformer which turns to 3D platformer upon enemy hits - think Mario shells going from Super Mario Bros. to 3D Land</>)
       }
     },
 
     {
-      id: "storyvox",
-      title: "Storyvox",
-      subtitle: "Assistive OCR reader",
+      id: "acropolis",
+      title: "Live from the Acropolis",
+      subtitle: "Performance + spatial staging",
       description:
-        "Capstone product engineering project focused on accessible text output.",
-      category: "engineering",
-      medium: "digital",
+        "Designed a live experience focused on audience flow and sensory moments.",
+      category: "design",
+      medium: "physical",
       tags: [
-        "group",
-        "management",
-        "uxr",
-        "engineering",
-        "programming",
-        "cad",
-      ],
-      thumbSrc: "/images/thumbs/storyvox.png",
+        "solo","sensory", "design", "event", "film"],
+      thumbSrc: "/images/thumbs/athens.png",
     },
-
-    {
-      id: "heat",
-      title: "Heat",
-      subtitle: "Editing + narrative rhythm",
-      description:
-        "A film edit focused on intensity curves and pacing.",
-      category: "film",
-      medium: "digital",
-      tags: ["solo", "video", "film"],
-      thumbSrc: "/images/thumbs/heat.png",
-    },
-
     {
       id: "guerra",
       title: "Guerra de Discretos",
-      subtitle: "Systems-first game design",
+      subtitle: "Board Game playing Hermeneutics",
       description:
-        "Explores rules as experience levers in competitive play.",
+        "Experientially studies the interpretation of manuscripts, particularly in inquisition-era Spain.",
       category: "games",
-      medium: "digital",
+      medium: "physical",
       tags: ["group","game", "design"],
       thumbSrc: "/images/thumbs/guerra.png",
     },
 
+{
+  id: "yale-historical",
+  title: "Yale Historical Society",
+  subtitle: "Treasurer and Executive Board member for Yale club, managing 15k+ budget.",
+  description:
+    "Organized and managed events throughout the year, including hosting two black tie galas and designing twice weekly orientation activities.",
+  category: "design",
+  medium: "physical",
+  tags: [
+    "group",
+    "management",
+    "data",
+    "design",
+    "event",
+  ],
+  thumbSrc: "/images/yale.jpg",
+  caseStudy:{
+    Role: "Treasurer and Executive Board Member",
+    Outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective.
+    <br/>
+    <br/>Organized social and educational events </>)
+  }
+},
     {
-      id: "rover",
-      title: "Lil' Dipper Rover",
-      subtitle: "Prototyping a physical system",
+      id: "heat",
+      title: "Heat",
+      subtitle: "Refilming of a classic scene from Heat (1995)",
       description:
-        "Built and iterated a small rover concept under fabrication constraints.",
-      category: "engineering",
-      medium: "physical",
-      tags: [
-        "group",
-        "management",
-        "agile",
-        "engineering",
-        "programming",
-        "cad",
-      ],
-      thumbSrc: "/images/dipper.jpg",
+        "A remake calling on the original exterior scripting of the scene, meant to understand the meaning of exterior and interior, and solitude versus crowds, in film.",
+      category: "film",
+      watchHref: "https://youtu.be/0irOis8LlNo?si=7ORBuIp1YCFpvsZw",
+      medium: "digital",
+      tags: ["solo", "video", "film"],
+      thumbSrc: "/images/thumbs/heat.png",
+      caseStudy:{
+        role: "Director",
+        outcome: "View my short, adapted from 'Heat', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
+      }
     },
-
     {
       id: "sisyphus",
       title: "Requiem for Sisyphus",
-      subtitle: "Silent slapstick comedy film",
+      subtitle: "Slapstick comedy silent film",
       description:
-        "Stage-combat-inspired silent comedy film.",
+        "Silent combat as a narrative device.",
       category: "film",
       medium: "digital",
       tags: ["solo","video", "film"],
       thumbSrc: "/images/thumbs/sisyphus.png",
+      watchHref:"https://youtu.be/LTF8OGhc6hk?si=78MSlnrUEo6NYVRU",
+      caseStudy:{
+        role: "Director",
+        outcome: "View my short film on my YouTube channel. Performed as an evaluative final for a stage combat class."
+      }
     },
 
     {
@@ -601,16 +627,40 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
     },
 
     {
-      id: "acropolis",
-      title: "Live from the Acropolis",
-      subtitle: "Performance + spatial staging",
+      id: "storyvox",
+      title: "Storyvox",
+      subtitle: "Assistive OCR reader",
       description:
-        "Designed a live experience focused on audience flow and sensory moments.",
-      category: "design",
+        "Capstone product engineering project focused on accessible text output.",
+      category: "engineering",
+      medium: "digital",
+      tags: [
+        "group",
+        "management",
+        "uxr",
+        "engineering",
+        "programming",
+        "cad",
+      ],
+      thumbSrc: "/images/thumbs/storyvox.png",
+    },
+    {
+      id: "rover",
+      title: "Lil' Dipper Rover",
+      subtitle: "Prototyping a physical system",
+      description:
+        "Built and iterated a small rover concept under fabrication constraints.",
+      category: "engineering",
       medium: "physical",
       tags: [
-        "solo","sensory", "design", "event", "film"],
-      thumbSrc: "/images/thumbs/athens.png",
+        "group",
+        "management",
+        "agile",
+        "engineering",
+        "programming",
+        "cad",
+      ],
+      thumbSrc: "/images/dipper.jpg",
     },
 
     {
@@ -625,41 +675,6 @@ AI-agent Conversations also had to be relentlessly fine-tuned. Questions had to 
         "solo","engineering", "cad"],
       thumbSrc: "/images/thumbs/habitat.png",
     },
-{
-  id: "yale-historical",
-  title: "Yale Historical Society",
-  subtitle: "Archival experience design",
-  description:
-    "Designed an interpretive experience for historical material, balancing narrative clarity with physical constraints.",
-  category: "design",
-  medium: "physical",
-  tags: [
-    "group",
-    "management",
-    "data",
-    "design",
-    "event",
-  ],
-  thumbSrc: "/images/thumbs/yale.png",
-},
-
-{
-  id: "llm-research",
-  title: "LLM Research",
-  subtitle: "Applied language model research",
-  description:
-    "Explored large language models through applied experimentation, analysis, and system-level evaluation.",
-  category: "engineering",
-  medium: "digital",
-  tags: [
-    "solo",
-    "data",
-    "engineering",
-    "programming",
-  ],
-  thumbSrc: "/images/thumbs/llm.png",
-},
-
   ],
   []
 );
@@ -954,6 +969,7 @@ const visibleProjects = React.useMemo(() => {
                   <div className="projectTitleRow">
                     <div className="projectTitleV2">{p.title}</div>  <div className="projectPillGroup">
     {p.demo ? <div className="projectDemoPill">DEMO</div> : null}
+    {p.watchHref ? <div className="projectDemoPill">WATCH</div> : null}
     <div className="projectMediumPill">{p.medium}</div>
   </div>
                   </div>
@@ -1003,15 +1019,38 @@ const visibleProjects = React.useMemo(() => {
                   <div className="projectModalTitle">{openProject.title}</div>
                   <div className="projectModalSubtitle">{openProject.subtitle}</div>
                 </div>
-
-                <button
-                  className="projectModalClose"
-                  type="button"
-                  onClick={() => setOpenProjectId(null)}
-                  aria-label="Close"
+            <div className="projectModalActions">
+              {openProject.demoHref ? (
+                <a
+                  className="projectModalDemoBtn"
+                  href={openProject.demoHref}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  ×
-                </button>
+                  Demo ↗
+                </a>
+              ) : null}
+
+              {openProject.watchHref ? (
+                <a
+                  className="projectModalDemoBtn"
+                  href={openProject.watchHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Watch ↗
+                </a>
+              ) : null}
+
+              <button
+                className="projectModalClose"
+                type="button"
+                onClick={() => setOpenProjectId(null)}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
               </div>
 
               <div className="projectModalBody">

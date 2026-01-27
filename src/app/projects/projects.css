@@ -394,6 +394,29 @@
   border-color: rgba(56,182,255,0.72);
   box-shadow: 0 14px 34px rgba(56,182,255,0.18);
 }
+.projectModalActions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.projectModalDemoBtn{
+  border: 1px solid rgba(11,11,11,0.18);
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
+  background: rgba(56,182,255,0.12);
+}
+
+.projectModalDemoBtn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
 
 .projectCardV2.hasLink::after{
   content: "";
@@ -478,7 +501,7 @@
   border: 1px solid rgba(11,11,11,0.14);
   padding: 6px 10px;
   border-radius: 999px;
-  background: #38b6ff;
+  background: rgba(56,182,255,0.12);
 }
 .projectSubtitleV2{
   font-size: 13px;
