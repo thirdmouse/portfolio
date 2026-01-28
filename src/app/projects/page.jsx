@@ -84,6 +84,95 @@ function Collapsible({ isOpen, children, className = "" }) {
   );
 }
 
+// --- Case Study helper blocks ---
+// New "bullet types" for case studies:
+// - fullScreens: vertically stacked, size-balanced images (great for marketing fullscreens)
+// - developmentShots: optional behind-the-scenes (miro boards, sketches, etc.)
+
+function normalizeMediaItems(items) {
+  if (!Array.isArray(items)) return [];
+  return items
+    .filter(Boolean)
+    .map((it) => {
+      // allow ["./img.png", "./img2.png"]
+      if (typeof it === "string") return { src: it };
+
+      // allow [{src, caption, alt}]
+      if (typeof it === "object" && typeof it.src === "string") {
+        return {
+          src: it.src,
+          caption: typeof it.caption === "string" ? it.caption : "",
+          alt: typeof it.alt === "string" ? it.alt : "",
+        };
+      }
+
+      return null;
+    })
+    .filter(Boolean);
+}
+
+function CaseMediaToggle({ isOpen, onClick, title }) {
+  return (
+    <button type="button" className="caseDropdownToggle" onClick={onClick}>
+      <span className="caseDropdownTitle">{title}</span>
+      <span className={`caseDropdownChevron ${isOpen ? "isOpen" : ""}`}>▾</span>
+    </button>
+  );
+}
+function CaseFullScreens({ items }) {
+  const list = normalizeMediaItems(items);
+  if (!list.length) return null;
+  return (
+    <div className="caseFullScreens">
+      {list.map((it, idx) => (
+        <figure key={it.src + idx} className="caseFullScreensItem">
+          <img className="caseFullScreensImg" src={it.src} alt={it.caption || ""} loading="lazy" />
+          {it.caption ? <figcaption className="caseMediaCaption">{it.caption}</figcaption> : null}
+        </figure>
+      ))}
+    </div>
+  );
+}
+
+function CaseDevShots({ title = "Development shots", items }) {
+  const [open, setOpen] = React.useState(false);
+  if (!items?.length) return null;
+
+  return (
+    <div className="caseDevShots" aria-label="Development shots">
+      <button
+        type="button"
+        className="caseDevShotsToggle"
+        onClick={() => setOpen((p) => !p)}
+        aria-expanded={open}
+      >
+        <span className="caseDevShotsTitle">{title}</span>
+        <span className={`timelineChevron ${open ? "isOpen" : ""}`} aria-hidden="true">
+          ▾
+        </span>
+      </button>
+
+      <Collapsible isOpen={open} className="caseDevShotsCollapsible">
+        <div className="caseDevShotsGrid">
+          {items.map((it, idx) => (
+            <figure key={`${it.src}-${idx}`} className="caseDevShot">
+              <img
+                className="caseDevShotImg"
+                src={it.src}
+                alt={it.alt || ""}
+                loading="lazy"
+              />
+              {it.caption ? (
+                <figcaption className="caseDevShotCaption">{it.caption}</figcaption>
+              ) : null}
+            </figure>
+          ))}
+        </div>
+      </Collapsible>
+    </div>
+  );
+}
+
 // Small helper: normalize hash => "physical" | "digital" | "all"
 function hashToMedium(hash) {
   const h = String(hash || "").replace("#", "").trim().toLowerCase();
@@ -95,9 +184,12 @@ function hashToMedium(hash) {
 
 export default function ProjectsPage() {
   const [openDropdown, setOpenDropdown] = React.useState(null);
+
 const toggleDropdown = (id) => {
   setOpenDropdown((prev) => (prev === id ? null : id));
 };
+const toggleCaseSection = (key) =>
+  setOpenCaseSection((prev) => (prev === key ? null : key));
   const [tagsOpen, setTagsOpen] = React.useState(false);
 
     const CATEGORY_META = React.useMemo(
@@ -140,12 +232,19 @@ const toggleDropdown = (id) => {
         outcome:(<>
           Inspired by the intersection of Kandinsky's abstract art and Jazz rhythms ala Charlie Parker; hoping to instigate tactical short-term thinking in a Tower Defense game, usually known for longer-term strategy. This was achieved through the "explode" mechanic and enemy / level designs befitting it, promenintly featured <strong>in the game's marketing campaign which I self-directed.</strong> Shipped to players in 10+ countries, average session lengths exceeding 20 minutes.
         </>),
+        // Optional: add image bullets like full screens + development shots
+        fullScreens: [
+          { src: "./images/cgmenu.png", caption: "Main Menu, after someone clicks on the high score to see their stats. Note tutorial toggle and settings menu." },
+          { src: "./images/cgtut.png", caption: "Diegetic tutorial, disappears after any click. Appears for each of the five enemy types briefly on their first eligible wave." },
+          { src: "./images/cgwave.png", caption: "A very 'ordinary' screen of Color Guard, seeing the adaptively split grid and path (only one, this early in the game) going through it." },
+          { src: "./images/cgboss.png", caption: "Boss wave, noting the flipped color design and neon versus pastel aesthetic."},
+        ],
         caseStudy:(<>Though I observed my ideal thought patterns in the early-game, late-game behavioral analysis revealed that players optimized away the fun of the experience.
         <div className="caseImageWrapper">
       <img className="caseimage" src="./images/cg.png" alt="" aria-hidden="true" />
       <div className="caseImageCaption">
         <span className="caseImageCaptionText">
-          A "boring screen" in Color Guard- this many similarly upgraded guards signaled a problem.
+          A quiet failure state in Color Guard- this many similarly upgraded guards in a plain layout signals a problem.
         </span>
       </div>
     </div>
@@ -271,6 +370,9 @@ const toggleDropdown = (id) => {
       thumbSrc: "./images/ir.jpeg",
       caseStudy: {
           role: "Experience Designer and AI Integration",
+          developmentShots: [
+      { src: "./images/irmiro.png", caption: "Miro board mapping psychometrics (lime) and AI prompting notes (red), as well as story details (green)." },
+    ],
           outcome:
             (
   <>
@@ -319,6 +421,9 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
       ],thumbSrc: "./images/thumbs/wcal.png",
         caseStudy: {
           role: "Designer (independent)",
+          developmentShots: [
+      { src: "./images/cakemiro.png", caption: "Miro board documenting different routes, intentionally crisscrossing to ensure inspiration retention." },
+    ],
           outcome:
             (
   <>
@@ -401,6 +506,69 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
   },
 },
 {
+  id: "neuroscience-research",
+  title: "Neuroscience Research",
+  subtitle: "Data-driven cognitive modeling",
+  description:
+    "Conducted neuroscience research focused on experimental design, data collection, and analytical interpretation.",
+  category: "engineering",
+  medium: "digital",
+  tags: [
+    "solo",
+    "data",
+    "engineering",
+    "programming",
+  ],
+  thumbSrc: "./images/thumbs/neuro.jpg",
+  caseStudy: {
+    role: "Research Assistant",
+    outcome:(<>Produced novel research as seminar final project, adapting the Yale Rutledge Lab's methods towards testing game-like feedback effects on happiness.
+    <br/>
+    <br/>
+    <strong>Analyzed data and fit to a model using linear regression.</strong> Testing four novel hypothesis with modeling techniques, producing a statistically significant result for computerized taunts on user happiness and motivation.</>)
+  }
+},
+
+    {
+      id: "long-time-lets-see",
+      title: "Long Time, Let’s See!",
+      subtitle: "Social media designed to promote off-app exploration",
+      description:
+        "A social platform designed like a dating app- optimized to get users off the app and into new experiences.",
+      category: "design",
+      medium: "digital",
+      tags: [
+        "group",
+        "prototyping",
+        "uxr",
+        "design",
+        "engineering",
+        "miro",
+        "figma",
+        "programming",
+      ],
+      thumbSrc: "./images/ltls.jpg",
+      caseStudy: {
+        role: "UX Research Team Member, Co-Lead Conceptual Designer",
+        developmentShots: [
+      { src: "./images/journeymap.png", caption: "Journey map for early tester in Instagram" },
+      { src: "./images/working.png", caption: "Working documents, including HMWs and individual component designs" },
+    ],
+        outcome: (<>Produced <a href="https://docs.google.com/file/d/1JF5VJYW4z3KcEQiUvlPzUnsjHf5MIp0X/view">lo-fi</a> and < a href="https://docs.google.com/file/d/1MU9CGKLCVWJr5Y97MteZu1mGAd0dIi64/preview">med-fi</a> models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
+        <br/>
+        <div className="caseImageWrapper">
+          <img className="caseimage" src="./images/test.png" alt="" aria-hidden="true" />
+          <div className="caseImageCaption">
+            <span className="caseImageCaptionText">
+              Testing the model with end-to-end interaction simulated through existing modular products and verbal prompts.
+            </span>
+          </div>
+        </div>
+        <br/>
+        The product was spun off into a proposed plugin for Instagram wherein algorithms could be shared and posts would have a "share" functionality to create a calendar event for actions.
+        </>)
+      },
+    },{
   id: "curses",
   title: "Curses!",
   subtitle: "Party card game",
@@ -425,65 +593,6 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
     Players each start with a custom curse card, on which they can write any word or phrase to forbid it at the cost of life. Then, through quest cards, requiring tasks; spell cards, minigames; and curse cards more generally forbidding actions like saying anyone's name; players can coax others into getting cursed and steal their life. </>)
   }
 },
-{
-  id: "neuroscience-research",
-  title: "Neuroscience Research",
-  subtitle: "Data-driven cognitive modeling",
-  description:
-    "Conducted neuroscience research focused on experimental design, data collection, and analytical interpretation.",
-  category: "engineering",
-  medium: "digital",
-  tags: [
-    "solo",
-    "data",
-    "engineering",
-    "programming",
-  ],
-  thumbSrc: "./images/thumbs/neuro.jpg",
-  caseStudy: {
-    role: "Research Assistant",
-    outcome:(<>Produced novel research as seminar final project, adapting the Yale Rutledge Lab's methods towards testing game-like feedback effects on happiness.
-    <br/>
-    <br/>
-    <strong>Analyzed data and fit to a model using linear regression.</strong> Testing four novel hypothesis with modeling techniques, producing a statistically significant result for computerized taunts on user happiness and motivation.</>)
-  }
-},
-    {
-      id: "long-time-lets-see",
-      title: "Long Time, Let’s See!",
-      subtitle: "Social media designed to promote off-app exploration",
-      description:
-        "A social platform designed like a dating app- optimized to get users off the app and into new experiences.",
-      category: "design",
-      medium: "digital",
-      tags: [
-        "group",
-        "prototyping",
-        "uxr",
-        "design",
-        "engineering",
-        "miro",
-        "figma",
-        "programming",
-      ],
-      thumbSrc: "./images/ltls.jpg",
-      caseStudy: {
-        role: "UX Research Team Member, Co-Lead Conceptual Designer",
-        outcome: (<>Produced <a href="https://docs.google.com/file/d/1JF5VJYW4z3KcEQiUvlPzUnsjHf5MIp0X/view">lo-fi</a> and < a href="https://docs.google.com/file/d/1MU9CGKLCVWJr5Y97MteZu1mGAd0dIi64/preview">med-fi</a> models of the app, <strong>testing through simulation</strong> event planning through a combination of calendar integration, AI tag-based searching, and friend-matching systems. 
-        <br/>
-        <div className="caseImageWrapper">
-          <img className="caseimage" src="./images/test.png" alt="" aria-hidden="true" />
-          <div className="caseImageCaption">
-            <span className="caseImageCaptionText">
-              Testing the model with end-to-end interaction simulated through existing modular products and verbal prompts.
-            </span>
-          </div>
-        </div>
-        <br/>
-        The product was spun off into a proposed plugin for Instagram wherein algorithms could be shared and posts would have a "share" functionality to create a calendar event for actions.
-        </>),
-      }
-    },
     {
       id: "closet",
       title: "Closet",
@@ -526,11 +635,14 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
         role: "Designer and Researcher",
         outcome: (<>Designed, tested, and iterated interaction methods with multitouch screens through Unity on iOS.
         <br/><br/>
-        Methods include: 
-        <br/> - a geometric touch-slide system for single-agent group control in a strategy game
-        <br/> - a mobile platformer controller based on box grids in either corner for slides
-        <br/> - an isometric strategy game, a la excomm, with shortest-path finding movement and environmental destruction
-        <br/> - 2D platformer which turns to 3D platformer upon enemy hits - think Mario shells going from Super Mario Bros. to 3D Land</>)
+        Methods not shown above include: 
+        <br/> - 2D platformer which turns to 3D platformer upon enemy hits - think Mario shells going from Super Mario Bros. to 3D Land
+        <br/> - Demo for "Pandora," based on countering Orientalist narratives through metroidvania mapfinding, mobile controller working with corner-locked grids and slide systems.</>),
+        developmentShots: [
+          { src: "./images/bog.png", caption: "Test bed for 'Blades of Grass,' insect-themed RTS spanning Risk and Tower Defense games with individual agent and group control based on geometric shapes and circle drawing through point-line." },
+          { src: "./images/loirath.png", caption: "Base build for 'Loirath,' an XCOM like game with destructible 3D environments and 2D characters. Adaptible systems for distance judgement and movement types." },
+          { src: "./images/boing.png", caption: "Working demo for 'Boing,' a Western themed LAN multiplayer game about flightless birds who gather bullets through high hang-time and dodge by quickly dropping to trampolines." },
+        ],
       }
     },
 
@@ -554,6 +666,8 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
       id: "guerra",
       title: "Guerra de Discretos",
       subtitle: "Board Game playing Hermeneutics",
+      demo: true,
+      demoHref: "https://drive.google.com/file/d/1zxjydy5gEY-zWOPVrngXi8PJPxZ2DVpn/view?usp=sharing",
       description:
         "Experientially studies the interpretation of manuscripts, particularly in inquisition-era Spain.",
       category: "games",
@@ -564,8 +678,12 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
         role: "Game Designer",
         outcome: (<>Designed a game to explore hermenuetic interpretation of Spanish manuscripts. Inspired by Risk and Secret Hitler, each player is given one of the templar orders to support, as well as a hidden <loyalty->
           <br/><br/>
-          On your turn, you read a manuscript card and must identify a contiguous segment of land wherein the author might have been from based on their symbols. Then, you claim that land- but, players can lie or steal land from one another.</loyalty-></>)
-      }
+          On your turn, you read a manuscript card and must identify a contiguous segment of land wherein the author might have been from based on their symbols. Then, you claim that land- but, players can lie or steal land from one another.</loyalty-></>),
+        fullScreens: [
+          { src: "./images/rules.png", caption: "Setup of rules design to teach a class quickly, during a presentation period." },
+          { src: "./images/map.png", caption: "Game-board map, designed by me and finished by project partner; both in close collaboration." },
+        ],  
+    }
     },
 
 {
@@ -586,9 +704,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
   thumbSrc: "./images/yale.jpg",
   caseStudy:{
     role: "Treasurer and Executive Board Member",
-    outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective.
-    <br/>
-    <br/>Organized social and educational events for a group of around fifty active members by leveraging a 15k+ budget..</>)
+    outcome: (<>Managed group dedicated to preserving Yale's history from a non-institutional perspective. Organized social and educational events for a group of around fifty active members by leveraging a 15k+ budget.</>)
   }
 },
     {
@@ -604,7 +720,7 @@ AI-agent Conversations also had to be relentlessly fine-tuned based on careful b
       thumbSrc: "./images/thumbs/heat.png",
       caseStudy:{
         role: "Director",
-        outcome: "View my short, adapted from 'Heat', on my YouTube channel. Inspired by and designed to imitate my relationship to inspiration and creativity."
+        outcome: "View my short, adapted from 'Heat', on my YouTube channel. Exploring the effect of overhead cinematography and a feeling of outsider view, decreasing as the scene continues."
       }
     },
     {
@@ -818,6 +934,7 @@ const deselectAll = () => {
     [openProjectId, projects]
   );
 
+  const [openCaseSection, setOpenCaseSection] = React.useState(null);
   React.useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") setOpenProjectId(null);
@@ -1087,6 +1204,14 @@ const visibleProjects = React.useMemo(() => {
   {openProject.caseStudy.role ? (
     <p><strong>Role:</strong> {openProject.caseStudy.role}</p>
   ) : null}
+  {/* New bullet types */}
+
+  {openProject.caseStudy.developmentShots?.length ? (
+    <div className="projectModalBlock">
+      <br/>
+      <CaseDevShots items={openProject.caseStudy.developmentShots} /><br/>
+    </div>
+  ) : null}
 
   {openProject.caseStudy.outcome ? (
     <div className="projectModalBlock">
@@ -1094,7 +1219,22 @@ const visibleProjects = React.useMemo(() => {
       <div className="projectModalContent">{openProject.caseStudy.outcome}</div>
     </div>
   ) : null}
+{openProject?.caseStudy?.fullScreens?.length ? (
+  <div className="caseDevShots" aria-label="Full screens">
+    <CaseMediaToggle
+      title="Full Screens"
+      isOpen={openCaseSection === "fullScreens"}
+      onClick={() => toggleCaseSection("fullScreens")}
+    />
 
+    <Collapsible
+      isOpen={openCaseSection === "fullScreens"}
+      className="caseDevShotsCollapsible"
+    >
+      <CaseFullScreens items={openProject.caseStudy.fullScreens} />
+    </Collapsible>
+  </div>
+) : null}
   {openProject.caseStudy.caseStudy ? (
     <div className="projectModalBlock">
       <br/>
@@ -1102,6 +1242,7 @@ const visibleProjects = React.useMemo(() => {
       <div className="projectModalContent">{openProject.caseStudy.caseStudy}</div>
     </div>
   ) : null}
+
 </div>
 
 

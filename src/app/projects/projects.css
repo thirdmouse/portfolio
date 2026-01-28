@@ -61,6 +61,154 @@
   letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.92);
 }
+
+/* =========================================================
+   Case Study "bullet types"
+   - Full screens: tall, balanced images stacked vertically
+   - Development shots: optional behind-the-scenes gallery
+   ========================================================= */
+.caseFullScreens{
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.caseFullScreensItem{
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(11,11,11,0.10);
+  background: rgba(11,11,11,0.03);
+}
+
+.caseFullScreensImg{
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: contain;
+  display: block;
+  background: rgba(255,255,255,0.75);
+}
+
+.caseMediaCaption{
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.70);
+  border-top: 1px solid rgba(11,11,11,0.08);
+  background: rgba(255,255,255,0.86);
+}
+
+/* Full Screens dropdown toggle (match dev-shots pill vibe) */
+.caseDropdownToggle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid rgba(11,11,11,0.14);
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.caseDropdownToggle:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+.caseDropdownTitle{
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(11,11,11,0.72);
+}
+
+.caseDropdownChevron{
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 200ms ease;
+  opacity: 0.85;
+}
+
+.caseDropdownChevron.isOpen{
+  transform: rotate(180deg);
+}
+
+
+.caseDevShots{
+  margin-top: 6px;
+}
+
+.caseDevShotsToggle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid rgba(11,11,11,0.14);
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.caseDevShotsToggle:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+.caseDevShotsTitle{
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(11,11,11,0.72);
+}
+
+.caseDevShotsCollapsible .projectsCollapsibleInner{
+  padding-top: 12px;
+}
+
+.caseDevShotsGrid{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 640px){
+  .caseDevShotsGrid{ grid-template-columns: 1fr; }
+}
+
+.caseDevShot{
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(11,11,11,0.10);
+  background: rgba(11,11,11,0.03);
+}
+
+.caseDevShotImg{
+  width: 100%;
+  height: auto;
+  max-height: 56vh;
+  object-fit: contain;
+  display: block;
+  background: rgba(255,255,255,0.75);
+}
+
+.caseDevShotCaption{
+  padding: 9px 11px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.70);
+  border-top: 1px solid rgba(11,11,11,0.08);
+  background: rgba(255,255,255,0.86);
+}
 /* collapsible shell (max-height animated) */
 .projectsCollapsible{
   overflow: hidden;
@@ -666,4 +814,3 @@
 .projectModalContent{
   margin-top: 0.35em;
 }
-

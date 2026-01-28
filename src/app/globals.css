@@ -302,8 +302,8 @@ body {
 /* Keep 3-up; just make the overlay text a bit more compact when circles shrink */
 @media (max-width: 820px) {
   .featuredHover { padding: 16px; }
-  .featuredTitle { font-size: 18px; }
-  .featuredDesc  { font-size: 13px; }
+  .featuredTitle { font-size: 14px; }
+  .featuredDesc  { font-size: 10px; }
 }
 
 .featuredCircle {
