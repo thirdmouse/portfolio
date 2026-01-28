@@ -48,8 +48,8 @@
   padding: 10px 18px;
   background: linear-gradient(
     0deg,
-    rgba(10, 45, 95, 0.7),
-    rgba(20, 80, 150, 0)
+    rgba(10, 45, 95, 0.9),
+    rgba(20, 80, 150, 0.45)
   );
   backdrop-filter: blur(1px);
 }
@@ -301,7 +301,7 @@
 /* Make each option full-width (stacked) */
 .tagDropdownMenu .tagChip{
   width: 100%;
-  justify-content: flex-start; /* text aligns nicely */
+  justify-content: center; /* text aligns nicely */
 }
 
 .tagDropdownPill:hover{
@@ -316,6 +316,11 @@
 
 .tagDropdownLabel{
   font-size: 12px;
+}
+@media (max-width: 820px) {
+  .tagDropdownLabel {
+    font-size:8px;
+  }
 }
 
 /* collapsible (ResumeTimeline-style max-height) */
@@ -485,8 +490,17 @@
   word-break: normal;
   font-size: 12px;
   transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-}
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+@media (max-width: 820px) {
+  .tagChip {
+    font-size:8px;
+  }
+}
 .tagChip:hover{
   transform: translateY(-1px);
 }
