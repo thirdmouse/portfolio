@@ -8,7 +8,7 @@ import MobileNav from "../components/MobileNav";
 import ParallaxTripleColumns from "../components/ParallaxTwo";
 import { carouselProjects, categories as importedCategories } from "@/components/FlowingCircleCarousel";
 import { video } from "framer-motion/m";
-
+import { Analytics } from "@vercel/analytics/next"
 /** ---------- Fade-in helper ---------- */
 function FadeIn({ children, className = "", threshold = 0.15 }) {
   const ref = useRef(null);
