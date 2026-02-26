@@ -1,4 +1,6 @@
 import "./globals.css";
+import { Analytics } from '@vercel/analytics/react';
+
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 export const viewport = {
   width: "device-width",
@@ -12,7 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>{children}
+        <Analytics />
+        </body>
     </html>
   );
 }
