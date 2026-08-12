@@ -35,17 +35,17 @@ const HERO_TILES = [
   },
   {
     id: "3-l",
-    videoSrc: "/videos/performance/crowdSurf.mp4",
-    poster: "/videos/allprojects.jpg",
-    title: "Crowd Surfing",
-    subtitle: "Sometimes, it's about instincts!",
-  },
-  {
-    id: "3-r",
     videoSrc: "/videos/performance/once1.mp4",
     poster: "/video-poster.jpg",
     title: "Once",
     subtitle: "Performing in the musical Once, here singing Rattlin' Bog as crowdwork in the pre-show",
+  },
+  {
+    id: "3-r",
+    videoSrc: "/videos/performance/crowdSurf.mp4",
+    poster: "/videos/allprojects.jpg",
+    title: "Crowd Surfing",
+    subtitle: "Sometimes, it's about instincts!",
   },
   {
     id: "4-l",
@@ -118,9 +118,9 @@ const FLOATING_TEXT_CARDS = [
     text: "I'm always focused on the audience.",
     size: "medium",
     top: "135vh",
-    right: "clamp(20px, 10vw, 160px)",
+    right: "clamp(10px, 8vw, 160px)",
     tilt: 0,
-    speed: -0.6,
+    speed: -0.65,
     delay: 1040,
   },
   {
@@ -131,7 +131,7 @@ const FLOATING_TEXT_CARDS = [
     top: "140vh",
     right: "5%",
     tilt: 0,
-    speed: -0.2,
+    speed: -0.25,
     delay: 1180,
   },
   {
@@ -142,7 +142,7 @@ const FLOATING_TEXT_CARDS = [
     top: "160vh",
     left: "5%",
     tilt: 0,
-    speed: -0.1,
+    speed: -0.2,
     delay: 1180,
   },
 ];

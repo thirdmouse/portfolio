@@ -53,12 +53,23 @@ const TECH_PROJECTS = [
   {
     id: "panathenaea",
     title: "Sensory Athens Tour",
-    subtitle: "Historical and architectural research yielded a tour recontextualizing antiquity through all five senses.",
+    subtitle: "Historical and architectural research yielded a tour recontextualizing antiquity through all five senses. It's better suited to a live experience with sensory elements, but enjoy the audiovisual component!",
     href: "#four-records",
     videoSrc: "/videos/technical/athens.mp4",
     poster: "/videos/film-poster.jpg",
     skills: ["Video Production", "Presentation"],
     externalLink: "https://youtu.be/IveW-A_NCRU",
+    externalWord: "WATCH"
+  },
+  {
+    id: "closet",
+    title: "Closet",
+    subtitle: "Cinematography class final, highlighting my creative vision.",
+    href: "#toolkit",
+    videoSrc: "/videos/technical/closet.mov",
+    poster: "/videos/film-poster.jpg",
+    skills: ["Video Production", "Physical Design"],
+    externalLink: "https://youtu.be/Z1PgMDV0460",
     externalWord: "WATCH"
   },
   {
@@ -77,7 +88,7 @@ const TECH_PROJECTS = [
     title: "Curses!",
     subtitle: "Card game, 'playing' frustration and prohibitive rules in a party setting.",
     href: "#audience-dashboard",
-    videoSrc: "/videos/technical/audience-dashboard.mp4",
+    videoSrc: "/videos/technical/curses.mp4",
     poster: "/videos/games-poster.jpg",
     skills: ["Physical Design", "Data / User Analysis"],
     externalLink: "https://drive.google.com/file/d/1tZPT2_B-O2DFR2O4MfxscJY1xjKK9IGG/view",
@@ -133,17 +144,6 @@ const TECH_PROJECTS = [
     skills: ["Physical Design", "Programming / AI"],
   },
   {
-    id: "closet",
-    title: "Closet",
-    subtitle: "Cinematography class final, highlighting my creative vision.",
-    href: "#toolkit",
-    videoSrc: "/videos/technical/closet.mov",
-    poster: "/videos/film-poster.jpg",
-    skills: ["Video Production", "Physical Design"],
-    externalLink: "https://youtu.be/Z1PgMDV0460",
-    externalWord: "WATCH"
-  },
-  {
     id: "dipper",
     title: "Lil' Dipper",
     subtitle: "Mechanical Design group project, simulated Mars rover development.",
@@ -157,11 +157,20 @@ const TECH_PROJECTS = [
     title: "Albums",
     subtitle: "I've helped manage 3 albums with a fourth coming. I led two historical recovery projects, then as a team we released one for each of my band and acapella group.",
     href: "#toolkit",
-    videoSrc: "/videos/technical/spotify.mov",
+    videoSrc: "/videos/technical/albums.mov",
     poster: "/videos/film-poster.jpg",
     skills: ["Presentation"],
     externalLink: "https://open.spotify.com/album/0GNaUE5KLuo6T92UvVi2BV",
     externalWord: "LISTEN"
+  },
+  {
+    id: "ovl",
+    title: "Outernet Venues Live",
+    subtitle: "I served as a production intern at one of London's top cultural venues. Then, I returned to design a storefront for Kojima's release of DS2, receiving live crowds for over twelve hours.",
+    href: "#toolkit",
+    videoSrc: "/videos/cultural.mov",
+    poster: "/videos/film-poster.jpg",
+    skills: ["Physical Design", "Presentation"]
   },
 ];
 
@@ -224,7 +233,6 @@ function ProjectTile({ project }) {
   return (
     <a
       className="techProjectTile"
-      href={project.href}
       onMouseEnter={playPreview}
       onMouseLeave={stopPreview}
       onFocus={playPreview}

@@ -26,21 +26,21 @@ const HERO_TILES = [
   },
   {
     id: "bottom-left",
-    href: "/culture",
-    label: "Open featured project three",
-    videoSrc: "/videos/cultural.mov",
-    poster: "/videos/allprojects.jpg",
-    title: "CULTURAL WORK",
-    subtitle: "PHILOSOPHY in Leadership or Exhibits",
-  },
-  {
-    id: "bottom-right",
     href: "/technical",
     label: "Open featured project four",
     videoSrc: "/videos/dipper.mov",
     poster: "/video-poster.jpg",
     title: "TECHNICAL",
     subtitle: "PROJECTS in Research, Design, and Tech"
+  },
+  {
+    id: "bottom-right",
+    href: "/culture",
+    label: "Open featured project three",
+    videoSrc: "/videos/cultural.mov",
+    poster: "/videos/allprojects.jpg",
+    title: "CULTURAL WORK",
+    subtitle: "PHILOSOPHY in Leadership or Exhibits",
   },
 ];
 
@@ -55,7 +55,7 @@ const TIMELINE_ITEMS = [
       "Certificate in Medieval Studies",
       "M.Arch Coursework in Multisensory and Inclusive Space Design",
       "MBA Coursework in UX Research / Design, Consumer Behavior",
-      "Undergrad incl. Psychology of Marketing and Media, Architecture, Computational Neuroscience, Mechanical Design, Cognitive Science of Large Language Models, Game Design, Intellectual Property, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
+      "Undergrad incl. Psychology of Marketing and Media, Architecture, Computational Neuroscience, Mechanical Design, Cognitive Science of Large Language Models, Game Design, Intellectual Property, Formal Philosophy, Computer Science (Data Structures, Algorithms, UI)",
     ],
     dotImage: { src: "/images/yale.png", alt: "yale" },
   },
@@ -100,7 +100,7 @@ const TIMELINE_ITEMS = [
   },
   {
     id: "t-uab",
-    date: "Summer 2027",
+    date: "Summer 2025",
     title: "Universitat Autonoma de Barcelona",
     subtitle:
       "Studied abroad for urban planning and architecture",
@@ -312,9 +312,9 @@ export default function App() {
         >
           <div className="portfolioIdentityCopy">
             <h1>Hey!</h1>
-            <p>I&apos;m Charlie, a Creative Technologist and Experience Designer.</p>
+            <p>I&apos;m Charlie. I use behavioral cognitive science and creative technology to connect people.</p>
             <p className="contact">
-              Click videos to view projects, or see my resume below.
+              Click videos or scroll to my resume below.
             </p>
           </div>
 
@@ -335,8 +335,7 @@ export default function App() {
           <div className="resumeIntro">
             <h2>Thanks for taking the time.</h2>
             <p>
-              I work within the subconscious interactivity inherent in different
-              mediums.
+              I design novel experiences by leveraging human behavior, cultural analysis, and medium-specific methods of interactivity.
             </p>
             <div className="p2">
               That&apos;s meant many different stages of the process:
@@ -382,6 +381,19 @@ export default function App() {
               and addictive world we&apos;re in.
             </p>
           </div>
+          <div className="p2">After exploring my resume, check out <a
+          href="/design"
+          rel="noreferrer"
+          className="perfLink"
+        >
+          my design process
+        </a> or <a
+          href="/technical"
+          rel="noreferrer"
+          className="perfLink"
+        >
+          projects.
+        </a></div>
 
           <ResumeTimeline items={TIMELINE_ITEMS} />
         </div>

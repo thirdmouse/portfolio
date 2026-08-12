@@ -8,34 +8,42 @@ const DESIGN_PROJECTS = [
     id: "world",
     videoSrc: "/videos/design/ltls_test.mp4",
     title: "Define the world: the 'set of conditions for the possibility of success.'",
-    description: "Start with a problem or opportunity and brainstorm how to work within it asking UX's 'How might we...?' This is a phase where a lot is literally put on the wall to find what sticks.",
-    example:"For Long Time, Let's See, my team fixated on assisting with impersonal addiction in social media. That took dozens of possible forms from plugins to events to our end-result, a standalone app inspired by dating apps to get people off the app. That wasn't an idle decision- we prototyped and tested rapidly to see if the empathetic and subconscious effects we expected from each solution were actually happening.",
+    description: (<>Start with a problem or opportunity and brainstorm how to work within it <strong>asking UX's 'How might we...?'</strong> This is a phase where a lot is literally put on the wall to find what sticks.</>),
+    example: (<>For Long Time, Let's See, my team fixated on <strong>assisting with impersonal addiction in social media</strong>. That took dozens of possible forms from plugins to events to our end-result, a standalone app inspired by dating apps to get people off the app. That wasn't an idle decision- we <strong>prototyped and tested rapidly to see if the empathetic and subconscious effects we expected</strong> from each solution were actually happening.</>),
   },
   {
     id: "proto",
     videoSrc: "/videos/technical/wcal.mp4",
     poster: "/videos/allprojects.jpg",
     title: "Produce as low fidelity of a prototype or wireframe as provides the key experience.",
-    description:
-      "VR can be cardboard. Intense data analytics can be vibe-coded with mock data and 'lorem ipsum.' An experience that requires robust UI/UX from the first moment makes too many assumptions, and any reaction is just smoke and mirrors. I don't polish yet: I try to perfect what's at the core of the result.",
-    example:"Want Cake, Am Lazy was a simple game. Inspired by Please, Don't Touch Anything, and the reality of forging a Rube-Goldberg like excuse to not stand up from a comfortable chair, users had to feel a grounded sense of humor. My final 3D prototype was great, but better for testing was a simple cardboard mockup. Testers could point, and I could move interactive elements of the model without speaking to serve as an adaptive AI. I found solutions alongside users that I individually couldn't have generated, staying true to the idea's commitment to human ingenuity."
+    description: (<>
+      VR can be cardboard. Intense data analytics can be vibe-coded with mock data and 'lorem ipsum.' <strong>An experience that requires robust UI/UX from the first moment makes too many assumptions</strong>, and any reaction is just smoke and mirrors. I don't polish yet: <strong>I try to perfect what's at the core of the result.</strong></>),
+    example: (<>Want Cake, Am Lazy was a simple game. Inspired by Please, Don't Touch Anything, and the reality of forging a Rube-Goldberg like excuse to not stand up from a comfortable chair, <strong>users had to feel a grounded sense of explorative humor</strong>. My final 3D prototype worked, but better for testing was a simple cardboard mockup. Testers could point, and I could move interactive elements of the model without speaking to serve as an adaptive AI. <strong>I found solutions alongside users that I individually couldn't have generated, staying true to the idea's commitment to human ingenuity. </strong></>),
   },
   {
     id: "thought",
     videoSrc: "/videos/colorguard.mp4",
     poster: "/video-poster.jpg",
     title: "Listen to what users said. More importantly, what they did.",
-    description: "User testing results in strong opinions and ideas. Those are great! But, the better insights are in subconscious responses: where users said they'd do something and never did. I iterate to make my designs natural, so those disconnects don't happen.",
-    example: "Color Guard, my iOS game, needed to reward the tension between long-term strategy, like traditional tower defense, and short-term tactics inspired by abstract art and mobile use tendencies. Users said they loved short-term gameplay early on, but analytics showed that they optimized away that fun when it became possible to fully upgrade only *one* guard for a longer term strategy later on. So, I added a late game enemy that targets your highest-upgraded guard, adding the tension that users loved *back* just when it seemed like it might fade. I also made Game-Feel decisions making explosions of higher-upgraded guards feel *awesome,* so the core sacrifice of the experience was the most fun part."
+    description: (<>User testing results in strong opinions and ideas. Those are great! But, the better insights are in subconscious responses: <strong>where users said they'd do something and never did. </strong>I iterate to make my designs natural, so those disconnects don't happen.</>),
+    example: (<>Color Guard, my iOS game, needed to <strong>reward the tension between long-term strategy, like traditional tower defense, and short-term tactics inspired by abstract art and mobile use tendencies</strong>. Users said they loved short-term gameplay early on, but <strong>analytics showed that they optimized away the fun</strong> when it became possible to fully upgrade <strong>only one</strong> guard for a longer term strategy later on. So, I added a late game enemy that targets your highest-upgraded guard, adding the tension that users loved <strong>back</strong> just when it seemed like it might fade. I also made Game-Feel decisions making explosions of higher-upgraded guards feel awesome, so <strong>the core mechanic of the experience was the most fun part.</strong></>)
   },
   {
     id: "feel",
     videoSrc: "/videos/design/hci.mp4",
     poster: "/videos/allprojects.jpg",
     title: "Beautify what should now be a unit of experiential vocabulary.",
-    description: "The experience should work now, even in black-and-white or cardboard. The *thing* is not the graphics or the flashy bits, it's the effect it has on the user. But, now's the chance to really sell it.",
-    example: "Pac-Man is just a circle until you give him a name. Similarly, at InsideRisk we learned that people were engaging with our AI-conversations in the direction that we wanted, but not necessarily in the magnitude. Our experiences depended on revealing how people act in high-pressure situations, not just how they are in ordinary circumstances. Video editing like flashing lights to make a street corner feel real, or audio that gently provokes emotional responses are crucial here. For confidentiality reasons, shown to the left is a contrast between early Figma designs and a higher-fidelity prototype of a travel app I designed alongside a team."
-  },
+    description: (
+  <>
+    The experience should work now, even in black-and-white or cardboard. The{" "}
+    <strong>thing is not the graphics or the flashy bits, it&apos;s the
+    effect it has on the user.</strong>
+  </>
+),example: (
+  <>
+  Pac-Man is just a circle until you give him a name. Similarly, at InsideRisk we learned that people were engaging with our AI-conversations in the direction that we wanted, but not necessarily in the magnitude. Our experiences depended on revealing how people act in high-pressure situations, not just how they are in ordinary circumstances. Video editing like flashing lights to make a street corner feel real, or audio that gently provokes emotional responses are crucial here. <strong>A finished experience becomes cognitively powerful through sensory details. </strong>For confidentiality reasons, shown to the left is a contrast between early Figma designs and a higher-fidelity prototype of a travel app I designed alongside a team.
+  </>
+),}
 ];
 
 export default function App() {
@@ -48,7 +56,7 @@ export default function App() {
           <h1 id="design-page-title" className="designPageTitle">
             DESIGN
           </h1>
-          <p className="designPageDesc">Great results can be luck. So, my design depends on a great process to get me there. See it in action below, and explore end-to-end case studies.</p>
+          <p className="designPageDesc">Great results can be luck. So, my design depends on a great process to get me there.</p>
         </div>
 
         <div className="designProjectList" aria-label="Selected design work">
@@ -76,9 +84,6 @@ export default function App() {
 
               <div className="designTextBlock">
                 <div className="designTextInner">
-                  <p className="designProjectNumber">
-                   {project.id}
-                  </p>
                   <h2>{project.title}</h2>
                   <p className="designProjectDescription">{project.description}</p>
                   <p className="designProjectExample">{project.example}</p>

@@ -460,7 +460,7 @@
     border-width: 3px;
     border-radius: 12px;
     box-shadow: 7px 7px 0 #050505;
-    font-size: clamp(34px, 12vw, 68px);
+    font-size: clamp(28px, 10.5vw, 68px);
     white-space: normal;
   }
 }

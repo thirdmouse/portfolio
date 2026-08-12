@@ -76,7 +76,7 @@
   border-radius: 18px;
   color: var(--tech-black);
   background: rgba(255, 255, 255, 0.72);
-  font-size: clamp(36px, 9vw, 150px);
+  font-size: clamp(30px, 9vw, 150px);
   line-height: 0.92;
   letter-spacing: -0.065em;
   text-align: center;
@@ -272,7 +272,7 @@
 
 .techProjectVideoScrim {
   z-index: -1;
-  opacity: 0;
+  opacity: 0.15;
 
   background: linear-gradient(
     180deg,

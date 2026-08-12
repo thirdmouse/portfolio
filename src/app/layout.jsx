@@ -7,7 +7,7 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: "Charlie Patton || Third Mouse Media",
+  title: "Charlie Patton",
   description:
     "Creative Technologist and Psychological Engineer building user-focused, subconsciously powerful experiences.",
 };
