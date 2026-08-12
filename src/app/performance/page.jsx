@@ -21,7 +21,7 @@ const HERO_TILES = [
   },
   {
     id: "2-l",
-    videoSrc: "/videos/performance/leo.mov",
+    videoSrc: "/videos/performance/leo.mp4",
     poster: "/videos/allprojects.jpg",
     title: "Tobie Lolness",
     subtitle: "Upcoming animated show- my character, in the blue, is a major character and antagonist.",
@@ -35,14 +35,14 @@ const HERO_TILES = [
   },
   {
     id: "3-l",
-    videoSrc: "/videos/performance/crowdSurf.mov",
+    videoSrc: "/videos/performance/crowdSurf.mp4",
     poster: "/videos/allprojects.jpg",
     title: "Crowd Surfing",
     subtitle: "Sometimes, it's about instincts!",
   },
   {
     id: "3-r",
-    videoSrc: "/videos/performance/once1.mov",
+    videoSrc: "/videos/performance/once1.mp4",
     poster: "/video-poster.jpg",
     title: "Once",
     subtitle: "Performing in the musical Once, here singing Rattlin' Bog as crowdwork in the pre-show",
@@ -56,7 +56,7 @@ const HERO_TILES = [
   },
   {
     id: "4-r",
-    videoSrc: "/videos/performance/birthdayquartet.mov",
+    videoSrc: "/videos/performance/birthday.mov",
     poster: "/video-poster.jpg",
     title: "Happy Birthday barbershop quartet",
     subtitle: "A birthday quartet for a close friend of mine, just for fun!",
@@ -345,7 +345,7 @@ export default function App() {
       data-parallax-speed="-0.1">
         <div className="resumeSheetInner">
           <div className="resumeIntro">
-            <h2>The cultural and cognitive impacts of art can only be understood when you're a part of it.</h2>
+            <h2>The cultural and cognitive impacts of art can only be understood when you&apos;re a part of it.</h2>
             <br/>
             <p className = "p2">
               Performance is a major aspect of that: discovering how to communicate some human truth by depending on the empathy of your audience.
@@ -358,7 +358,7 @@ export default function App() {
           Check out my acting resume here.
         </a>
             <p className = "p2">
-              But I well know that I'm not a solo act: my casts and crews are my teams. I'm there to support as much as I'm in the spotlight. 
+              But I well know that I&apos;m not a solo act: my casts and crews are my teams. I&apos;m there to support as much as I&apos;m in the spotlight. 
             </p>
             <br/>
             <p>
@@ -374,7 +374,7 @@ export default function App() {
           className="perfLink"
         >
           the technical skills
-        </a> I use to make it happen, from videogames focused on interactive experience or films I've directed.
+        </a> I use to make it happen, from videogames focused on interactive experience or films I&apos;ve directed.
             </p>
           </div>
         </div>

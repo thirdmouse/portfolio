@@ -312,7 +312,7 @@ export default function App() {
         >
           <div className="portfolioIdentityCopy">
             <h1>Hey!</h1>
-            <p>I'm Charlie, a Creative Technologist and Experience Designer.</p>
+            <p>I&apos;m Charlie, a Creative Technologist and Experience Designer.</p>
             <p className="contact">
               Click videos to view projects, or see my resume below.
             </p>
@@ -339,7 +339,7 @@ export default function App() {
               mediums.
             </p>
             <div className="p2">
-              That's meant many different stages of the process:
+              That&apos;s meant many different stages of the process:
               <br />
               <br />
               as a{" "}
@@ -379,7 +379,7 @@ export default function App() {
               But they all motivate towards the same goal: understanding
               people, culture, and how they interact. I want to work in
               experiences that help people connect, counteracting the impersonal
-              and addictive world we're in.
+              and addictive world we&apos;re in.
             </p>
           </div>
 

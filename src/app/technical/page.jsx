@@ -58,7 +58,7 @@ const TECH_PROJECTS = [
     videoSrc: "/videos/technical/athens.mp4",
     poster: "/videos/film-poster.jpg",
     skills: ["Video Production", "Presentation"],
-    externalLink: "https://studio.youtube.com/video/IveW-A_NCRU/edit",
+    externalLink: "https://youtu.be/IveW-A_NCRU",
     externalWord: "WATCH"
   },
   {
@@ -314,7 +314,7 @@ export default function App() {
               preload="metadata"
               poster={HERO_VIDEO.poster}
             >
-              <source src="/videos/technical/snork.mov" />
+              <source src="/videos/technical/snork.mp4" />
             </video>
             <span className="technicalHeroScrim" />
           </div>
@@ -332,7 +332,7 @@ export default function App() {
               Even when ideas matter more than ever, the skills that enable my methods are crucial.
             </h2>
             <p>
-              My technical work serves the designed idea. There's an experience I want a user to have, something I want them to learn, or something they should feel: this is how I get them there. Each is founded in the 'why', making them transferrable and durable in a changing creative ecosystem. Shown above is my test of a Renaissance era snorkel design... rigorous, as always.
+              My technical work serves the designed idea. There&apos;s an experience I want a user to have, something I want them to learn, or something they should feel: this is how I get them there. Each is founded in the &apos;why&apos;, making them transferrable and durable in a changing creative ecosystem. Shown above is my test of a Renaissance era snorkel design... rigorous, as always.
             </p>
             <p className = "systems">
               Proficiency in... DESIGN: Figma, Miro, Unity, Unreal; VIDEO: PremierePro, FinalCut; GRAPHICS: PhotoShop, Canva; AUDIO: Logic Pro, Audacity; CAD: Revit, Inventor, SolidWorks; PROGRAMMING: C#, Python, React, Java, HTML, MatLab, Vibe-Coding
