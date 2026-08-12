@@ -8,8 +8,8 @@ const DESIGN_PROJECTS = [
     id: "world",
     videoSrc: "/videos/design/ltls_test.mp4",
     title: "Define the world: the 'set of conditions for the possibility of success.'",
-    description: (<>Start with a problem or opportunity and brainstorm how to work within it <strong>asking UX's 'How might we...?'</strong> This is a phase where a lot is literally put on the wall to find what sticks.</>),
-    example: (<>For Long Time, Let's See, my team fixated on <strong>assisting with impersonal addiction in social media</strong>. That took dozens of possible forms from plugins to events to our end-result, a standalone app inspired by dating apps to get people off the app. That wasn't an idle decision- we <strong>prototyped and tested rapidly to see if the empathetic and subconscious effects we expected</strong> from each solution were actually happening.</>),
+    description: (<>Start with a problem or opportunity and brainstorm how to work within it <strong>asking UX&apos;s &apos;How might we...?&apos;</strong> This is a phase where a lot is literally put on the wall to find what sticks.</>),
+    example: (<>For Long Time, Let&apos;s See, my team fixated on <strong>assisting with impersonal addiction in social media</strong>. That took dozens of possible forms from plugins to events to our end-result, a standalone app inspired by dating apps to get people off the app. That wasn&apos;t an idle decision- we <strong>prototyped and tested rapidly to see if the empathetic and subconscious effects we expected</strong> from each solution were actually happening.</>),
   },
   {
     id: "proto",
@@ -17,15 +17,15 @@ const DESIGN_PROJECTS = [
     poster: "/videos/allprojects.jpg",
     title: "Produce as low fidelity of a prototype or wireframe as provides the key experience.",
     description: (<>
-      VR can be cardboard. Intense data analytics can be vibe-coded with mock data and 'lorem ipsum.' <strong>An experience that requires robust UI/UX from the first moment makes too many assumptions</strong>, and any reaction is just smoke and mirrors. I don't polish yet: <strong>I try to perfect what's at the core of the result.</strong></>),
-    example: (<>Want Cake, Am Lazy was a simple game. Inspired by Please, Don't Touch Anything, and the reality of forging a Rube-Goldberg like excuse to not stand up from a comfortable chair, <strong>users had to feel a grounded sense of explorative humor</strong>. My final 3D prototype worked, but better for testing was a simple cardboard mockup. Testers could point, and I could move interactive elements of the model without speaking to serve as an adaptive AI. <strong>I found solutions alongside users that I individually couldn't have generated, staying true to the idea's commitment to human ingenuity. </strong></>),
+      VR can be cardboard. Intense data analytics can be vibe-coded with mock data and &apos;lorem ipsum.&apos; <strong>An experience that requires robust UI/UX from the first moment makes too many assumptions</strong>, and any reaction is just smoke and mirrors. I don&apos;t polish yet: <strong>I try to perfect what&apos;s at the core of the result.</strong></>),
+    example: (<>Want Cake, Am Lazy was a simple game. Inspired by Please, Don&apos;t Touch Anything, and the reality of forging a Rube-Goldberg like excuse to not stand up from a comfortable chair, <strong>users had to feel a grounded sense of explorative humor</strong>. My final 3D prototype worked, but better for testing was a simple cardboard mockup. Testers could point, and I could move interactive elements of the model without speaking to serve as an adaptive AI. <strong>I found solutions alongside users that I individually couldn&apos;t have generated, staying true to the idea&apos;s commitment to human ingenuity. </strong></>),
   },
   {
     id: "thought",
     videoSrc: "/videos/colorguard.mp4",
     poster: "/video-poster.jpg",
     title: "Listen to what users said. More importantly, what they did.",
-    description: (<>User testing results in strong opinions and ideas. Those are great! But, the better insights are in subconscious responses: <strong>where users said they'd do something and never did. </strong>I iterate to make my designs natural, so those disconnects don't happen.</>),
+    description: (<>User testing results in strong opinions and ideas. Those are great! But, the better insights are in subconscious responses: <strong>where users said they&apos;d do something and never did. </strong>I iterate to make my designs natural, so those disconnects don&apos;t happen.</>),
     example: (<>Color Guard, my iOS game, needed to <strong>reward the tension between long-term strategy, like traditional tower defense, and short-term tactics inspired by abstract art and mobile use tendencies</strong>. Users said they loved short-term gameplay early on, but <strong>analytics showed that they optimized away the fun</strong> when it became possible to fully upgrade <strong>only one</strong> guard for a longer term strategy later on. So, I added a late game enemy that targets your highest-upgraded guard, adding the tension that users loved <strong>back</strong> just when it seemed like it might fade. I also made Game-Feel decisions making explosions of higher-upgraded guards feel awesome, so <strong>the core mechanic of the experience was the most fun part.</strong></>)
   },
   {
