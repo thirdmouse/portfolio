@@ -16,7 +16,7 @@ const CULTURAL_BUBBLES = [
   },
   {
     id: "audience",
-    text: "I want to understand and influence people where they are: trying to define and reveal culture as it exists or historicall existed so that conversation can happen.",
+    text: "I want to understand and influence people where they are: trying to define and reveal culture as it exists or historically existed so that conversation can happen.",
     size: "small",
     x: "78%",
     y: "30%",
@@ -218,7 +218,7 @@ export default function App() {
             preload="metadata"
           >
             <source
-              src="/videos/technical/snork.mp4"
+              src="/videos/culture.mp4"
               type="video/mp4"
             />
           </video>
