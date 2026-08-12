@@ -9,22 +9,17 @@ const DEFAULT_ITEMS = [
     href: "/#afterIntro",
 
     label: "Home",
+    /*
     children: [
       { label: "About", scrollTo: "#about" },
       { label: "Resume", scrollTo: "#resume" },
       { label: "Contact", scrollTo: "#contact" },
-    ],
+    ],*/
   },
-  { key: "process", href: "/process", label: "Process" },
-  {
-    key: "projects",
-    href: "/projects",
-    label: "Projects",
-    children: [
-      { label: "Digital", scrollTo: "#digital" },
-      { label: "Physical", scrollTo: "#physical" },
-    ],
-  },
+  { key: "design", href: "/design", label: "Design" },
+  { key: "performance", href: "/performance", label: "Performance" },
+  { key: "technical", href: "/technical", label: "Technical" },
+  { key: "culture", href: "/culture", label: "Cultural" },
 ];
 
 export default function MobileNav({

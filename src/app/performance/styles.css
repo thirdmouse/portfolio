@@ -1,0 +1,536 @@
+/* Scrollable, gapless two-column portfolio grid */
+.pageRoot {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.portfolioHero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #050505;
+  isolation: isolate;
+}
+
+.portfolioHeroGrid {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0;
+  background: #050505;
+}
+
+.portfolioHeroRow {
+  display: grid;
+  min-height: 50vh;
+  min-height: 50dvh;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  opacity: 0;
+  transform: translateY(28px);
+  animation: portfolioRowReveal 720ms cubic-bezier(0.22, 1, 0.36, 1)
+    var(--row-delay, 0ms) both;
+}
+
+.portfolioHeroTile {
+  position: relative;
+  display: block;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 0;
+  outline: 0;
+  color: inherit;
+  background: #111;
+  text-decoration: none;
+}
+
+.p2{
+  color: var(--half-muted);
+}
+.portfolioHeroVideo,
+.portfolioHeroScrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.portfolioHeroVideo {
+  display: block;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.04);
+  transform: scale(1.002);
+  transition:
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 500ms ease;
+}
+
+.portfolioHeroScrim {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.04),
+    rgba(0, 0, 0, 0.26)
+  );
+  transition: background 400ms ease;
+}
+
+.portfolioTileLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  width: min(85%, 440px);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -42%);
+  transition:
+    opacity 750ms ease,
+    transform 750ms ease;
+}
+
+.portfolioTileTitle,
+.portfolioTileSubtitle {
+  width: fit-content;
+  max-width: 100%;
+  padding: 5px 9px;
+  color: #fff;
+  background: #000;
+  line-height: 1.15;
+}
+
+.portfolioTileTitle {
+  font-size: clamp(16px, 2vw, 28px);
+  letter-spacing: 0.04em;
+}
+
+.portfolioTileSubtitle {
+  margin-top: 0;
+  font-size: clamp(8px, 0.85vw, 12px);
+  letter-spacing: 0.14em;
+}
+
+.portfolioHeroTile:hover .portfolioHeroVideo,
+.portfolioHeroTile:focus-visible .portfolioHeroVideo {
+  filter: saturate(1.06) contrast(1.06);
+  transform: scale(1.04);
+}
+
+.portfolioHeroTile:hover .portfolioHeroScrim,
+.portfolioHeroTile:focus-visible .portfolioHeroScrim {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.portfolioTileLabel.isVisible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.portfolioHeroTile:focus-visible {
+  z-index: 3;
+  outline: 3px solid rgba(255, 255, 255, 0.96);
+  outline-offset: -3px;
+}
+
+/* Hover labels render above the parallax cards but never receive pointer input. */
+.portfolioHoverLabelLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.portfolioHoverLabelRow {
+  display: grid;
+  min-height: 50vh;
+  min-height: 50dvh;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portfolioHoverLabelCell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  pointer-events: none;
+}
+
+/* Independent text overlay: cards move; videos remain untouched */
+.floatingTextLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.floatingTextCard {
+  position: absolute;
+  top: var(--card-top);
+  left: var(--card-left);
+  right: var(--card-right);
+  width: var(--card-width, fit-content);
+  max-width: min(92vw, 1100px);
+  pointer-events: auto;
+  cursor: default;
+  transform: translate3d(
+      var(--card-x, 0px),
+      var(--parallax-y, 0px),
+      0
+    )
+    rotate(var(--card-tilt, 0deg));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.floatingTextCardInner {
+  display: block;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  text-align: center;
+  padding: 0.38em 0.56em 0.34em;
+  border: 3px solid #050505;
+  border-radius: 12px;
+  color: #050505;
+  background: #ffffffaa;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  animation: floatingCardReveal 650ms cubic-bezier(0.22, 1, 0.36, 1)
+    var(--card-delay, 0ms) both;
+}
+
+.floatingTextCard--title .floatingTextCardInner {
+  padding: 0.28em 0.45em 0.25em;
+  border-width: 5px;
+  border-radius: 18px;
+  font-size: clamp(36px, 9vw, 150px);
+  letter-spacing: -0.065em;
+
+  /* Remove white-space: nowrap */
+  white-space: normal;
+}
+
+.floatingTextCard--medium .floatingTextCardInner {
+  font-size: clamp(23px, 3.8vw, 58px);
+}
+
+.floatingTextCard--small .floatingTextCardInner {
+  font-size: clamp(17px, 2.4vw, 34px);
+  letter-spacing: -0.025em;
+}
+
+.floatingTextCard--tiny .floatingTextCardInner {
+  font-size: clamp(13px, 1.55vw, 22px);
+  letter-spacing: 0.02em;
+}
+
+/* Mobile navigation used by the imported MobileNav component */
+.mobileNav {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.mobileNav.isVisible {
+  pointer-events: auto;
+  opacity: 0.9;
+}
+
+.mobileNavBtn {
+  position: relative;
+  left: -3px;
+  z-index: 10000;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  color: transparent;
+  background: transparent;
+  cursor: pointer;
+  transform: translateZ(0);
+  transform-origin: center;
+  transition: transform 220ms ease;
+  will-change: transform;
+}
+
+.mobileNavBtn[aria-expanded="true"] {
+  transform: rotate(90deg);
+}
+
+.mobileNavBtn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.mobileNavIcon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 45px;
+  height: 45px;
+  margin: auto;
+  pointer-events: none;
+  transform: translateZ(0);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+  backface-visibility: hidden;
+}
+
+.iconClosed {
+  opacity: 1;
+}
+
+.iconOpen {
+  opacity: 0;
+}
+
+.mobileNavBtn[aria-expanded="true"] .iconClosed {
+  opacity: 0;
+}
+
+.mobileNavBtn[aria-expanded="true"] .iconOpen {
+  opacity: 1;
+}
+
+.mobileNavMenu {
+  position: absolute;
+  z-index: 9999;
+}
+
+.mobileNavBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: default;
+  appearance: none;
+}
+
+.mobileNavItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 0;
+  color: rgba(11, 11, 11, 0.92);
+  background: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  animation: navTextIn 750ms ease forwards;
+}
+
+.mobileNavItem:hover {
+  background: #38b6ff;
+}
+
+.navBullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(11, 11, 11, 0.9);
+}
+
+.mobileNavItem.isActive .navBullet {
+  background: rgb(47, 116, 199);
+}
+
+.mobileNavMenu .navBullet {
+  animation: bulletFall 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: transform;
+}
+
+.mobileNavItem:nth-child(1) .navBullet {
+  animation-delay: 20ms;
+}
+
+.mobileNavItem:nth-child(2) .navBullet {
+  animation-delay: 60ms;
+}
+
+.mobileNavItem:nth-child(3) .navBullet {
+  animation-delay: 100ms;
+}
+
+.mobileNavMenu .navText {
+  opacity: 0;
+  animation: navTextIn 280ms ease forwards;
+}
+
+.mobileNavItem:nth-child(1) .navText {
+  animation-delay: 140ms;
+}
+
+.mobileNavItem:nth-child(2) .navText {
+  animation-delay: 180ms;
+}
+
+.mobileNavItem:nth-child(3) .navText {
+  animation-delay: 220ms;
+}
+
+.mobileNavGroup,
+.mobileNavSubmenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavSubmenu {
+  gap: 6px;
+  margin-top: 0;
+  margin-left: 18px;
+}
+
+.mobileNavSubItem {
+  padding: 8px 10px;
+  font-size: 12.5px;
+  opacity: 0.95;
+}
+
+@keyframes portfolioRowReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatingCardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bulletFall {
+  from {
+    transform: translateY(-44px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes navTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 780px) {
+  .portfolioHeroGrid,
+  .portfolioHeroRow {
+    gap: 0;
+  }
+
+  .floatingTextCard {
+    max-width: calc(100vw - 36px);
+  }
+
+  .floatingTextCardInner {
+    border-width: 2px;
+    border-radius: 9px;
+    box-shadow: 5px 5px 0 #050505;
+  }
+
+  .floatingTextCard--title .floatingTextCardInner {
+    border-width: 3px;
+    border-radius: 12px;
+    box-shadow: 7px 7px 0 #050505;
+    font-size: clamp(34px, 12vw, 68px);
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolioHeroRow {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .floatingTextCard {
+    transform: translate3d(var(--card-x, 0px), 0, 0)
+      rotate(var(--card-tilt, 0deg));
+    will-change: auto;
+  }
+
+  .floatingTextCardInner {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .portfolioHeroVideo,
+  .portfolioHeroScrim,
+  .portfolioTileLabel,
+  .mobileNavBtn,
+  .mobileNavIcon {
+    transition: none;
+  }
+
+  .mobileNavItem,
+  .mobileNavMenu .navBullet,
+  .mobileNavMenu .navText {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+
+
+.resumeSheet {
+  position: relative;
+  z-index: 2;
+  /*min-height: 100vh;*/
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: 100px 100px 0 0;
+  color: var(--ink);
+  background: #fff;
+  scroll-margin-top: 0;
+
+  transform: translate3d(0, var(--parallax-y, 0px), 0);
+  will-change: transform;
+}
+
+.resumeSheetInner {
+  width: min(1080px, calc(100% - 36px));
+  margin: 0 auto;
+  margin-bottom: 0;
+  padding: clamp(64px, 9vw, 120px) 0 10px;
+}
+
+.resumeIntro {
+  max-width: 700px;
+  margin: 0 auto 0;
+  margin-bottom: 0;
+  text-align: center;
+}
+.perfLink {
+  color: #000;
+}

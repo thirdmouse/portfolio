@@ -1,480 +1,391 @@
 "use client";
+import { useEffect } from "react";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./styles.css";
-import FlowingCircleCarousel from "@/components/FlowingCircleCarousel";
 import ResumeTimeline from "../components/ResumeTimeline";
 import MobileNav from "../components/MobileNav";
-import ParallaxTripleColumns from "../components/ParallaxTwo";
-import { carouselProjects, categories as importedCategories } from "@/components/FlowingCircleCarousel";
-import { video } from "framer-motion/m";
-/** ---------- Fade-in helper ---------- */
-function FadeIn({ children, className = "", threshold = 0.15 }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+const HERO_TILES = [
+  {
+    id: "top-left",
+    href: "/design",
+    label: "Open featured project one",
+    videoSrc: "/videos/colorguard.mp4",
+    poster: "/videos/games-poster.jpg",
+    title: "DESIGN",
+    subtitle: "METHODS in Games, Apps, and Films",
+  },
+  {
+    id: "top-right",
+    href: "/performance",
+    label: "Open featured project two",
+    videoSrc: "/videos/drumming.mov",
+    poster: "/videos/film-poster.jpg",
+    title: "PERFORMANCE",
+    subtitle: "WORK in Acting, Drumming, and Singing",
+  },
+  {
+    id: "bottom-left",
+    href: "/culture",
+    label: "Open featured project three",
+    videoSrc: "/videos/cultural.mov",
+    poster: "/videos/allprojects.jpg",
+    title: "CULTURAL WORK",
+    subtitle: "PHILOSOPHY in Leadership or Exhibits",
+  },
+  {
+    id: "bottom-right",
+    href: "/technical",
+    label: "Open featured project four",
+    videoSrc: "/videos/dipper.mov",
+    poster: "/video-poster.jpg",
+    title: "TECHNICAL",
+    subtitle: "PROJECTS in Research, Design, and Tech"
+  },
+];
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setVisible(true);
-            io.unobserve(e.target);
-          }
-        }
-      },
-      { threshold }
+const TIMELINE_ITEMS = [
+  {
+    id: "t-now",
+    date: "2023 — 2027",
+    title: "Yale University",
+    subtitle:
+      "3.84 GPA | Major in Cognitive Science, concentrating in subconscious and interactive experience",
+    bullets: [
+      "Certificate in Medieval Studies",
+      "M.Arch Coursework in Multisensory and Inclusive Space Design",
+      "MBA Coursework in UX Research / Design, Consumer Behavior",
+      "Undergrad incl. Psychology of Marketing and Media, Architecture, Computational Neuroscience, Mechanical Design, Cognitive Science of Large Language Models, Game Design, Intellectual Property, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
+    ],
+    dotImage: { src: "/images/yale.png", alt: "yale" },
+  },
+  {
+    id: "t-umg",
+    date: "Summer 2026",
+    title: "Universal Music Group",
+    subtitle: "Strategy and Insights Intern",
+    description:
+      "The largest music company in the world. Worked under the Brand Partnerships umbrella, connecting hundreds of artists to global markets.",
+    bullets: [
+"Researched, narrativized, and presented ‘Cultural A&R’ data and marketing campaigns for top global brands.",
+"Assisted in prototyping tool suite expanding my team, Studio2, into bottom-up cultural support and analysis."
+],
+    dotImage: { src: "/images/umg.png", alt: "umg" },
+  },
+  {
+    id: "t-insiderisk",
+    date: "Spring-Summer 2025, Part time Summer 2026",
+    title: "InsideRisk",
+    subtitle: "Project Manager for AI Integration and Video Editor",
+    description:
+      "Leader in novel psychometric assessments and immersive crisis trainings.",
+    bullets: [
+      "Co-designed and delivered live and digital immersive leadership & recruiting programs used by top-100 global companies.",
+      "Managed end-to-end production of 15-20 minute behavioral assessment under strict constraints, aligning writers, designers, and data specialists to increase deployability and preserve psychometric validity of 400%+ longer modules.",
+      "Led, as PM, redesign of flagship 4-hour program as 30-minute AI-integrated modules, enabling scalable delivery.",
+      "Returned part time in 2026 to audit new products based on formats I helped establish, assisting with AI consistency in report modules.",
+    ],
+    dotImage: { src: "/images/ir.jpeg", alt: "insiderisk" },
+  },
+  {
+    id: "t-kojima",
+    date: "Summer 2025",
+    title: "Kojima Productions at Outernet",
+    subtitle: "Experience Manager and Storefront Designer",
+    bullets: [
+      "Returned to the Outernet for Kojima Productions game release event",
+      "Designed storefront and trained attendants, leading to near total sellthrough and >12 hour consumer engagement",
+      "MCeed ceremony with top names in Game Development industry.",
+    ],
+  },
+  {
+    id: "t-uab",
+    date: "Summer 2027",
+    title: "Universitat Autonoma de Barcelona",
+    subtitle:
+      "Studied abroad for urban planning and architecture",
+    bullets: [
+      "Designed tour path chronicling Gaudi's development from lamp-posts to parks and palaces",
+      "Engaged with Catalan architectural history from medieval to modernisme (Art Nouveau), through facism and modernism; both from art history and phenomenological experience perspectives.",
+      "Developed reciprocal relationships with local architects and designers"
+    ],
+    dotImage: { src: "/images/uab.jpeg", alt: "yale" },
+  },
+  {
+    id: "t-colorguard",
+    date: "2024",
+    title: "Color Guard",
+    subtitle: "Self Published iOS Game",
+    description: "Most recent of my 10+ shipped games on iOS, Android, and Web",
+    bullets: [
+      "Shipped mobile game to players in more than 10 countries",
+      "Iterated anti-fun mitigation behaviors via analytics / playtesting; redesigned resource curves to eliminate dominant strategies.",
+      "20 minute average play session, marking a tremendous success of multiple rounds per open.",
+    ],
+    dotImage: { src: "/images/feat-b.jpg", alt: "ColorGuard" },
+  },
+  {
+    id: "t-ovl",
+    date: "Summer 2023, Summer 2025 (see Kojima)",
+    title: "Outernet Venues Live",
+    subtitle: "Production and Experience Intern",
+    description:
+      "Immersive events venue in London, featuring some of the largest screens in the world.",
+    bullets: [
+      "Developed management system for dynamic quoting, inventory, and logistics, used by rotating teams w. 2,000+ items.",
+      "Designed flow and staging layouts to activate space, maximize engagement across multi-format events and product releases",
+      "Project-managed and directed multi-event pre-show, including History of Denmark Street musical documentary.",
+    ],
+    dotImage: { src: "/images/ovl.png", alt: "ovl" },
+  },
+  {
+    id: "t-stewart",
+    date: "2019-Now",
+    title: "Stewart Talent and TM Talent",
+    subtitle:
+      "Professional Actor based in NYC - incl. 2M+ views as CatRat in Gabby's Dollhouse on Roblox",
+    description: (
+      <>
+        Act professionally in animation, film, tv, and theater. 30+ credits acting,
+        singing, and hosting. Resume available{" "}
+        <a
+          href="https://tinyurl.com/cpactingresume"
+          target="_blank"
+          rel="noreferrer"
+          className="underline"
+        >
+          here.
+        </a>
+      </>
+    ),
+    dotImage: { src: "/images/stewart.jpeg", alt: "stw" },
+  },
+  {
+    id: "t-abcya",
+    date: "2022-2023",
+    title: "ABCYa",
+    subtitle: "Educational Game Design Mentee",
+    description:
+      "Educational game development company serving >100 million users yearly.",
+    bullets: [
+      "Developed full-stack for Designed 'Shakesperean Rap Battles' game following in-house Agile workflow.",
+      "Supported CDN maintenance and crossfunctional team processes.",
+    ],
+    dotImage: { src: "/images/abc.png", alt: "abcya" },
+  },
+  {
+    id: "t-hths",
+    date: "2019-2023",
+    title: "High Technology High School",
+    subtitle:
+      "1580 SAT | Principal's Award, National Merit Scholar, and AP Scholar with Distinction",
+    bullets: [
+      "Graduated on Civil Engineering track with end-to-end development of Habitat for Humanity project.",
+      "Designed StoryVox OCR reader as capstone Product Engineering project",
+    ],
+    dotImage: { src: "/images/hths.png", alt: "hths" },
+  },
+];
+
+const CAREER_TARGETS = {
+  cognitiveResearcher: "t-now",
+  culturalAnalyst: "t-umg",
+  videogameProgrammer: "t-colorguard",
+  sensoryArchitect: "t-ovl",
+  filmmaker: "t-insiderisk",
+  drummerSinger: "t-now",
+  actor: "t-stewart",
+};
+
+function scrollToResume() {
+  document
+    .getElementById("resume")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function openTimelineCareer(id) {
+  const target =
+    document.getElementById(id) ||
+    document.querySelector(`[data-timeline-id="${id}"], [data-item-id="${id}"]`);
+
+  let row = target?.closest(".timelineRow") || target;
+
+  if (!row) {
+    const title = TIMELINE_ITEMS.find((item) => item.id === id)?.title;
+    row = Array.from(document.querySelectorAll(".timelineRow")).find(
+      (candidate) =>
+        candidate.querySelector(".timelineTitle")?.textContent?.trim() === title,
     );
+  }
 
-    io.observe(el);
-    return () => io.disconnect();
-  }, [threshold]);
+  if (!row) return;
 
+  const cardSelector = ".timelineCardBtn, button.timelineCard, [aria-expanded]";
+  const cardButton = row.matches(cardSelector)
+    ? row
+    : row.querySelector(cardSelector);
+  const isOpen =
+    row.classList.contains("isExpanded") ||
+    row.classList.contains("isActive") ||
+    cardButton?.getAttribute("aria-expanded") === "true";
+
+  if (!isOpen) cardButton?.click();
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+      row.classList.add("isCareerTarget");
+      setTimeout(() => row.classList.remove("isCareerTarget"), 1200);
+    }, 40);
+  });
+}
+
+function CareerLink({ target, children }) {
   return (
-    <div ref={ref} className={`fadeIn ${visible ? "isVisible" : ""} ${className}`}>
+    <button
+      className="careerLink"
+      type="button"
+      onClick={() => openTimelineCareer(target)}
+    >
       {children}
-    </div>
+    </button>
   );
 }
 
 export default function App() {
-  const tripleTiles = useMemo(
-    () => [
-      {
-        id: "digital",
-        title: "DIGITAL (PROGRAMMING | MEDIA | APPS)",
-        href: "/projects/#digital",
-        videoSrc: "/videos/colorguard.mp4",
-        poster: "/videos/games-poster.jpg",
-      },
-      {
-        id: "physical",
-        title: "PHYSICAL (ENGINEERING | EVENTS | SPACES)",
-        href: "/projects/#physical",
-        videoSrc: "/videos/drumming.mov",
-        poster: "/videos/film-poster.jpg",
-      },
-      {
-        id: "all",
-        title: "ALL PROJECTS",
-        href: "/projects",
-        videoSrc: "/videos/allprojects.mov",
-        poster: "/videos/allprojects.jpg",
-      },
-    ],
-    []
-  );
-
-  // Your local categories (kept as-is)
-  const categories = useMemo(
-    () => [
-      { key: "games", label: "Games", imgSrc: "/images/games.png" },
-      { key: "film", label: "Film", imgSrc: "/images/film.png" },
-      { key: "design", label: "Design", imgSrc: "/images/design.png" },
-      { key: "engineering", label: "Engineering", imgSrc: "/images/engineering.png" },
-    ],
-    []
-  );
-
-  // Featured projects (3 large circles)
-  const featured = useMemo(
-    () => [
-      {
-        id: "inside-risk",
-        title: "InsideRisk",
-        desc: "PM'ed a redesign of our 4-hour flagship into 30 minute, AI-integrated modules for top-100 global companies.",
-        href: "/projects",
-        image: "/images/feat-a.jpg",
-      },
-      {
-        id: "color-guard",
-        title: "Color Guard",
-        desc: "End-to-end solo project, shipped iOS game. Average session over 20 minutes, players in 10 countries.",
-        href: "/projects",
-        image: "/images/feat-b.jpg",
-      },
-      {
-        id: "ovl",
-        title: "Outernet Venues Live",
-        desc: "Developed live music, media, and sponsorship events at premiere London immersive venue.",
-        href: "/projects",
-        image: "/images/feat-c.jpg",
-      },
-    ],
-    []
-  );
-
   useEffect(() => {
-    const items = document.querySelectorAll("[data-featured]");
-    let armedItem = null;
+    const timer = setTimeout(() => {
+      document
+        .querySelectorAll(".portfolioHeroTile")
+        .forEach((tile) => tile.classList.add("labelsReady"));
+    }, 3000);
 
-    const onTap = (e) => {
-      // desktop = normal behavior
-      if (window.matchMedia("(hover: hover)").matches) return;
-
-      const item = e.currentTarget;
-
-      if (armedItem !== item) {
-        e.preventDefault(); // stop navigation
-        armedItem?.classList.remove("isArmed");
-        item.classList.add("isArmed");
-        armedItem = item;
-      } else {
-        // second tap → allow navigation
-        armedItem = null;
-      }
-    };
-
-    const clear = () => {
-      armedItem?.classList.remove("isArmed");
-      armedItem = null;
-    };
-
-    items.forEach((item) => item.addEventListener("click", onTap));
-    document.addEventListener("touchstart", clear);
-
-    return () => {
-      items.forEach((item) => item.removeEventListener("click", onTap));
-      document.removeEventListener("touchstart", clear);
-    };
+    return () => clearTimeout(timer);
   }, []);
-  // Carousel items (smaller circles with title + category icon)
-  const carouselItems = useMemo(
-    () => [
-      { id: "c1", title: "Want Cake, Am Lazy", category: "design", thumbSrc: "/images/thumbs/wcal.png" },
-      { id: "c2", title: "A Closet", category: "film", thumbSrc: "/images/thumbs/closet.png" },
-      { id: "c3", title: "Curses!", category: "games", thumbSrc: "/images/thumbs/curses.png" },
-      { id: "c4", title: "Touchscreen Experiments", category: "design", thumbSrc: "/images/thumbs/ts.png" },
-      { id: "c5", title: "Storyvox", category: "engineering", thumbSrc: "/images/thumbs/storyvox.png" },
-      { id: "c6", title: "Heat", category: "film", thumbSrc: "/images/thumbs/heat.png" },
-      { id: "c7", title: "Guerra de Discretos", category: "games", thumbSrc: "/images/thumbs/guerra.png" },
-      { id: "c8", title: "Lil' Dipper Rover", category: "engineering", thumbSrc: "/images/thumbs/rover.png" },
-      { id: "c9", title: "Requiem for Sisyphus", category: "film", thumbSrc: "/images/thumbs/sisyphus.png" },
-      { id: "c10", title: "Cart Hanger", category: "engineering", thumbSrc: "/images/thumbs/hanger.png" },
-      { id: "c11", title: "Live from the Acropolis", category: "design", thumbSrc: "/images/thumbs/athens.png" },
-      { id: "c12", title: "PLTW Habitat for Humanity", category: "engineering", thumbSrc: "/images/thumbs/habitat.png" },
-    ],
-    []
-  );
-
-  // Timeline items + render
-  const timelineItems = useMemo(
-    () => [
-      {
-        id: "t-now",
-        date: "2023 — Spring 2027",
-        title: "Yale University",
-        subtitle: "3.83 GPA | Major in Cognitive Science of Subconscious and Interactive Experience",
-        bullets: [
-          "Certificates in Spanish and Medieval Studies",
-          "M.Arch Coursework in Multisensory and Inclusive Spaces",
-          "MBA Coursework in UX Research / Design, Consumer Behavior",
-          "Undergrad incl. Psychology of Marketing and Media, Architecture, Computational Neuroscience, Mechanical Design, Cognitive Science of Large Language Models, Game Design, Digital IP, Formal Philosophy, Computer Science (Data Structures, Algorithms)",
-        ],
-        dotImage: { src: "/images/yale.png", alt: "hths" },
-      },
-      {
-        id: "t-insiderisk",
-        date: "2025",
-        title: "InsideRisk",
-        subtitle: "Project Manager and AI-Integration Lead",
-        bullets: [
-          "Co-designed and delivered live and digital immersive leadership & recruiting programs used by top-100 global companies.",
-          "Managed end-to-end production of 15-20 minute behavioral assessment under strict constraints, aligning writers, designers, and data specialists to increase deployability and preserve psychometric validity of 400%+ longer modules.",
-          "Led, as PM, redesign of flagship 4-hour program as 30-minute AI-integrated modules, enabling scalable delivery.",
-        ],
-        description: "Leader in novel psychometric assessments and immersive crisis trainings",
-        dotImage: { src: "/images/ir.jpeg", alt: "hths" },
-        tags: ["Design, Filmmaking"],
-      },
-      {
-        id: "t-kojima",
-        date: "Summer 2025",
-        title: "Kojima Productions at Outernet",
-        subtitle: "Experience Manager and Storefront Designer",
-        bullets: [
-          "Returned to the Outernet for Kojima Productions game release event",
-          "Designed storefront and trained attendants, leading to near total sellthrough and >12 hour consumer engagement",
-          "MCeed ceremony with top names in Game Development industry.",
-        ],
-        tags: ["Engineering, Design"],
-      },
-      {
-        id: "t-colorguard",
-        date: "2024",
-        title: "Color Guard",
-        subtitle: "Self Published iOS Game",
-        description: "Most recent of my 10+ shipped games on iOS, Android, and Web",
-        bullets: [
-          "Shipped mobile game to players in more than 10 countries",
-          "Iterated anti-fun mitigation behaviors via analytics / playtesting; redesigned resource curves to eliminate dominant strategies.",
-          "20 minute average play session, marking a tremendous success of multiple rounds per open.",
-        ],
-        tags: ["Games, Design, Engineering"],
-        dotImage: { src: "/images/feat-b.jpg", alt: "ColorGuard" },
-      },
-      {
-        id: "t-ovl",
-        date: "2023",
-        title: "Outernet Venues Live",
-        subtitle: "Production and Experience Intern",
-        description:
-          "Immersive events venue in London, featuring some of the largest screens in the world.",
-        bullets: [
-          "Developed management system for dynamic quoting, inventory, and logistics, used by rotating teams w. 2,000+ items.",
-          "Designed flow and staging layouts to activate space, maximize engagement across multi-format events and product releases",
-          "Project-managed and directed multi-event pre-show, including History of Denmark Street musical documentary.",
-        ],
-        tags: ["Engineering, Filmmaking, Design"],
-        dotImage: { src: "/images/ovl.png", alt: "ovl" },
-      },
-      {
-        id: "t-stewart",
-        date: "2019-Now",
-        title: "Stewart Talent and TM Talent",
-        subtitle: "Professional Actor based in NYC - incl. 2M+ views as CatRat in Gabby's Dollhouse on Roblox",
-        description: (
-    <>
-      <a>Act professionally in animation, film, tv, and theater. 30+ credits acting,
-      singing, and hosting.Resume available</a> {" "}
-      <a
-        href="https://tinyurl.com/cpactingresume"
-        target="_blank"
-        rel="noreferrer"
-        className="underline"
-      >
-        here.
-      </a>
-    </>),
-        tags: ["Filmmaking"],
-        dotImage: { src: "/images/stewart.jpeg", alt: "stw" },
-      },
-      {
-        id: "t-abcya",
-        date: "2022-2023",
-        title: "ABCYa",
-        subtitle: "Game Design and Development Mentee",
-        description: "Educational game development company serving >100 million users yearly.",
-        bullets: [
-          "Developed full-stack for Designed 'Shakesperean Rap Battles' game following in-house Agile workflow.",
-          "Supported CDN maintenance and crossfunctional team processes.",
-        ],
-        tags: ["Games, Engineering, Design"],
-        dotImage: { src: "/images/abc.png", alt: "abcya" },
-      },
-      {
-        id: "t-hths",
-        date: "2019-2023",
-        title: "High Technology High School",
-        subtitle:
-          "1580 SAT | Principal's Award, National Merit Scholar, and AP Scholar with Distinction",
-        bullets: [
-          "Graduated on Civil Engineering track with end-to-end development of Habitat for Humanity project.",
-          "Designed StoryVox OCR reader as capstone Product Engineering project",
-        ],
-        tags: ["Engineering"],
-        dotImage: { src: "/images/hths.png", alt: "hths" },
-      },
-    ],
-    []
-  );
-
-  const categoryMeta = useMemo(() => {
-    const m = {};
-    for (const c of categories) m[c.key] = c;
-    return m;
-  }, [categories]);
-
-  /**
-   * --- Intro video logic ---
-   * - First visit in a tab/session: play once.
-   * - When it ends: freeze on last frame.
-   * - Returning to home in same session: don't replay; show frozen last frame immediately.
-   */
-  const videoRef = useRef(null);
-useEffect(() => {
-  if (typeof window === "undefined") return;
-  if (window.location.hash !== "#afterIntro") return;
-
-  const el = document.getElementById("afterIntro");
-  el?.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  const v = videoRef.current;
-  if (!v) return;
-
-  const epsilon = 0.05;
-
-  const skipToEndAndPause = () => {
-    try {
-      // duration is only valid after metadata loads
-      const d = v.duration;
-      if (Number.isFinite(d) && d > 0) {
-        v.currentTime = Math.max(0, d - epsilon);
-      }
-      v.pause();
-    } catch {
-      try { v.pause(); } catch {}
-    }
-  };
-
-  // If metadata is already ready, do it now.
-  if (v.readyState >= 1) {
-    skipToEndAndPause();
-    return;
-  }
-
-  // Otherwise wait for metadata (more reliable on production/CDN)
-  const onMeta = () => skipToEndAndPause();
-  v.addEventListener("loadedmetadata", onMeta, { once: true });
-
-  // Some browsers/CDN timing edge cases: also try once it can play
-  const onCanPlay = () => skipToEndAndPause();
-  v.addEventListener("canplay", onCanPlay, { once: true });
-
-  return () => {
-    v.removeEventListener("loadedmetadata", onMeta);
-    v.removeEventListener("canplay", onCanPlay);
-  };
-}, []);
-
   return (
     <div className="pageRoot">
       <MobileNav revealOnScroll />
 
-      {/* Fixed hero video behind everything */}
-      <header className="heroFixed" aria-label="Intro video">
-        <video
-          ref={videoRef}
-          className="heroVideo"
-          autoPlay
-          muted
-          playsInline
-          preload="metadata"
-          poster="/video-poster.jpg"
-        >
-          <source src="/intro.mp4" type="video/mp4" />
-        </video>
+      <header className="portfolioHero" aria-label="Selected work">
+        <div className="portfolioHeroGrid">
+          {HERO_TILES.map((tile, index) => (
+            <a
+              key={tile.id}
+              className="portfolioHeroTile"
+              href={tile.href}
+              aria-label={tile.label}
+              style={{ "--tile-delay": `${180 + index * 260}ms` }}
+              onMouseEnter={(event) => {
+                event.currentTarget.classList.add("hasHovered");
+              }}
+              onFocus={(event) => {
+                event.currentTarget.classList.add("hasHovered");
+              }}
+            >
+              <video
+                className="portfolioHeroVideo"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={tile.poster}
+                aria-hidden="true"
+              >
+                <source src={tile.videoSrc} />
+              </video>
+              <span className="portfolioHeroScrim" aria-hidden="true" />
+              <span className="portfolioTileLabel">
+              <span className="portfolioTileTitle">{tile.title}</span>
 
-        <div className="heroOverlay">
+              {tile.subtitle && (
+                <span className="portfolioTileSubtitle">{tile.subtitle}</span>
+              )}
+            </span>
+            </a>
+          ))}
+        </div>
+
+        <div
+          className="portfolioIdentity"
+          aria-label="Charlie Patton, Experience Designer and Creative Technologist"
+        >
+          <div className="portfolioIdentityCopy">
+            <h1>Hey!</h1>
+            <p>I'm Charlie, a Creative Technologist and Experience Designer.</p>
+            <p className="contact">
+              Click videos to view projects, or see my resume below.
+            </p>
+          </div>
+
           <button
-            className="scrollArrow"
+            className="portfolioScrollCue"
             type="button"
-            aria-label="Scroll to content"
-            onClick={() => {
-              document.querySelector(".contentSheet")?.scrollIntoView({ behavior: "smooth" });
-            }}
+            aria-label="Scroll to interactive resume"
+            onClick={scrollToResume}
           >
-            <span className="arrowStem" aria-hidden="true" />
-            <span className="arrowHead" aria-hidden="true" />
+            <span className="portfolioArrowStem" aria-hidden="true" />
+            <span className="portfolioArrowHead" aria-hidden="true" />
           </button>
         </div>
       </header>
 
-      {/* White sheet scrolls over fixed video */}
-      <main className="contentSheet">
-        <div className="sheetInner">
-          <FadeIn className="section centerBlock">
-            <p className="blurb" id="about">
-              I am a Creative Strategist and Psychological Engineer,
+      <main className="resumeSheet" id="resume">
+        <div className="resumeSheetInner">
+          <div className="resumeIntro">
+            <h2>Thanks for taking the time.</h2>
+            <p>
+              I work within the subconscious interactivity inherent in different
+              mediums.
+            </p>
+            <div className="p2">
+              That's meant many different stages of the process:
               <br />
-              creating user-focused, subconsciously powerful experiences.
-            </p>
-          </FadeIn>
-          <FadeIn className="section centerBlock">
-            <p className="vocation">
-              <br /> My diverse enthusiasm reaches programming, architecture, professional acting, rock-and-roll drumming, and events management...
-               <br/>
-                <br/>Each passion is not only unified by my Cognitive-Science based design philosophy, but
-              irrevocably contributes to it.
-            </p>
-            <br/>
-            <a href="/process" className="bigButton">
-              Experience my Process
-            </a>
-            <br/>
-          </FadeIn>
-
-          <FadeIn className="section">
-            <div className="sectionHeader">
-              <h2 className="sectionTitle">Featured projects</h2>
-              <a href="/projects" className="seeAllLink">
-                See all →
-              </a>
+              <br />
+              as a{" "}
+              <CareerLink target={CAREER_TARGETS.cognitiveResearcher}>
+                cognitive science researcher
+              </CareerLink>{" "}
+              or{" "}
+              <CareerLink target={CAREER_TARGETS.culturalAnalyst}>
+                cultural analyst
+              </CareerLink>
+              ,
+              <br />
+              <br />
+              or as a{" "}
+              <CareerLink target={CAREER_TARGETS.videogameProgrammer}>
+                videogame programmer
+              </CareerLink>{" "}
+              and{" "}
+              <CareerLink target={CAREER_TARGETS.sensoryArchitect}>
+                sensory-architectural designer
+              </CareerLink>
+              ,
+              <br />
+              <br />
+              and as a{" "}
+              <CareerLink target={CAREER_TARGETS.filmmaker}>
+                filmmaker
+              </CareerLink>
+              ,{" "}
+              <CareerLink target={CAREER_TARGETS.drummerSinger}>
+                drummer-singer
+              </CareerLink>
+              , or{" "}
+              <CareerLink target={CAREER_TARGETS.actor}>actor</CareerLink>.
             </div>
-
-            <div className="featuredGrid">
-              {featured.map((item) => (
-                <a
-                  key={item.id}
-                  href={item.href}
-                  className="featuredCircle"
-                  data-featured
-                  style={{ backgroundImage: `url(${item.image})` }}
-                >
-                  <div className="featuredHover">
-                    <div className="featuredTitle">{item.title}</div>
-                    <div className="featuredDesc">{item.desc}</div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </FadeIn>
-
-          <FadeIn className="cta">
-            <br/>
-            <h2>I'm looking for my next steps. I want to design, manage, and deliver experiences with - and learn from - companies that make an impact and create culture. </h2>
-            <br/>
-          <button
-            type="button"
-            aria-label="Scroll to contact"
-            className="bigButton2"
-            label="Contact Me"
-            onClick={() => {
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Contact Me
-          </button>
-            <br/>
-            <br/>
-            <p>Here's what I've already done.</p>
-          </FadeIn>
-
-          {/* Resume Timeline section */}
-          <div className="section" id="resume">
-            <ResumeTimeline items={timelineItems} />
+            <p>
+              But they all motivate towards the same goal: understanding
+              people, culture, and how they interact. I want to work in
+              experiences that help people connect, counteracting the impersonal
+              and addictive world we're in.
+            </p>
           </div>
 
-          <FadeIn className="section" threshold={0.05}>
-            <div className="sectionHeader" id="process">
-              <div>
-                <button
-                  className="scrollArrow"
-                  type="button"
-                  aria-label="Scroll to content"
-                  onClick={() => {
-                    document
-                      .getElementById("processRevealAnchor")
-                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                >
-                  <span className="arrowStem2" aria-hidden="true" />
-                  <span className="arrowHead2" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-
-            {/* <FlowingCircleCarousel items={carouselItems} categoryMeta={categoryMeta} /> */}
-          </FadeIn>
+          <ResumeTimeline items={TIMELINE_ITEMS} />
         </div>
       </main>
-
-      <div id="processRevealAnchor" />
-      <ParallaxTripleColumns tiles={tripleTiles} />
-      <section id="contact"></section>
     </div>
   );
 }

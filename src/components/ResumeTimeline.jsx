@@ -162,10 +162,19 @@ export default function ResumeTimeline({ items, scrollContainerSelector = ".cont
     <section className="timelineSection" aria-label="Resume timeline">
       <div className="timelineHeader">
         <h2 className="sectionTitle" style={{ marginBottom: 0 }}>
-          Resume
+          My Interactive Resume
         </h2>
       </div>
-
+      <p2 className ="alternative">Alternatively, view a downloadable pdf {" "}
+        <a
+          href="https://tinyurl.com/resumeccp"
+          target="_blank"
+          rel="noreferrer"
+          className="underline"
+        >
+          here.
+        </a>
+        <br/></p2>
       <div className="timeline">
         <div className="timelineLine" aria-hidden="true" />
 
@@ -246,8 +255,6 @@ export default function ResumeTimeline({ items, scrollContainerSelector = ".cont
 
                   {(it.subtitle || it.description || it.image?.src || it.bullets?.length) && (
                     <>
-                      {it.subtitle && <p className="timelineSubtitle">{it.subtitle}</p>}
-
                       {it.image?.src && (
                         <div className="timelineImageWrap">
                           <img className="timelineImage" src={it.image.src} alt={it.image.alt ?? ""} />

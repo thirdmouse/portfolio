@@ -1,0 +1,1360 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./src/app/globals.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+/* =========================
+   GLOBAL RESET & VARIABLES
+   ========================= */
+
+:root {
+  --sheet: #ffffff;
+  --ink: #0b0b0b;
+  --muted: rgba(11, 11, 11, 0.65);
+  --hair: rgba(11, 11, 11, 0.10);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow-x: hidden;
+}
+body {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: var(--ink);
+  background: #000; /* visible behind video edges */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* =========================
+   PAGE ROOT
+   ========================= */
+
+.pageRoot {
+  min-height: 100vh;
+  position: relative;
+}
+/* =========================
+   HERO (FIXED VIDEO)
+   ========================= */
+/* Locks hero to the viewport and prevents any horizontal bleed */
+.heroFixed {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+  z-index: 0;
+  pointer-events: none;
+}
+.contentSheet,
+.contentSheet * {
+  pointer-events: auto;
+
+  .heroFixed { z-index: 0; }
+}
+.contentSheet { position: relative; z-index: 1; }
+
+/* Use the dynamic viewport height on mobile Safari */
+@supports (height: 100dvh) {
+  .heroFixed { height: 100dvh; }
+}
+
+/* ✅ iOS-proof: width drives scale, height is automatic */
+.heroVideo {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 100% !important;
+  height: auto !important;
+
+  display: block;
+  max-width: 100%;
+}
+/* Overlay gradient + text */
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.18) 0%,
+    rgba(0, 0, 0, 0.08) 45%,
+    rgba(0, 0, 0, 0.22) 100%
+  );
+  width: 100%;
+  max-width: 100%;
+}
+.heroText {
+  text-align: center;
+  color: white;
+  padding: 0 16px;
+  transform: translateY(-18px);
+}
+
+.heroText h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4vw, 54px);
+  letter-spacing: -0.02em;
+}
+
+.heroText p {
+  margin: 0;
+  font-size: clamp(14px, 1.6vw, 18px);
+  opacity: 0.88;
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+/* "See all" link */
+.seeAllLink {
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.seeAllLink:hover {
+  color: var(--ink);
+  transform: translateX(2px);
+}
+/* =========================
+   SCROLL ARROW (BOBBING)
+   ========================= */
+
+.scrollArrow {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  opacity: 0.9;
+  animation: bob 1.8s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(7px);
+  }
+}
+
+.arrowStem {
+  width: 2px;
+  height: 22px;
+  background: rgba(0, 0, 0);
+  border-radius: 2px;
+}
+
+.arrowHead {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(0, 0, 0, 1);
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+
+/* =========================
+   CONTENT SHEET (SCROLLS OVER VIDEO)
+   ========================= */
+.contentSheet {
+  position: relative;
+  overflow: hidden;              /* clips seam to the curved edge */
+  --curve: 26px;                 /* match your sheet radius */
+  border-top-left-radius: var(--curve);
+  border-top-right-radius: var(--curve);
+}
+
+.contentSheet::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: 90px;                  /* thickness of the gradient */
+  z-index: 5;
+  pointer-events: none;
+
+  /* follow the same curve */
+  border-top-left-radius: var(--curve);
+  border-top-right-radius: var(--curve);
+
+  /* blue → transparent fade downward */
+  background: linear-gradient(
+    to bottom,
+    rgba(47, 116, 199, 0.35),
+    rgba(47, 116, 199, 0.18) 35%,
+    rgba(47, 116, 199, 0.00) 100%
+  );
+}
+
+.sheetInner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 64px 18px 0;
+}
+
+/* =========================
+   SECTIONS
+   ========================= */
+
+.section {
+  padding: 42px 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.centerBlock {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.sectionTitle {
+  margin: 0 0 22px;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+.sectionSubtitle {
+  margin: 0 0 16px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+/* =========================
+   BLURB
+   ========================= */
+
+.blurb {
+  margin: 0;
+  font-size: clamp(18px, 2.1vw, 26px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+/* =========================
+   BIG BUTTON
+   ========================= */
+
+.bigButton {
+  border: 2px solid rgba(11, 11, 11, 0.18);
+  background: #38b6ff;
+   /* rgba(47, 116, 199, 0.35),*/
+  color: var(--ink);
+  padding: 18px 26px;
+  font-size: 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.bigButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   FEATURED PROJECTS
+   ========================= */
+   
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2.2vw, 22px); /* shrinks spacing instead of reflowing */
+}
+
+/* Keep 3-up; just make the overlay text a bit more compact when circles shrink */
+@media (max-width: 820px) {
+  .featuredHover { padding: 16px; }
+  .featuredTitle { font-size: 14px; }
+  .featuredDesc  { font-size: 10px; }
+}
+
+.featuredCircle {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border: 1px solid rgba(11, 11, 11, 0.10);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  transform: translateZ(0);
+}
+.featuredHover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  text-align: center;
+  gap: clamp(6px, 1vw, 10px);
+  padding: clamp(12px, 3vw, 22px);
+  color: white;
+  background: rgba(0, 0, 0, 0);
+  opacity: 0;
+  transition: opacity 180ms ease, background 180ms ease;
+}
+
+.featuredCircle:hover .featuredHover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.featuredTitle {
+  font-size: clamp(14px, 2.2vw, 20px);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.featuredDesc {
+  font-size: clamp(8px, 1.5vw, 14px);
+  opacity: 0.92;
+  line-height: 1.3;
+}
+
+.sectionMicro {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* =========================
+   CATEGORY DOTS
+   ========================= */
+
+.categoryImages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  align-items: center;
+
+  /* prevents any weird overflow from bleeding behind other sections */
+  overflow: hidden;
+}
+
+.categoryImages .categoryImgBtn {
+  all: unset;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+/* the ONLY size */
+.categoryImages .categoryImgMask {
+  width: 75px !important;
+  height: 75px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+
+/* force the image to obey the mask (no matter what other CSS says) */
+.categoryImages .categoryImgMask > img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+
+  object-fit: cover !important;
+  object-position: center !important;
+
+  display: block !important;
+  position: static !important;   /* kills any absolute/fill styling */
+}
+
+/* =========================
+   CAROUSEL
+   ========================= */
+/* --- Carousel shell stays the same --- */
+.carouselShell {
+  position: relative;
+  border: 1px solid var(--hair);
+  border-radius: 18px;
+  padding: 18px;
+  overflow: hidden; /* fine: the SCROLLER inside still scrolls */
+  background: rgba(255, 255, 255, 0.88);
+}
+
+/* THIS is the real scroll container */
+.carouselScroller {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  touch-action: pan-y; /* allow vertical page scroll; we do horizontal when paused */
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+}
+.carouselShell.isAuto .carouselScroller {
+  -webkit-overflow-scrolling: auto;
+  scroll-behavior: auto;
+}
+.carouselScroller::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* When paused, show drag affordance */
+.carouselShell.isPaused .carouselScroller {
+  cursor: grab;
+}
+.carouselShell.isPaused .carouselScroller:active {
+  cursor: grabbing;
+}
+
+/* Track must be wider than viewport to enable overflow */
+.carouselTrack {
+  display: inline-flex;          /* key: allows width to grow naturally */
+  align-items: flex-start;
+  gap: 18px;
+  padding-right: 18px;           /* little breathing room */
+  width: max-content;            /* key: forces overflow when content is wider */
+}
+
+/* Items MUST have a fixed-ish width or they'll shrink to fit */
+.carouselItem {
+  flex: 0 0 auto;
+  width: 150px;
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.miniCircle {
+  width: 70px;
+  height: 70px;
+  border-radius: 999px;
+  border: 1px solid rgba(11, 11, 11, 0.14);
+  display: grid;
+  place-items: center;
+  background: white;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+.miniIcon {
+  font-size: 20px;
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.miniTitle {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.carouselHint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* =========================
+   FADE-IN ON SCROLL
+   ========================= */
+
+.fadeIn {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.fadeIn.isVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   FOOTER SPACE (SCROLL STOP)
+   ========================= */
+/*
+.footerSpace {
+  height: 240px;
+}*/
+.sheetInner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 64px 18px 120px;
+}
+.contentSheet {
+  overscroll-behavior: auto;
+  min-height: calc(100vh + 1px);
+}
+
+
+
+
+
+
+/* =========================
+   TIMELINE
+   ========================= */
+
+.timelineSection {
+  padding: 42px 0;
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.timelineSubtle {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.timeline {
+  position: relative;
+  padding: 6px 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--hair);
+  transform: translateX(-0.5px);
+}
+
+.timelineRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 44px 1fr;
+  align-items: start;
+  padding: 24px 0;  /* spacing between entries */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+/* closed by default */
+.timelineDetails {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: max-height 320ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+/* open when active */
+.timelineRow.isActive .timelineDetails {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timelineRow.left .timelineCard {
+  grid-column: 1;
+  justify-self: end;
+}
+.timelineRow.right .timelineCard {
+  grid-column: 3;
+  justify-self: start;
+}
+
+.timelineDotWrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.timelineDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(11,11,11,0.18);
+  border: 1px solid rgba(11,11,11,0.12);
+  transition: transform 240ms ease, background 240ms ease;
+}
+
+.timelineDot.isActive {
+  background: rgba(11,11,11,0.85);
+  transform: scale(1.15);
+}
+
+.timelineCard {
+  width: min(420px, 92vw);
+  border: 1px solid var(--hair);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.94);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  padding: 16px 16px 14px;
+  transform-origin: center;
+  max-width: 92vw;
+  box-sizing: border-box;
+}
+.timelineCard,
+.timelineCard * {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+/* Fade IN on scroll down, fade OUT on scroll up */
+.timelineCard.isIn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.timelineCard.isOut {
+  opacity: 0;
+  transform: translateY(16px) scale(0.99);
+  transition: opacity 360ms ease, transform 360ms ease;
+  pointer-events: none;
+}
+
+.timelineMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.timelineDate {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.timelineTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.timelineTag {
+  font-size: 11px;
+  color: rgba(11,11,11,0.68);
+  border: 1px solid rgba(11,11,11,0.12);
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.7);
+}
+
+.timelineCardHeader {
+  margin-bottom: 10px;
+}
+
+.timelineTitle {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.timelineSubtitle {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.timelineImageWrap {
+  margin: 10px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(11,11,11,0.10);
+}
+
+.timelineImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+
+.timelineDescription {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.78);
+}
+.timelineDescription p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.78);
+}
+
+.timelineDescription a {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.78);
+}
+.timelineBullets {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: rgba(11,11,11,0.76);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+
+/* =========================
+   TIMELINE DOT IMAGE
+   ========================= */
+
+.timelineDotImgWrap {
+  width: 30px;                 /* size of the dot image */
+  height: 30px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: white;
+
+  border: 4px solid rgb(0, 0, 0);  /* thick outline */
+  box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+
+  transition: transform 240ms ease, border-color 240ms ease;
+}
+
+.timelineDotImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* When active, push the dot away from the card */
+.timelineRow.left .timelineDotImgWrap.isActive {
+  transform: translateX(25px) scale(2.5);
+}
+
+.timelineRow.right .timelineDotImgWrap.isActive {
+  transform: translateX(-25px) scale(2.5);
+}
+
+/* Mobile: single column timeline */
+@media (max-width: 780px) {
+  .timelineLine {
+    left: 14px;
+    transform: none;
+  }
+
+  .timelineRow {
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+  }
+
+  .timelineDotWrap {
+    grid-column: 1;
+    justify-content: start;
+  }
+
+  .timelineRow.left .timelineCard,
+  .timelineRow.right .timelineCard {
+    grid-column: 2;
+    justify-self: start;
+    margin-right:18px !important;
+  }
+  .timelineDotWrap {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    z-index: 10;
+    }
+  /* When active, push the dot away from the card */
+  .timelineRow.left .timelineDotImgWrap.isActive {
+    transform: translateX(0) scale(1.5);
+  }
+
+  .timelineRow.right .timelineDotImgWrap.isActive {
+    transform: translateX(0) scale(1.5);
+  }
+}
+
+
+
+/* =========================
+   PROJECTS PAGE
+   ========================= */
+
+.projectsPage {
+  background: white;
+  color: rgba(11,11,11,0.92);
+  padding: 56px 18px 80px;
+  max-width: 92%;
+  margin: 0 auto;
+}
+
+.projectsHeader {
+  margin-bottom: 22px;
+}
+
+.projectsTitle {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: -0.02em;
+}
+
+.projectsSub {
+  margin: 10px 0 18px;
+  color: rgba(11,11,11,0.62);
+  font-size: 14px;
+}
+
+/* 4-up spanning category tiles */
+.catGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+/* Responsive: 2-up on small screens */
+@media (max-width: 720px) {
+  .catGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.catTile {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+
+  padding: 14px 12px 16px;
+  border-radius: 18px;
+
+  border: 1px solid rgba(11,11,11,0.10);
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.06);
+
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease, opacity 180ms ease;
+}
+
+.catTile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 46px rgba(0,0,0,0.09);
+}
+
+.catTileIcon {
+  display: grid;
+  place-items: center;
+}
+
+.catTileMask {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 2px solid rgba(11,11,11,0.10);
+  background: rgba(255,255,255,0.9);
+}
+
+.catTileMask img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.catTileText {
+  display: grid;
+  gap: 6px;
+  text-align: center;
+}
+
+.catTileTitle {
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: rgba(11,11,11,0.92);
+  line-height: 1.1;
+}
+
+.catTileDesc {
+  font-size: 12px;
+  color: rgba(11,11,11,0.62);
+  line-height: 1.25;
+}
+
+/* ON state (blue-ish like your earlier chips) */
+.catTile.isOn {
+  border-color: rgba(56,182,255,0.35);
+  background: rgba(28,91,127,0.10);
+}
+
+/* OFF state */
+.catTile.isOff {
+  opacity: 0.55;
+  background: rgba(0,0,0,0.03);
+  border-color: rgba(11,11,11,0.08);
+}
+
+.catTile.isOff .catTileMask {
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+
+
+/* Products grid */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+@media (max-width: 920px) {
+  .productsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Square cards with curved edges */
+.productCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  border-radius: 18px;
+  border: 1px solid rgba(11,11,11,0.10);
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.06);
+  overflow: hidden;
+
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.productCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 46px rgba(0,0,0,0.09);
+}
+
+.productThumb {
+  position: relative;
+  aspect-ratio: 1 / 1; /* square */
+  background: rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+.productThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* category corner badge */
+.productCatBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(11,11,11,0.12);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.productCatBadge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.productInfo {
+  padding: 12px 12px 14px;
+}
+
+.productTitle {
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.productMeta {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(11,11,11,0.60);
+}
+
+/* --- Main thumb inside the circle --- */
+
+.miniThumb {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.02);   /* tiny zoom prevents edge gaps */
+}
+.miniWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Circle defines layout size */
+.miniCircle {
+  width: 56px;              /* whatever your circle size is */
+  height: 56px;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.miniCatBadge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  /* 👇 makes it invisible to layout */
+  pointer-events: auto;
+  z-index: 10;
+
+  /* no min-size, no margins, no flow */
+  display: block;
+}
+
+
+/* Icon itself */
+.miniCatIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+
+  background: rgba(255,255,255,0.92);
+  border: 2px solid rgba(0,0,0,0.12);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.10);
+
+}.miniCatLabel {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 6px);
+  transform: translateY(-50%);
+
+  background: rgba(15,15,15,0.94);
+  color: white;
+  font-size: 10px;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+
+  opacity: 0;
+  transform-origin: right center;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.miniCatBadge:hover .miniCatLabel {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.miniWrap {
+  line-height: 0;
+}
+
+.miniCatBadge,
+.miniCatLabel {
+  margin: 0;
+}
+.iconClosed { opacity: 1; }
+.iconOpen   { opacity: 0; }
+
+.mobileNavBtn[aria-expanded="true"] .iconClosed { opacity: 0; }
+.mobileNavBtn[aria-expanded="true"] .iconOpen   { opacity: 1; }
+
+.mobileNavBtn {
+  transition: transform 0.22s ease;
+  transform-origin: center;
+  left: -3px;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+}
+.mobileNav {
+  pointer-events: none;
+}
+.mobileNavIcon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 45px;
+  height: 45px;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.mobileNavBtn[aria-expanded="true"] {
+  transform: rotate(90deg);
+}
+.mobileNavItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 24;
+  background: rgba(255, 255, 255);
+  animation: navTextBack 0.75s ease forwards;
+  border: none;
+  text-decoration: none;
+  color: rgba(11,11,11,0.92);
+  font-size: 14px;
+  cursor: pointer;
+}
+.mobileNavBackdrop { z-index: 9998; }
+.mobileNavMenu { position: absolute; z-index: 9999; }
+.mobileNavBtn { position: relative; z-index: 10000; }
+.mobileNavBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;          /* behind the menu */
+  border: none;
+  outline: none;
+  background: transparent; /* or rgba(0,0,0,0.2) if you want a dim */
+  padding: 0;
+  cursor: default;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.mobileNavItem:hover {
+  background: rgba(56,182,255,1);
+}
+
+.navBullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(11,11,11,0.9);
+}.bigButton {
+  text-decoration: none;
+}
+.mobileNav {
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+/* Appears after first scroll */
+.mobileNav.isVisible {
+  opacity: 0.9
+  ;
+  pointer-events: auto;
+}
+.mobileNavItem.isActive .navBullet {
+  background: rgb(47, 116, 199);
+}@keyframes bulletFall {
+  from { transform: translateY(-44px); }
+  to   { transform: translateY(0); }
+}
+
+.mobileNavMenu .navBullet {
+  animation: bulletFall 0.42s cubic-bezier(0.22,1,0.36,1) both;
+  animation-fill-mode: backwards; /* apply the 'from' immediately (no teleport) */
+  will-change: transform;
+}
+
+.mobileNavItem:nth-child(1) .navBullet { animation-delay: 0.02s; }
+.mobileNavItem:nth-child(2) .navBullet { animation-delay: 0.06s; }
+.mobileNavItem:nth-child(3) .navBullet { animation-delay: 0.10s; }
+.mobileNav {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 9999;
+}
+@keyframes navTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes navTextBack {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Start hidden */
+.mobileNavMenu .navText {
+  opacity: 0;
+  animation: navTextIn 0.28s ease forwards;
+}
+
+/* Delay text slightly after bullets */
+.mobileNavItem:nth-child(1) .navText { animation-delay: 0.14s; }
+.mobileNavItem:nth-child(2) .navText { animation-delay: 0.18s; }
+.mobileNavItem:nth-child(3) .navText { animation-delay: 0.22s; }
+.mobileNavItem:nth-child(1) .mobileNavItem { animation-delay: 0.14s; }
+.mobileNavItem:nth-child(2) .mobileNavItem { animation-delay: 0.18s; }
+.mobileNavItem:nth-child(3) .mobileNavItem { animation-delay: 0.22s; }
+
+.mobileNavBtn {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.mobileNavIcon {
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.mobileNavBtn {
+  will-change: transform;
+}
+.mobileNavBtn:focus {
+  outline: none;
+}
+.mobileNavGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavSubmenu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-left: 18px;     /* indentation */
+  margin-top: 0px;
+}
+
+/* Sub-item tweaks */
+.mobileNavSubItem {
+  padding: 8px 10px;     /* slightly tighter */
+  font-size: 12.5px;
+  opacity: 0.95;
+}
+
+/* Make the card a real button without changing your card look */
+.timelineCardBtn {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--hair);
+  background: rgba(255,255,255,0.94);
+  font: inherit;
+  padding: 16px 16px 14px;
+}
+
+.timelineCardBtn:hover {
+  transform: translateY(-1px);
+}
+
+.timelineCardBtn:focus-visible {
+  outline: 2px solid rgba(11,11,11,0.35);
+  outline-offset: 4px;
+}
+
+/* Collapsed summary layout */
+.timelineSummaryTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.timelinePreviewBullet {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(11,11,11,0.78);
+}
+
+/* Chevron */
+.timelineChevron {
+  display: inline-block;
+  transform: rotate(-90deg);
+  transition: transform 180ms ease;
+  opacity: 0.7;
+}
+
+.timelineChevron.isOpen {
+  transform: rotate(0deg);
+}
+
+/* Replace your old .timelineRow.isActive selector with isExpanded */
+.timelineRow.isExpanded .timelineDetails {
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+}
+

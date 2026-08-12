@@ -1,0 +1,626 @@
+.pageRoot {
+  min-height: 50vh;
+  color: var(--ink, #050505);
+  background: #fff;
+}
+
+.technicalPage {
+  --tech-blue: #38b6ff;
+  --tech-black: #050505;
+  --tech-white: #fff;
+  overflow-x: hidden;
+}
+
+/* PERFORMANCE vocabulary: full-bleed, gapless moving image reel + title card. */
+.technicalHero {
+  position: relative;
+  min-height: 50vh;
+  min-height: 50dvh;
+  overflow: hidden;
+  background: var(--tech-black);
+  isolation: isolate;
+}
+
+.technicalHeroReel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0;
+}
+
+.technicalHeroTile {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: technicalHeroReveal 760ms cubic-bezier(0.22, 1, 0.36, 1)
+    var(--hero-delay, 0ms) both;
+}
+
+.technicalHeroVideo,
+.technicalHeroScrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.technicalHeroVideo {
+  display: block;
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.06);
+  transform: scale(1.01);
+}
+
+.technicalHeroScrim {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.08),
+    rgba(0, 0, 0, 0.34)
+  );
+}
+
+.technicalPageTitle {
+  position: absolute;
+  z-index: 3;
+  top: clamp(28px, 4vh, 58px);
+  left: 50%;
+  width: min(88vw, 1100px);
+  margin: 0;
+  padding: 0.28em 0.45em 0.25em;
+  border: 5px solid var(--tech-black);
+  border-radius: 18px;
+  color: var(--tech-black);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: clamp(36px, 9vw, 150px);
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+  text-align: center;
+  text-wrap: balance;
+  transform: translateX(-50%);
+  animation: technicalTitleReveal 700ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
+}
+
+/* DESIGN vocabulary: large, centered white statement block. */
+.technicalPhilosophy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 54vh;
+  min-height: 54dvh;
+  place-items: center;
+  padding: clamp(10px, 100vw, 0px);
+  background: var(--tech-white);
+}
+
+.technicalPhilosophyInner {
+  width: min(760px, 100%);
+  text-align: center;
+}
+
+.technicalEyebrow {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+}
+
+.technicalPhilosophy h2 {
+  margin: 18px auto 0;
+  font-size: clamp(24px, 5vw, 50px);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.technicalPhilosophy p {
+  max-width: 650px;
+  margin: 30px auto 0;
+  color: black;
+  font-size: clamp(14px, 1.4vw, 18px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.systems {
+  color: var(--half-muted, #666) !important;
+}
+
+.technicalWork {
+  background: var(--tech-white);
+}
+
+.technicalFilterBlock {
+  padding: 0 0 clamp(48px, 6vw, 0);
+  background: var(--tech-white);
+}
+
+.technicalFilterHeading {
+  display: flex;
+  width: min(1180px, calc(100% - 36px));
+  margin: 0 auto 18px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.technicalFilterCount {
+  margin: 0;
+  color: var(--half-muted, #666);
+  font-size: 12px;
+}
+
+.skillToggleGrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+}
+
+.skillToggle {
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 2px solid var(--tech-blue);
+  border-right-width: 0;
+  color: var(--tech-black);
+  background: var(--tech-white);
+  font: inherit;
+  font-size: clamp(12px, 1.2vw, 16px);
+  font-weight: 650;
+  cursor: pointer;
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.skillToggle:last-child {
+  border-right-width: 2px;
+}
+
+.skillToggle.isActive {
+  background: var(--tech-blue);
+}
+
+.skillToggle:hover {
+  transform: translateY(-2px);
+}
+
+.skillToggle:focus-visible {
+  position: relative;
+  z-index: 2;
+  outline: 3px solid var(--tech-black);
+  outline-offset: -5px;
+}
+
+.skillToggleDot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--tech-black);
+  opacity: 0.85;
+}
+
+/* Requested 3 × X gapless white project matrix. */
+.techProjectGrid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  background: var(--tech-white);
+}
+
+.techProjectTile {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  aspect-ratio: 1 / 0.92;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(24px, 3.2vw, 52px);
+  border: 0;
+  outline: 0;
+  color: var(--tech-black);
+  background: var(--tech-white);
+  text-decoration: none;
+  isolation: isolate;
+}.techProjectPoster,
+.techProjectVideo,
+.techProjectVideoScrim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 420ms ease;
+}
+
+/* Reliable initial state:
+   use the lightweight poster image at 20%. */
+.techProjectPoster {
+  z-index: -3;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.15;
+}
+
+.techProjectVideo {
+  z-index: -2;
+  display: block;
+  object-fit: cover;
+
+  /* Before the video has ever played, don't depend on it
+     to provide the 20% background. */
+  opacity: 0.15;
+
+  filter: saturate(0.98) contrast(1.04);
+  transform: scale(1.02);
+
+  transition:
+    opacity 420ms ease,
+    transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.techProjectVideoScrim {
+  z-index: -1;
+  opacity: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.12),
+    rgba(0, 0, 0, 0.5)
+  );
+}
+
+/* Once this tile has successfully played once,
+   its paused frame becomes the 20% background. */
+.techProjectTile[data-previewed="true"] .techProjectVideo {
+  opacity: 0.15;
+}
+
+.techProjectCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.techProjectHeadingRow {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.techProjectTitle {
+  min-width: 0;
+  max-width: 11ch;
+  font-size: clamp(48px, 4vw, 66px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.techProjectExternalButton {
+  z-index: 2;
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 15px 20px;
+  border-radius: 999px;
+  color: var(--tech-black);
+  background: var(--tech-blue);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.techProjectExternalButton:hover {
+  outline: 2px solid var(--tech-black);
+  outline-offset: 2px;
+}
+
+.techProjectSubtitle {
+  max-width: 34ch;
+  color: var(--half-muted, #666);
+  font-size: clamp(11px, 1vw, 15px);
+  line-height: 1.35;
+  transition: color 320ms ease;
+}
+
+.techProjectSkills {
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.techProjectSkills span {
+  white-space: nowrap;
+}
+
+.techProjectTile:hover,
+.techProjectTile:focus-visible {
+  color: var(--tech-white);
+}
+
+.techProjectTile:hover .techProjectVideo,
+.techProjectTile:hover .techProjectVideoScrim,
+.techProjectTile:focus-visible .techProjectVideo,
+.techProjectTile:focus-visible .techProjectVideoScrim {
+  opacity: 1;
+}
+
+.techProjectTile:hover .techProjectVideo,
+.techProjectTile:focus-visible .techProjectVideo {
+  transform: scale(1.055);
+}
+
+.techProjectTile:hover .techProjectSubtitle,
+.techProjectTile:focus-visible .techProjectSubtitle {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.techProjectTile:focus-visible {
+  z-index: 3;
+  outline: 4px solid var(--tech-blue);
+  outline-offset: -4px;
+}
+
+.technicalEmptyState {
+  display: grid;
+  min-height: 42vh;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  padding: 60px 18px;
+  text-align: center;
+}
+
+.technicalEmptyState p {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.technicalEmptyState button {
+  padding: 12px 16px;
+  border: 2px solid var(--tech-black);
+  color: var(--tech-black);
+  background: var(--tech-blue);
+  font: inherit;
+  cursor: pointer;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Mobile navigation — retained from the existing page vocabulary. */
+.mobileNav {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.mobileNav.isVisible {
+  pointer-events: auto;
+  opacity: 0.9;
+}
+
+.mobileNavBtn {
+  position: relative;
+  left: -3px;
+  z-index: 10000;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  color: transparent;
+  background: transparent;
+  cursor: pointer;
+  transform: translateZ(0);
+  transform-origin: center;
+  transition: transform 220ms ease;
+  will-change: transform;
+}
+
+.mobileNavBtn[aria-expanded="true"] {
+  transform: rotate(90deg);
+}
+
+.mobileNavBtn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.mobileNavIcon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 45px;
+  height: 45px;
+  margin: auto;
+  pointer-events: none;
+  transform: translateZ(0);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+  backface-visibility: hidden;
+}
+
+.iconClosed { opacity: 1; }
+.iconOpen { opacity: 0; }
+.mobileNavBtn[aria-expanded="true"] .iconClosed { opacity: 0; }
+.mobileNavBtn[aria-expanded="true"] .iconOpen { opacity: 1; }
+.mobileNavMenu { position: absolute; z-index: 9999; }
+
+.mobileNavBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: default;
+  appearance: none;
+}
+
+.mobileNavItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 0;
+  color: rgba(11, 11, 11, 0.92);
+  background: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  animation: navTextIn 750ms ease forwards;
+}
+
+.mobileNavItem:hover { background: var(--tech-blue); }
+.navBullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(11, 11, 11, 0.9);
+}
+.mobileNavItem.isActive .navBullet { background: rgb(47, 116, 199); }
+.mobileNavGroup,
+.mobileNavSubmenu { display: flex; flex-direction: column; }
+.mobileNavSubmenu { gap: 6px; margin-top: 0; margin-left: 18px; }
+.mobileNavSubItem { padding: 8px 10px; font-size: 12.5px; opacity: 0.95; }
+
+@keyframes technicalHeroReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes technicalTitleReveal {
+  from { opacity: 0; transform: translate(-50%, 18px) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+@keyframes navTextIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .technicalPageTitle {
+    border-width: 3px;
+    border-radius: 12px;
+    font-size: clamp(34px, 12vw, 68px);
+  }
+
+  .skillToggleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skillToggle {
+    border-right-width: 2px;
+    border-bottom-width: 0;
+  }
+
+  .skillToggle:nth-last-child(-n + 2) {
+    border-bottom-width: 2px;
+  }
+
+  .skillToggle:last-child {
+    grid-column: 1 / -1;
+    border-bottom-width: 2px;
+  }
+
+  .techProjectGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .techProjectTile {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 620px) {
+  .technicalHeroReel {
+    grid-template-columns: 1fr;
+  }
+
+  .technicalPhilosophy {
+    min-height: 0;
+    padding: 86px 22px;
+  }
+
+  .technicalFilterHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skillToggle {
+    min-height: 68px;
+  }
+
+  .techProjectGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .techProjectTile {
+    min-height: 72vw;
+    aspect-ratio: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .technicalHeroTile,
+  .technicalPageTitle {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .technicalPageTitle {
+    transform: translateX(-50%);
+  }
+
+  .skillToggle,
+  .techProjectVideo,
+  .techProjectVideoScrim,
+  .techProjectSubtitle,
+  .mobileNavBtn,
+  .mobileNavIcon {
+    transition: none;
+  }
+}
