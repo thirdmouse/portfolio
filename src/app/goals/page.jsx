@@ -7,7 +7,7 @@ import MobileNav from "../../components/MobileNav";
 const CULTURAL_BUBBLES = [
   {
     id: "title",
-    text: "CULTURE",
+    text: "GOALS & PHILOSOPHY",
     size: "title",
     x: "50%",
     y: "12%",
@@ -197,7 +197,9 @@ export default function App() {
     };
   }, []);
 
+    <title> Goals & Philosophy || Charlie Patton</title>
   return (
+
     <div className="pageRoot culturalPage">
       <MobileNav />
 

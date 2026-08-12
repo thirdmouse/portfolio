@@ -13,7 +13,7 @@ const HERO_TILES = [
     videoSrc: "/videos/colorguard.mp4",
     poster: "/videos/games-poster.jpg",
     title: "DESIGN",
-    subtitle: "METHODS in Games, Apps, and Films",
+    subtitle: "Methods across Games, Apps, and Films",
   },
   {
     id: "top-right",
@@ -22,7 +22,7 @@ const HERO_TILES = [
     videoSrc: "/videos/drumming.mov",
     poster: "/videos/film-poster.jpg",
     title: "PERFORMANCE",
-    subtitle: "WORK in Acting, Drumming, and Singing",
+    subtitle: "Work in Acting, Drumming, and Singing",
   },
   {
     id: "bottom-left",
@@ -30,8 +30,8 @@ const HERO_TILES = [
     label: "Open featured project four",
     videoSrc: "/videos/dipper.mov",
     poster: "/video-poster.jpg",
-    title: "TECHNICAL",
-    subtitle: "PROJECTS in Research, Design, and Tech"
+    title: "PROJECTS",
+    subtitle: "Skills, Case Studies, and Links"
   },
   {
     id: "bottom-right",
@@ -39,8 +39,8 @@ const HERO_TILES = [
     label: "Open featured project three",
     videoSrc: "/videos/cultural.mov",
     poster: "/videos/allprojects.jpg",
-    title: "CULTURAL WORK",
-    subtitle: "PHILOSOPHY in Leadership or Exhibits",
+    title: "GOALS",
+    subtitle: "Philosophy and Impact Motivations",
   },
 ];
 
@@ -106,7 +106,7 @@ const TIMELINE_ITEMS = [
       "Studied abroad for urban planning and architecture",
     bullets: [
       "Designed tour path chronicling Gaudi's development from lamp-posts to parks and palaces",
-      "Engaged with Catalan architectural history from medieval to modernisme (Art Nouveau), through facism and modernism; both from art history and phenomenological experience perspectives.",
+      "Engaged with Catalan architectural history from medieval to modernisme (Art Nouveau), through fascism and modernism; both from art history and phenomenological experience perspectives.",
       "Developed reciprocal relationships with local architects and designers"
     ],
     dotImage: { src: "/images/uab.jpeg", alt: "yale" },
@@ -168,7 +168,7 @@ const TIMELINE_ITEMS = [
     description:
       "Educational game development company serving >100 million users yearly.",
     bullets: [
-      "Developed full-stack for Designed 'Shakesperean Rap Battles' game following in-house Agile workflow.",
+      "Developed full-stack for Designed 'Shakespearean Rap Battles' game following in-house Agile workflow.",
       "Supported CDN maintenance and crossfunctional team processes.",
     ],
     dotImage: { src: "/images/abc.png", alt: "abcya" },

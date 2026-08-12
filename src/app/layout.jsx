@@ -9,7 +9,7 @@ export const viewport = {
 export const metadata = {
   title: "Charlie Patton",
   description:
-    "Creative Technologist and Psychological Engineer building user-focused, subconsciously powerful experiences.",
+    "Creative Technologist and Experience Designer building user-focused, subconsciously powerful experiences.",
 };
 
 export default function RootLayout({ children }) {

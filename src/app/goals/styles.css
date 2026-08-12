@@ -171,7 +171,7 @@
   border-width: 5px;
   border-radius: 18px !important;
 
-  font-size: clamp(24px, 8.5vw, 96px);
+  font-size: clamp(24px, 8.5vw, 85px);
 
   line-height: 0.92;
   letter-spacing: -0.065em;

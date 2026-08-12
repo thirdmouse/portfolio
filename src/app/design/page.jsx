@@ -48,6 +48,7 @@ const DESIGN_PROJECTS = [
 
 export default function App() {
   return (
+    <title>Design Methodology || Charlie Patton</title>
     <div className="pageRoot">
       <MobileNav />
 

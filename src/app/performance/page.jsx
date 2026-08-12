@@ -295,6 +295,7 @@ export default function App() {
   const [activeTileId, setActiveTileId] = useState(null);
 
   return (
+    <title>Performance || Charlie Patton</title>
     <div className="pageRoot">
       <MobileNav />
 

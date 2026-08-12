@@ -18,8 +18,9 @@ const DEFAULT_ITEMS = [
   },
   { key: "design", href: "/design", label: "Design" },
   { key: "performance", href: "/performance", label: "Performance" },
-  { key: "technical", href: "/technical", label: "Technical" },
-  { key: "culture", href: "/culture", label: "Cultural" },
+  { key: "projects", href: "/projects", label: "Projects" },
+  { key: "goals", href: "/goals", label: "Goals" },
+  { key: "about", href: "/about", label: "About" },
 ];
 
 export default function MobileNav({

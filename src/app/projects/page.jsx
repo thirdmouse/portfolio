@@ -284,6 +284,7 @@ function ProjectTile({ project }) {
   );
 }
 export default function App() {
+  
   const [enabledSkills, setEnabledSkills] = useState(() => new Set(SKILLS));
 
   const visibleProjects = useMemo(() => {
@@ -304,6 +305,7 @@ export default function App() {
   };
 
   return (
+    <title>Projects || Charlie Patton</title>
     <div className="pageRoot technicalPage">
       <MobileNav />
 
