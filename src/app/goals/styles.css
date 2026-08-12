@@ -403,6 +403,7 @@
   /* Understanding and influencing... */
   .culturalBubblePosition:nth-child(3) {
     left: 28%;
+    top: 30%;
   }
 
   /* Good experiences... */
@@ -424,7 +425,7 @@
   }
   /* My best work... */
   .culturalBubblePosition:nth-child(7) {
-    top: 80%;
+    top: 72%;
   }
 
 
