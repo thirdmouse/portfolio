@@ -305,8 +305,8 @@ export default function App() {
   };
 
   return (
-    <title>Projects || Charlie Patton</title>
     <div className="pageRoot technicalPage">
+      <title>Projects || Charlie Patton</title>
       <MobileNav />
 
       <header className="technicalHero" aria-labelledby="technical-page-title">

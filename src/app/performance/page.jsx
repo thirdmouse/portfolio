@@ -295,8 +295,8 @@ export default function App() {
   const [activeTileId, setActiveTileId] = useState(null);
 
   return (
-    <title>Performance || Charlie Patton</title>
     <div className="pageRoot">
+    <title>Performance || Charlie Patton</title>
       <MobileNav />
 
       <header className="portfolioHero" aria-label="Selected work">

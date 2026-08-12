@@ -197,10 +197,10 @@ export default function App() {
     };
   }, []);
 
-    <title> Goals & Philosophy || Charlie Patton</title>
   return (
 
     <div className="pageRoot culturalPage">
+    <title> Goals & Philosophy || Charlie Patton</title>
       <MobileNav />
 
       <main

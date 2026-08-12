@@ -48,8 +48,9 @@ const DESIGN_PROJECTS = [
 
 export default function App() {
   return (
-    <title>Design Methodology || Charlie Patton</title>
     <div className="pageRoot">
+
+      <title>Design Methodology || Charlie Patton</title>
       <MobileNav />
 
       <header className="designHero" aria-labelledby="design-page-title">
