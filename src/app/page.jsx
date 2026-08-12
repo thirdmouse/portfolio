@@ -9,7 +9,6 @@ const HERO_TILES = [
   {
     id: "top-left",
     href: "/design",
-    label: "Open featured project one",
     videoSrc: "/videos/colorguard.mp4",
     poster: "/videos/games-poster.jpg",
     title: "DESIGN",
@@ -18,7 +17,6 @@ const HERO_TILES = [
   {
     id: "top-right",
     href: "/performance",
-    label: "Open featured project two",
     videoSrc: "/videos/drumming.mov",
     poster: "/videos/film-poster.jpg",
     title: "PERFORMANCE",
@@ -26,8 +24,7 @@ const HERO_TILES = [
   },
   {
     id: "bottom-left",
-    href: "/technical",
-    label: "Open featured project four",
+    href: "/projects",
     videoSrc: "/videos/dipper.mov",
     poster: "/video-poster.jpg",
     title: "PROJECTS",
@@ -35,8 +32,7 @@ const HERO_TILES = [
   },
   {
     id: "bottom-right",
-    href: "/culture",
-    label: "Open featured project three",
+    href: "/goals",
     videoSrc: "/videos/cultural.mov",
     poster: "/videos/allprojects.jpg",
     title: "GOALS",
