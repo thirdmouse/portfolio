@@ -397,30 +397,34 @@
   /* What unifies my work... */
   .culturalBubblePosition:nth-child(2) {
     left: 70%;
-    top: 27%;
+    top: 24%;
   }
 
   /* Understanding and influencing... */
   .culturalBubblePosition:nth-child(3) {
-    left: 30%;
+    left: 28%;
   }
 
   /* Good experiences... */
   .culturalBubblePosition:nth-child(4) {
     left: 50%;
-    top: 54%;
+    top: 45%;
   }
 
   /* My medium is interactivity... */
   .culturalBubblePosition:nth-child(5) {
     left: 65%;
-    top: 65%;
+    top: 55%;
   }
 
   /* My best work... */
   .culturalBubblePosition:nth-child(6) {
     left: 35%;
-    top: 76%;
+    top: 65%;
+  }
+  /* My best work... */
+  .culturalBubblePosition:nth-child(7) {
+    top: 80%;
   }
 
 
