@@ -331,7 +331,7 @@ export default function App() {
         </div>
 
         <h1 id="technical-page-title" className="technicalPageTitle">
-          TECHNICAL
+          PROJECTS
         </h1>
       </header>
 
