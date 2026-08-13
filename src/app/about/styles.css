@@ -139,7 +139,7 @@
 
 .aboutLinksNote {
   margin: 0;
-  color: var(--half-muted, #666);
+  color: var(--half-muted);
   font-size: 12px;
 }
 
@@ -265,6 +265,9 @@
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
+}
+a{
+  color: black;
 }
 
 .aboutSocialSubtitle {

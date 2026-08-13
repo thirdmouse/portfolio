@@ -329,7 +329,7 @@ export default function App() {
       <main className="resumeSheet" id="resume">
         <div className="resumeSheetInner">
           <div className="resumeIntro">
-            <h2>Thanks for taking the time.</h2>
+            <h2>Who am I and Why am I Here?</h2>
             <p>
               I design novel experiences by leveraging human behavior, cultural analysis, and medium-specific methods of interactivity.
             </p>
@@ -384,7 +384,7 @@ export default function App() {
         >
           my design process
         </a> or <a
-          href="/technical"
+          href="/projects"
           rel="noreferrer"
           className="perfLink"
         >
@@ -392,6 +392,8 @@ export default function App() {
         </a></div>
 
           <ResumeTimeline items={TIMELINE_ITEMS} />
+
+              <p className ="end">Contact me at <a href="mailto:contact@charliepattonmedia.com" className="endLink">contact@charliepattonmedia.com</a> or my <a href="/about" className="endLink">about page</a></p>
         </div>
       </main>
     </div>

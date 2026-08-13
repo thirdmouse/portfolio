@@ -16,7 +16,7 @@ const CULTURAL_BUBBLES = [
   },
   {
     id: "audience",
-    text: "I want to understand and influence people where they are: trying to define and reveal culture as it exists or historically existed so that conversation can happen.",
+    text: "I want to understand people where they are, and build experiences that define and reveal culture as it exists or historically existed so that conversation and connection can happen.",
     size: "small",
     x: "78%",
     y: "30%",
@@ -62,9 +62,9 @@ const CULTURAL_BUBBLES = [
   {
     id: "pages",
     text: (<> Discover my work on <a
-          href="/technical"
+          href="/projects"
         >
-          the technical page
+          the projects page
         </a>, the methods that get me there <a
           href="/design"
         >

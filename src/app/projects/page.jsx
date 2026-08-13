@@ -33,33 +33,35 @@ const TECH_PROJECTS = [
   {
     id: "umg",
     title: "UMG Capstone",
-    subtitle: "My final project, a cultural analysis deck yielding a proposed brand-artist partnership to develop emerging subcultures.",
+    subtitle: "My final project, a cultural analysis deck yielding a proposed brand-artist partnership to develop emerging subcultures. It was presented live, but the pdf gives a glimpse into my work.",
     href: "#prototype-system",
-    videoSrc: "/videos/technical/prototype-system.mp4",
+    videoSrc: "/videos/cap.mp4",
     poster: "/videos/allprojects.jpg",
     skills: ["Data / User Analysis", "Presentation"],
-    externalLink: "xxx",
+    externalLink: "https://drive.google.com/file/d/18TSYZ0_fZsYSxv2DljCdvFPZCSz9HjMu/view?usp=sharing",
     externalWord: "READ"
   },
   {
-    id: "ltls",
-    title: "Long Time, Let's See",
-    subtitle: "Group UX project  reframing social media's addictive principles towards pro-social and pro-cognitive usage. Shown is a journey map I completed, revealing how we might contextualize user's thoughts vs. actions.",
-    href: "#prototype-system",
-    videoSrc: "/videos/technical/journey.mov",
-    poster: "/videos/allprojects.jpg",
-    skills: ["Data / User Analysis", "Presentation"],
+    id: "curses",
+    title: "Curses!",
+    subtitle: "Card game, 'playing' frustration and prohibitive rules in a party setting.",
+    href: "#audience-dashboard",
+    videoSrc: "/videos/technical/curses.mp4",
+    poster: "/videos/games-poster.jpg",
+    skills: ["Physical Design", "Data / User Analysis"],
+    externalLink: "https://drive.google.com/file/d/1tZPT2_B-O2DFR2O4MfxscJY1xjKK9IGG/view",
+    externalWord: "PLAY"
   },
   {
-    id: "panathenaea",
-    title: "Sensory Athens Tour",
-    subtitle: "Historical and architectural research yielded a tour recontextualizing antiquity through all five senses. It's better suited to a live experience with sensory elements, but enjoy the audiovisual component!",
-    href: "#four-records",
-    videoSrc: "/videos/technical/athens.mp4",
-    poster: "/videos/film-poster.jpg",
-    skills: ["Video Production", "Presentation"],
-    externalLink: "https://youtu.be/IveW-A_NCRU",
-    externalWord: "WATCH"
+    id: "wcal",
+    title: "Want Cake, Am Lazy",
+    subtitle: "Game prototype and demo designed around emergent solutions.",
+    href: "#data-performance",
+    videoSrc: "/videos/technical/wcal.mp4",
+    poster: "/videos/allprojects.jpg",
+    skills: ["Programming / AI", "Presentation", "Physical Design"],
+    externalLink: "https://miro.com/app/board/uXjVJl-U6CY=/?share_link_id=520286821732",
+    externalWord: "VIEW MIRO"
   },
   {
     id: "closet",
@@ -70,6 +72,39 @@ const TECH_PROJECTS = [
     poster: "/videos/film-poster.jpg",
     skills: ["Video Production", "Physical Design"],
     externalLink: "https://youtu.be/Z1PgMDV0460",
+    externalWord: "WATCH"
+  },
+  {
+    id: "detour",
+    title: "Detour",
+    subtitle: "Group HCI project used as a travel service rewarding authenticity.",
+    href: "#toolkit",
+    videoSrc: "/videos/design/hci.mp4",
+    poster: "/videos/film-poster.jpg",
+    skills: ["Data / User Research", "Programming / AI"],
+    externalLink: "https://www.figma.com/proto/uhYQc5AHOuRHpjeGfH0unK/Detour-HCI---Mockup?node-id=2-163&starting-point-node-id=2%3A163&t=sDuHcYnAZCvbJ8GY-1",
+    externalWord: "LO-FI FIGMA"
+  },
+  {
+    id: "ltls",
+    title: "Long Time, Let's See",
+    subtitle: "Group UX project  reframing social media's addictive principles towards pro-social and pro-cognitive usage. Shown is a journey map I completed, revealing how we might contextualize user's thoughts vs. actions.",
+    href: "#prototype-system",
+    videoSrc: "/videos/technical/journey.mov",
+    poster: "/videos/allprojects.jpg",
+    skills: ["Data / User Analysis", "Presentation"],
+    externalLink: "xxx",
+    externalWord: "Case"
+  },
+  {
+    id: "panathenaea",
+    title: "Sensory Athens Tour",
+    subtitle: "Historical and architectural research yielded a tour recontextualizing antiquity through all five senses. It's better suited to a live experience with sensory elements, but enjoy the audiovisual component!",
+    href: "#four-records",
+    videoSrc: "/videos/technical/athens.mp4",
+    poster: "/videos/film-poster.jpg",
+    skills: ["Video Production", "Presentation"],
+    externalLink: "https://youtu.be/IveW-A_NCRU",
     externalWord: "WATCH"
   },
   {
@@ -84,39 +119,6 @@ const TECH_PROJECTS = [
     externalWord: "WATCH"
   },
   {
-    id: "curses",
-    title: "Curses!",
-    subtitle: "Card game, 'playing' frustration and prohibitive rules in a party setting.",
-    href: "#audience-dashboard",
-    videoSrc: "/videos/technical/curses.mp4",
-    poster: "/videos/games-poster.jpg",
-    skills: ["Physical Design", "Data / User Analysis"],
-    externalLink: "https://drive.google.com/file/d/1tZPT2_B-O2DFR2O4MfxscJY1xjKK9IGG/view",
-    externalWord: "PLAY"
-  },
-  {
-    id: "detour",
-    title: "Detour",
-    subtitle: "Group HCI project used as a travel service rewarding authenticity.",
-    href: "#toolkit",
-    videoSrc: "/videos/design/hci.mp4",
-    poster: "/videos/film-poster.jpg",
-    skills: ["Data / User Research", "Programming / AI"],
-    externalLink: "https://www.figma.com/proto/uhYQc5AHOuRHpjeGfH0unK/Detour-HCI---Mockup?node-id=2-163&starting-point-node-id=2%3A163&t=sDuHcYnAZCvbJ8GY-1",
-    externalWord: "LO-FI FIGMA"
-  },
-  {
-    id: "wcal",
-    title: "Want Cake, Am Lazy",
-    subtitle: "Game prototype and demo designed around emergent solutions.",
-    href: "#data-performance",
-    videoSrc: "/videos/technical/wcal.mp4",
-    poster: "/videos/allprojects.jpg",
-    skills: ["Programming / AI", "Presentation", "Physical Design"],
-    externalLink: "https://miro.com/app/board/uXjVJl-U6CY=/?share_link_id=520286821732",
-    externalWord: "VIEW MIRO"
-  },
-  {
     id: "neuro",
     title: "Computational Behavior Research",
     subtitle: "Human study analyzed via MatLab, identifying UI/UX effects on happiness and motivation.",
@@ -128,11 +130,13 @@ const TECH_PROJECTS = [
   {
     id: "ir",
     title: "InsideRisk",
-    subtitle: "Cross-functional work at an immersive assessment firm serving top-500 global clients.",
+    subtitle: "Cross-functional work at an immersive assessment firm serving top-500 global clients. Work is largely proprietary, but the website's demo utilizes the conversational AI framework I worked to create and implement.",
     href: "#toolkit",
     videoSrc: "/videos/technical/ir.mov",
     poster: "/videos/film-poster.jpg",
     skills: ["Video Production", "Data / User Research", "Programming / AI"],
+    externalLink: "https://www.insiderisk.com/",
+    externalWord: "SITE"
   },
   {
     id: "storyvox",

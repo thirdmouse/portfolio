@@ -59,6 +59,11 @@ export default function App() {
             DESIGN
           </h1>
           <p className="designPageDesc">Great results can be luck. So, my design depends on a great process to get me there.</p>
+          <p className="designPageCaveat">For a deeper dive into case-studies, check out <a
+          href="/projects"
+        >
+          the projects page
+        </a>.</p>
         </div>
 
         <div className="designProjectList" aria-label="Selected design work">
@@ -101,20 +106,20 @@ export default function App() {
           <div className="resumeIntro">
             <p className="p2">This process drives everything I make.</p>
             <p>
-             For case studies, check out{" "}
+             Check out{" "}
               <a
-                href="/technical"
+                href="/projects"
                 rel="noreferrer"
                 className="perfLink"
               >
-                my technical page,
+                my projects page,
               </a>{" "}
-              where my projects are listed. Or, read about my philosophy within <a
-                href="/culture"
+              or read about my <a
+                href="/goals"
                 rel="noreferrer"
                 className="perfLink"
               >
-                cultural work,
+                philosophy and goals
               </a>{" "}
               or {" "} 
               <a

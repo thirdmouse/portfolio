@@ -520,13 +520,18 @@
 .timelineDescription a {
   color: inherit;
 }
-
+.end{
+  text-align: center;
+}
 .timelineBullets {
   margin: 10px 0 0;
   padding-left: 18px;
   color: rgba(11, 11, 11, 0.76);
   font-size: 13px;
   line-height: 1.35;
+}
+.endLink {
+  color: black;
 }
 
 .timelineDotImgWrap {

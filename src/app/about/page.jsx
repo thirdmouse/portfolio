@@ -138,6 +138,8 @@ export default function App() {
               <p>
                 I believe that experiences are only so valuable as the effect they have on people both consciously and subconsciously. I studied Cognitive Science at Yale alongside a certificate in Medieval Studies and a minor-equivalent courseload in Architecture, all of which informs my work today.
               </p>
+
+              <p>Contact me at <a href="mailto:contact@charliepattonmedia.com">contact@charliepattonmedia.com</a></p>
             </div>
           </section>
 

@@ -370,7 +370,7 @@ export default function App() {
         >
           my design methodology
         </a> or <a
-          href="/technical"
+          href="/projects"
           rel="noreferrer"
           className="perfLink"
         >
