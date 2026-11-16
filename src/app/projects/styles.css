@@ -365,7 +365,7 @@
 .techProjectTile:hover .techProjectVideoScrim,
 .techProjectTile:focus-visible .techProjectVideo,
 .techProjectTile:focus-visible .techProjectVideoScrim {
-  opacity: 1;
+  opacity: .6;
 }
 
 .techProjectTile:hover .techProjectVideo,

@@ -20,6 +20,39 @@ const SKILLS = [
  */
 const TECH_PROJECTS = [
   {
+    id: "film-thesis",
+    title: "Projection Mapping Thesis",
+    subtitle: "ONGOING: A cross-disciplinary thesis-level project between Yale's Film and Media Studies and Cognitive Science. Using head-tracking sensors and projection mapping for a sonically individualized, immersive film experience.",
+    href: "#prototype-system",
+    videoSrc: "/videos/cap.mp4",
+    poster: "/videos/allprojects.jpg",
+    skills: ["Data / User Analysis", "Presentation", "Video Production", "Physical Design",  "Programming / AI"],
+    externalLink: "https://tinyurl.com/cpfilmthesis",
+    externalWord: "PROPOSAL"
+  },
+  {
+    id: "cogsci-thesis",
+    title: "CogSci Thesis: Museums in VR",
+    subtitle: "ONGOING: Thesis project researching neuroarchitectural openness in virtual museums, and how attendants can turn facts into cultural signals.",
+    href: "#prototype-system",
+    videoSrc: "/videos/cap.mp4",
+    poster: "/videos/allprojects.jpg",
+    skills: ["Data / User Analysis", "Presentation",  "Programming / AI"],
+    externalLink: "https://tinyurl.com/cogscithesis",
+    externalWord: "PROPOSAL"
+  },
+  {
+    id: "umg",
+    title: "UMG Capstone",
+    subtitle: "My final project, a cultural analysis deck yielding a proposed brand-artist partnership to develop emerging subcultures, as made possible by the largest music company in the world's data access.",
+    href: "#prototype-system",
+    videoSrc: "/videos/cap.mp4",
+    poster: "/videos/allprojects.jpg",
+    skills: ["Data / User Analysis", "Presentation"],
+    externalLink: "https://drive.google.com/file/d/18TSYZ0_fZsYSxv2DljCdvFPZCSz9HjMu/view?usp=sharing",
+    externalWord: "READ"
+  },
+  {
     id: "colorguard",
     title: "Color Guard",
     subtitle: "Mobile Game, 20m+ average session with players across 10+ countries.",
@@ -31,15 +64,15 @@ const TECH_PROJECTS = [
     externalWord: "CASE STUDY"
   },
   {
-    id: "umg",
-    title: "UMG Capstone",
-    subtitle: "My final project, a cultural analysis deck yielding a proposed brand-artist partnership to develop emerging subcultures. It was presented live, but the pdf gives a glimpse into my work.",
+    id: "body-temple",
+    title: "My Body is a Temple",
+    subtitle: "Game-Jam winning puzzle platformer designed in one week. Scary Gary, skeletal general contractor, is awoken by death to restore his bone temple!",
     href: "#prototype-system",
-    videoSrc: "/videos/cap.mp4",
-    poster: "/videos/allprojects.jpg",
-    skills: ["Data / User Analysis", "Presentation"],
-    externalLink: "https://drive.google.com/file/d/18TSYZ0_fZsYSxv2DljCdvFPZCSz9HjMu/view?usp=sharing",
-    externalWord: "READ"
+    videoSrc: "/videos/gary.mov",
+    poster: "/images/gary.png",
+    skills: ["Programming / AI", "Data / User Analysis"],
+    externalLink: "https://charlie-patton.itch.io/my-body-is-a-temple",
+    externalWord: "PLAY"
   },
   {
     id: "curses",
@@ -94,7 +127,7 @@ const TECH_PROJECTS = [
     poster: "/videos/allprojects.jpg",
     skills: ["Data / User Analysis", "Presentation"],
     externalLink: "xxx",
-    externalWord: "Case"
+    externalWord: "CASE STUDY"
   },
   {
     id: "panathenaea",

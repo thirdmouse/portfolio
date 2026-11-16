@@ -368,7 +368,7 @@ export default function App() {
                 drummer-singer
               </CareerLink>
               , or{" "}
-              <CareerLink target={CAREER_TARGETS.actor}>actor</CareerLink>.
+              <CareerLink target={CAREER_TARGETS.actor}>professional actor</CareerLink>.
             </div>
             <p>
               But they all motivate towards the same goal: understanding

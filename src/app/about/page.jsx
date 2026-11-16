@@ -83,7 +83,7 @@ export default function App() {
       "@id": `${SITE_URL}`,
       name: "Charlie Patton",
       url: `${SITE_URL}`,
-      image: `${SITE_URL}/images/headshot.jpg`,
+      image: `${SITE_URL}/images/about.png`,
       jobTitle: "Creative Strategist & Experience Designer",
       description:
         "Charlie Patton is a creative technologist and experience designer combining cognitive science, creative technology, and cultural strategy to build interactive experiences.",
@@ -111,7 +111,7 @@ export default function App() {
           <div className="aboutHeroMedia" aria-hidden="true">
             <img
               className="aboutHeroImage"
-              src="/images/headshot.jpg"
+              src="/images/about.png"
               alt=""
             />
             <span className="aboutHeroScrim" />
@@ -132,7 +132,7 @@ export default function App() {
 
               <p>
                 I&apos;ve worked in cultural analysis and creative strategy at Universal Music Group, experience design and strategy at InsideRisk, and production at the Outernet. 
-                I&apos;m a project-oriented person, having directed dozens of games and films independently.
+                I&apos;m a project-oriented person, having directed dozens of games and films independently alongside professional acting work through Stewart Talent..
               </p>
 
               <p>
