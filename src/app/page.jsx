@@ -8,35 +8,35 @@ import MobileNav from "../components/MobileNav";
 const HERO_TILES = [
   {
     id: "top-left",
-    href: "/design",
+    //href: "/design",
     videoSrc: "/videos/colorguard.mp4",
     poster: "/videos/games-poster.jpg",
-    title: "DESIGN",
-    subtitle: "Methods across Games, Apps, and Films",
+    //title: "DESIGN",
+    //subtitle: "Methods across Games, Apps, and Films",
   },
   {
     id: "top-right",
-    href: "/performance",
+    //href: "/performance",
     videoSrc: "/videos/drumming.mov",
     poster: "/videos/film-poster.jpg",
-    title: "PERFORMANCE",
-    subtitle: "Work in Acting, Drumming, and Singing",
+    //title: "PERFORMANCE",
+    //subtitle: "Work in Acting, Drumming, and Singing",
   },
   {
     id: "bottom-left",
-    href: "/projects",
+    //href: "/projects",
     videoSrc: "/videos/dipper.mov",
     poster: "/video-poster.jpg",
-    title: "PROJECTS",
-    subtitle: "Skills, Case Studies, and Links"
+    //title: "PROJECTS",
+    //subtitle: "Skills, Case Studies, and Links"
   },
   {
     id: "bottom-right",
-    href: "/goals",
+    //href: "/goals",
     videoSrc: "/videos/cultural.mov",
     poster: "/videos/allprojects.jpg",
-    title: "GOALS",
-    subtitle: "Philosophy and Impact Motivations",
+    //title: "GOALS",
+    //subtitle: "Philosophy and Impact Motivations",
   },
 ];
 
@@ -310,7 +310,14 @@ export default function App() {
             <h1>Hey!</h1>
             <p>I&apos;m Charlie. I use behavioral cognitive science and creative technology to connect people.</p>
             <p className="contact">
-              Click videos or scroll to my resume below.
+              Scroll to my resume or skip to my&nbsp;
+            <a
+          href="/projects"
+          rel="noreferrer"
+          className="contact"
+        >
+          projects page.
+        </a>
             </p>
           </div>
 
@@ -329,7 +336,7 @@ export default function App() {
       <main className="resumeSheet" id="resume">
         <div className="resumeSheetInner">
           <div className="resumeIntro">
-            <h2>Who am I and Why am I Here?</h2>
+            <h2>Who am I and Why do you care?</h2>
             <p>
               I design novel experiences by leveraging human behavior, cultural analysis, and medium-specific methods of interactivity.
             </p>
@@ -377,19 +384,32 @@ export default function App() {
               and addictive world we&apos;re in.
             </p>
           </div>
-          <div className="p2">After exploring my resume, check out <a
-          href="/design"
-          rel="noreferrer"
-          className="perfLink"
-        >
-          my design process
-        </a> or <a
+          <div className="pBlue">After exploring my resume, check out my <a
           href="/projects"
           rel="noreferrer"
-          className="perfLink"
+          className="blueLink"
         >
-          projects.
-        </a></div>
+          projects
+        </a> or <a
+          href="/design"
+          rel="noreferrer"
+          className="blueLink"
+        >
+          my design process
+        </a>.  <br /> 
+              <br /> Alternatively, if you know me as a <a
+          href="/performance"
+          rel="noreferrer"
+          className="blueLink"
+        >
+          performer
+        </a> or want to know my <a
+          href="/goals"
+          rel="noreferrer"
+          className="blueLink"
+        >
+          philosophy
+        </a>, check out those pages.</div>
 
           <ResumeTimeline items={TIMELINE_ITEMS} />
 
