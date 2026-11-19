@@ -365,7 +365,7 @@
 .techProjectTile:hover .techProjectVideoScrim,
 .techProjectTile:focus-visible .techProjectVideo,
 .techProjectTile:focus-visible .techProjectVideoScrim {
-  opacity: .6;
+  opacity: .3;
 }
 
 .techProjectTile:hover .techProjectVideo,
@@ -375,7 +375,7 @@
 
 .techProjectTile:hover .techProjectSubtitle,
 .techProjectTile:focus-visible .techProjectSubtitle {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(0, 0, 0, 1);
 }
 
 .techProjectTile:focus-visible {

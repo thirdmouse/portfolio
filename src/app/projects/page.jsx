@@ -22,29 +22,29 @@ const TECH_PROJECTS = [
   {
     id: "film-thesis",
     title: "Projection Mapping Thesis",
-    subtitle: "ONGOING: A cross-disciplinary thesis-level project between Yale's Film and Media Studies and Cognitive Science. Using head-tracking sensors and projection mapping for a sonically individualized, immersive film experience.",
+    subtitle: "ONGOING: Cross-disciplinary thesis-level project between Yale Film and Cognitive Science. Using head-tracking and projection mapping for a sonically individualized film experience. Pictured is Outernet London, my former workplace where I developed the skills I'm using here.",
     href: "#prototype-system",
-    videoSrc: "/videos/cap.mp4",
+    videoSrc: "/videos/technical/ovl.mov",
     poster: "/videos/allprojects.jpg",
     skills: ["Data / User Analysis", "Presentation", "Video Production", "Physical Design",  "Programming / AI"],
-    externalLink: "https://tinyurl.com/cpfilmthesis",
+    externalLink: "https://tinyurl.com/charliepattonhybridity",
     externalWord: "PROPOSAL"
   },
   {
     id: "cogsci-thesis",
     title: "CogSci Thesis: Museums in VR",
-    subtitle: "ONGOING: Thesis project researching neuroarchitectural openness in virtual museums, and how attendants can turn facts into cultural signals.",
+    subtitle: "ONGOING: Thesis project researching neuroarchitectural openness in museums, how visitors can turn facts into cultural signals. Temp video from Nasiri et al. 2026 and Krukar 2014, methodological precursors.",
     href: "#prototype-system",
-    videoSrc: "/videos/cap.mp4",
+    videoSrc: "/videos/technical/archEx.mp4",
     poster: "/videos/allprojects.jpg",
     skills: ["Data / User Analysis", "Presentation",  "Programming / AI"],
-    externalLink: "https://tinyurl.com/cogscithesis",
+    externalLink: "https://tinyurl.com/charliepattoncogsci",
     externalWord: "PROPOSAL"
   },
   {
     id: "umg",
     title: "UMG Capstone",
-    subtitle: "My final project, a cultural analysis deck yielding a proposed brand-artist partnership to develop emerging subcultures, as made possible by the largest music company in the world's data access.",
+    subtitle: "My final project from the internship, a cultural analysis deck yielding a proposed brand-artist partnership to develop emerging subcultures, as made possible by the largest music company in the world's data access.",
     href: "#prototype-system",
     videoSrc: "/videos/cap.mp4",
     poster: "/videos/allprojects.jpg",
@@ -60,7 +60,7 @@ const TECH_PROJECTS = [
     videoSrc: "/videos/design/colorguard.mp4",
     poster: "/videos/allprojects.jpg",
     skills: ["Programming / AI", "Data / User Analysis", "Video Production"],
-    externalLink: "https://apps.apple.com/us/app/color-guard-tower-defense/id6505026907",
+    externalLink: "https://tinyurl.com/colorguardcasestudy",
     externalWord: "CASE STUDY"
   },
   {
